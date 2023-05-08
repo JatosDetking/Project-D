@@ -1,0 +1,87 @@
+<form class="register-form">
+  <h1 class="heading">Register your profile.</h1>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Username</mat-label>
+    <input type="text" matInput [formControl]="usernameControl" placeholder="Username...">
+    <mat-error
+      *ngIf="(usernameControl.hasError('minlength')||usernameControl.hasError('maxlength')) && !usernameControl.hasError('required')">
+      Your username should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="usernameControl.hasError('required')">
+      Username is <strong>required</strong>
+    </mat-error>
+    <mat-error
+      *ngIf="usernameControl.hasError('onlyWordChars')&&!(usernameControl.hasError('minlength')||usernameControl.hasError('maxlength'))">
+      {{usernameControl.errors!.onlyWordChars}}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="text" matInput [formControl]="emailControl" placeholder="Username...">
+    <mat-error
+      *ngIf="(emailControl.hasError('minlength')||emailControl.hasError('maxlength')) && !emailControl.hasError('required')">
+      Your email should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="emailControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput [formControl]="nameControl" placeholder="Username...">
+    <mat-error
+      *ngIf="(nameControl.hasError('minlength')||nameControl.hasError('maxlength')) && !nameControl.hasError('required')">
+      Your name should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="nameControl.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [formControl]="passwordControl" placeholder="Password...">
+    <mat-error
+      *ngIf="(passwordControl.hasError('minlength')||passwordControl.hasError('maxlength')) && !passwordControl.hasError('required')">
+      Your password should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="passwordControl.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+    <mat-error
+      *ngIf="passwordControl.hasError('onlyWordChars')&&!(passwordControl.hasError('minlength')||passwordControl.hasError('maxlength')||!passmatch)">
+      {{passwordControl.errors!.onlyWordChars}}
+    </mat-error>
+    <mat-error *ngIf="!passmatch">
+      Passwords should match!
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Repeat password</mat-label>
+    <input type="password" matInput [formControl]="passwordRepeatControl" placeholder="Password...">
+    <mat-error
+      *ngIf="(passwordRepeatControl.hasError('minlength')||passwordRepeatControl.hasError('maxlength')) && !passwordRepeatControl.hasError('required')">
+      Your password should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="passwordRepeatControl.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+    <mat-error
+      *ngIf="passwordRepeatControl.hasError('onlyWordChars')&&!(passwordRepeatControl.hasError('minlength')||passwordRepeatControl.hasError('maxlength')||!passmatch)">
+      {{passwordRepeatControl.errors!.onlyWordChars}}
+    </mat-error>
+    <mat-error *ngIf="!passmatch">
+      Passwords should match!
+    </mat-error>
+  </mat-form-field>
+  <button class="register-btn" mat-raised-button color="accent" (click)="register()" [disabled]="
+      !passmatch||
+      usernameControl.invalid||
+      passwordRepeatControl.invalid||
+      passwordControl.invalid
+      ">Register</button>
+  <p *ngIf="registerServerError" class="server-error">{{registerServerError}}</p>
+  <p *ngIf="registerServerRegistrationMessage" class="server-success">{{registerServerRegistrationMessage}}</p>
+  <div >
+    <img src="/assets/login 2.png"  width=100% height=100%>
+  </div>
+</form>

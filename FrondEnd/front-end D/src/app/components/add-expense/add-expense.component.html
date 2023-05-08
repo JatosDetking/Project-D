@@ -1,0 +1,100 @@
+<div class="add-container">
+    <div class="upload-container">
+        <div class="upload-txt" draggable="true">
+            <p>
+                Upload an image and scan its qr code.
+            </p>
+            <div>
+                <input type="file" id="qr-input-file" accept="image/*">
+            </div>
+        </div>
+    </div>
+    <div class="scan_msg" *ngIf="scan">
+        {{successString}}
+        <p class="scan_success" *ngIf="scan == 'success'">{{this.scanMsg}}</p>
+        <p class="scan_error" *ngIf="scan == 'error'">{{this.scanMsg}}</p>
+    </div>
+    <div class="camera-container">
+        <div id="reader" [ngStyle]="{'display':camerascan?'block':'none'}"></div>
+        <button class="upload-btn" mat-stroked-button color="accent" (click)="useCamera()">Camera</button>
+        <button class="upload-btn" mat-stroked-button color="accent" (click)="switchCamera()">Switch Camera</button>
+    </div>
+    <mat-form-field class="add-full-width" appearance="fill">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput [formControl]="productNameControl" placeholder="Product Name...">
+        <mat-error *ngIf="(productNameControl.hasError('minlength')||productNameControl.hasError('maxlength')) && !productNameControl.hasError('required')">
+            Product name should be no less than 4 and no more than 40 symbols long!
+        </mat-error>
+        <mat-error *ngIf="productNameControl.hasError('required')">
+            Product name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="add-full-width" appearance="fill">
+        <mat-label>Location</mat-label>
+        <input type="text" matInput [formControl]="productLocationControl" [matAutocomplete]="auto2" placeholder="Location..">
+        <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayLocationsFn">
+            <mat-option *ngFor="let option of filteredLocationsOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="add-full-width" appearance="fill">
+        <mat-label>Price</mat-label>
+        <input type="text" matInput [formControl]="productPriceControl" placeholder="Price..">
+        <mat-error *ngIf="productPriceControl.hasError('required')">
+            Price name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="productPriceControl.hasError('pattern')&&!productPriceControl.hasError('required')">
+            Price should be a number.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="add-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="productDateControl">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="productDateControl.hasError('required')">
+            Date name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tags:</mat-label>
+        <mat-chip-list #chipList aria-label="Tags selection">
+            <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+                {{tag}}
+                <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+            </mat-chip>
+            <input placeholder="New tag..." #tagInput [formControl]="tagsCtrl" [matAutocomplete]="auto1" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                {{tag}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-expansion-panel [expanded]="true" class="added-exp" hideToggle *ngIf="expenses.length!=0">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Added expenses : 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container *ngFor="let exp of expenses">
+            <span class="short-exp-container">
+                <span class="short-exp">{{exp.product_name}}</span>
+                <span class="short-exp">{{exp.price}}</span>
+            </span>
+        </ng-container>
+    </mat-expansion-panel>
+    <div class="added-msg" *ngIf="all_added||true">
+        <p>All expenses were successfully added to the group.</p>
+    </div>
+    <div class="add-btns">
+        <button class="add-btn" mat-raised-button color="primary" (click)="addExpense()" [disabled]="
+        (productNameControl.invalid||productPriceControl.invalid||productDateControl.invalid)
+        ">Add Expense</button>
+        <button class="add-btn" mat-raised-button color="primary" (click)="submitExpenses()" [disabled]="expenses.length==0">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="info-container">
+  <h2>Account Information</h2>
+  
+  <mat-card class="info-card">
+    <mat-card-content>
+      <mat-form-field class="info-field">
+        <mat-label>Username</mat-label>
+        <input matInput disabled placeholder="Username" [(ngModel)]="username" required>
+      </mat-form-field>
+
+      <mat-form-field class="info-field">
+        <mat-label>Email</mat-label>
+        <input matInput disabled placeholder="Email" [(ngModel)]="email" required>
+      </mat-form-field>
+
+      <mat-form-field class="info-field">
+        <mat-label>Name</mat-label>
+        <input matInput disabled placeholder="Name" [(ngModel)]="name" required>
+      </mat-form-field>
+
+      <mat-form-field class="info-field">
+        <mat-label>Balance</mat-label>
+        <input matInput disabled placeholder="Balance" [(ngModel)]="balance" required>      
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" >List of Terrains</button>
+    <button mat-raised-button color="primary" >Change Password</button>
+    <button mat-raised-button color="primary" (click)="openDialog()">Change Balance</button>
+  </div>
+</div>
+
+    

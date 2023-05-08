@@ -1,0 +1,37 @@
+.register-form {
+    min-width: 230px;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 4%;
+}
+
+.heading{
+    text-align: center;
+    color: #000000;
+    margin-bottom: 7%;
+}
+
+.register-full-width {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.register-btn{
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 8px;
+}
+
+.server-error{
+    margin-top: 11px;
+    text-align: center;
+    color: #db7171;
+}
+
+.server-success{
+    margin-top: 11px;
+    text-align: center;
+    color: #7cd49f;
+}

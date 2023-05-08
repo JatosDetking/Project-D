@@ -1,0 +1,30 @@
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="create-spinner" ></mat-spinner>
+</div>
+<form class="create-group-form">
+    <h1 class="heading">Create a new group.</h1>
+    <mat-form-field class="create-full-width" appearance="fill">
+      <mat-label>Group name</mat-label>
+      <input type="text" matInput [formControl]="groupName" 
+             placeholder="Group name...">
+      <mat-error *ngIf="(groupName.hasError('minlength')||groupName.hasError('maxlength')) && !groupName.hasError('required')">
+        Group name should be no less than 4 and no more than 20 symbols long!
+      </mat-error>
+      <mat-error *ngIf="groupName.hasError('required')">
+        Group name is <strong>required</strong>!
+      </mat-error>
+      <mat-error *ngIf="groupName.hasError('newLineAndSpace')&&!(groupName.hasError('onlyWordChars')||groupName.hasError('letterControl')||groupName.hasError('minlength')||groupName.hasError('maxlength'))">
+        {{groupName.errors!.newLineAndSpace}}
+      </mat-error>
+      <mat-error *ngIf="groupName.hasError('onlyWordChars')&&!(groupName.hasError('newLineAndSpace')||groupName.hasError('letterControl')||groupName.hasError('minlength')||groupName.hasError('maxlength'))">
+        {{groupName.errors!.onlyWordChars}}
+      </mat-error>
+      <mat-error *ngIf="groupName.hasError('letterControl')&&!(groupName.hasError('onlyWordChars')||groupName.hasError('newLineAndSpace')||groupName.hasError('minlength')||groupName.hasError('maxlength'))">
+        {{groupName.errors!.letterControl}}
+      </mat-error>
+    </mat-form-field>
+    <div class="btns-container">
+        <button mat-raised-button  color="accent" (click)="createGroup()" [disabled]="groupName.invalid">Create</button>
+        <button mat-raised-button class="margin-left" color="accent" (click)="closeDialog()">Cancel</button>
+    </div>
+</form>

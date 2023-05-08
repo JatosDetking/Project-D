@@ -1,0 +1,60 @@
+.calendar-width {
+    width: 30%;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-left: auto;
+    .input-range {
+        display: inline-block;
+        width: 90%;
+    }
+    .datepicker {
+        display: inline-block;
+        width: 10%;
+    }
+}
+::ng-deep .expense-date {
+    background: #ffffff12 !important;
+    border-radius: 100% !important;
+}
+
+::ng-deep .expenses-table {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    th {
+        text-align: left !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+    td {
+        text-align: left !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+}
+
+@media all and (max-width: 540px) {
+    .expenses-table {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10px;
+        table-layout: fixed;
+        max-width: 95%;
+        th {
+            text-align: left !important;
+            padding-right: 5px !important;
+            padding-left: 5px !important;
+        }
+        td {
+            text-align: left !important;
+            padding-right: 5px !important;
+            padding-left: 5px !important;
+        }
+    }
+    .calendar-width {
+        width: 80%;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-left: auto;
+    }
+}

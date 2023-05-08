@@ -1,0 +1,113 @@
+.groups-chipls-list-container{
+    margin-top: 13px;
+    .list-header-container{
+        h2{
+            color: #c2185b;
+            margin:5px;
+            text-align: center;
+            display: inline-block;
+        }
+    }
+    .group-chips-list{
+        
+        display: block;
+        text-align: center;
+        color: #be1b5b;
+        font-size: 15px;
+        border: 1px dashed #c2185b;
+        border-radius: 15px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        .group-chip,.tag-chip,.locations-chip{
+            cursor: pointer;
+        }
+        .selected-chip{
+            background-color: #be1b5b;
+        }
+    }
+}
+
+#single-chart{
+    display: block;
+    height: 700px;
+}
+
+.inline-container{
+    text-align: center;
+    .display-radio-container,
+    .calculate-radio-container,
+    .calendar-width{
+        vertical-align: top !important;
+        display: inline-block;
+        color: white;
+        margin: 10px;
+        margin-top: 20px;
+        .example-radio-button{
+            display: block;
+            margin-top: 5px;
+        }
+    }
+    .calendar-width {
+        width: 30%;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-left: auto;
+        .input-range {
+            display: inline-block;
+            width: 90%;
+        }
+        .datepicker {
+            display: inline-block;
+            width: 10%;
+        }
+    }
+}
+
+@media all and (max-width: 540px) {
+    .groups-chipls-list-container,.tags-chipls-list-container,.locations-chipls-list-container{
+        margin-top: 0px;
+        .list-header-container{
+            h2{
+                color: #c2185b;
+                margin:2px;
+                font-size: 1.1em;
+                text-align: center;
+            }
+            button{
+                margin: 1px;
+            }
+        }
+        .group-chips-list,.tags-chips-list,.locations-chips-list{
+            
+            display: block;
+            text-align: center;
+            color: #be1b5b;
+            font-size: 15px;
+            border: 1px dashed #c2185b;
+            border-radius: 15px;
+            padding: 5px;
+            padding-left: 0px;
+            padding-right: 0px;
+            margin-top: 5px;
+            .group-chip,.tag-chip,.locations-chip{
+                cursor: pointer;
+                margin: 2px !important;
+                font-size: 0.8em !important;
+                padding: 0 9px !important;
+            }
+            .selected-chip{
+                background-color: #be1b5b;
+            }
+        }
+    }
+    .calendar-width{
+        width: 86% !important;
+        margin-right: auto  !important;
+        margin-top: 9px  !important;
+        margin-left: auto  !important;
+    }
+    #single-chart{
+        height: 800px;
+    }
+}

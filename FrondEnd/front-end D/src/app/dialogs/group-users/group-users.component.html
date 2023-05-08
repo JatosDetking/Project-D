@@ -1,0 +1,52 @@
+<div *ngIf="loaded">
+    <div class="header-root">
+        <div class="txt">
+            Root admin : {{users!.root_admin}} 
+        </div>
+        <button class="add-person-btn" mat-icon-button *ngIf="currUserRole == 'root_admin'||currUserRole == 'admin'" color="primary" (click)="addPerson()" matTooltip="Add user to group.">
+            <mat-icon>person_add</mat-icon>
+        </button>
+    </div>
+    <mat-tab-group class="tabs">
+        <mat-tab label="Admins">
+            <div class="no-users"  *ngIf="!users!.admins||users!.admins!.length==0">There are no admins currently in this group.</div>
+            <ng-container *ngFor="let user of users!.admins">
+                <div class="user">
+                    <div class="name">
+                        {{user}}
+                    </div>
+                    <div class="buttons">
+                        <button class="user-btn" *ngIf="currUserRole == 'root_admin'" (click)="makeRoot(user)" mat-icon-button color="primary" matTooltip="Make this user a root_admin."><mat-icon>badge</mat-icon></button>
+                        <button class="user-btn" *ngIf="currUserRole == 'root_admin'" (click)="makeGuest(user)" mat-icon-button color="primary" matTooltip="Make this user a guest."><mat-icon>person</mat-icon></button>
+                        <button class="user-btn" (click)="removeUser(user)" mat-icon-button color="primary" matTooltip="Remove this user from the group.">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </mat-tab>
+        <mat-tab label="Guests">
+            <div class="no-users" *ngIf="!users!.guests||users!.guests!.length==0">There are no guests currently in this group.</div>
+            <ng-container *ngFor="let user of users!.guests">
+                <div class="user">
+                    <div class="name">
+                        {{user}}
+                    </div>
+                    <div class="buttons">
+                        <button class="user-btn" *ngIf="currUserRole == 'root_admin'" (click)="makeRoot(user)"  mat-icon-button color="primary" matTooltip="Make this user a root_admin."><mat-icon>badge</mat-icon></button>
+                        <button class="user-btn"  *ngIf="currUserRole == 'root_admin'" (click)="makeAdmin(user)" mat-icon-button color="primary" matTooltip="Make this user an admin."><mat-icon>manage_accounts</mat-icon></button>
+                        <button class="user-btn" (click)="removeUser(user)" mat-icon-button color="primary" matTooltip="Remove this user from the group." >
+                            <mat-icon>close</mat-icon>
+                          </button>
+                    </div>
+                </div>
+            </ng-container>
+        </mat-tab>
+    </mat-tab-group>
+    <div class="bottom-buttons">
+        <button class="close-button" mat-raised-button color="accent" (click)="closeUserPanel()">Close</button>
+    </div>
+</div>
+<mat-spinner class="group-spinner" *ngIf="!loaded">
+
+</mat-spinner>

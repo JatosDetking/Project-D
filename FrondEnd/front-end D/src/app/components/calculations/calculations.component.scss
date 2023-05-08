@@ -1,0 +1,168 @@
+.groups-chipls-list-container,
+.tags-chipls-list-container,
+.locations-chipls-list-container {
+    margin-top: 13px;
+    .list-header-container {
+        h2 {
+            color: #c2185b;
+            margin: 5px;
+            text-align: center;
+            display: inline-block;
+        }
+        button {
+            margin: 10px;
+        }
+    }
+    .group-chips-list,
+    .tags-chips-list,
+    .locations-chips-list {
+        display: block;
+        text-align: center;
+        color: #be1b5b;
+        font-size: 15px;
+        border: 1px dashed #c2185b;
+        border-radius: 15px;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        .group-chip,
+        .tag-chip,
+        .locations-chip {
+            cursor: pointer;
+        }
+        .selected-chip {
+            background-color: #be1b5b;
+        }
+    }
+}
+
+::ng-deep .mat-chip-list-wrapper {
+    display: block !important;
+    text-align: center;
+}
+
+.calendar-width {
+    width: 30%;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-left: auto;
+    .input-range {
+        display: inline-block;
+        width: 90%;
+    }
+    .datepicker {
+        display: inline-block;
+        width: 10%;
+    }
+}
+::ng-deep .expense-date {
+    background: #ffffff12 !important;
+    border-radius: 100% !important;
+}
+
+.tables-container {
+    h3 {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        margin-top: 20px;
+        color: #f5ffff;
+    }
+}
+.data-stat {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+.group-data {
+    margin-top: 20px;
+    div {
+        text-align: center;
+        color: white;
+        font-size: 1.1em;
+    }
+}
+::ng-deep .tags-table,
+.locations-table {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    th {
+        text-align: left !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+    td {
+        text-align: left !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+}
+
+@media all and (max-width: 540px) {
+    .groups-chipls-list-container,
+    .tags-chipls-list-container,
+    .locations-chipls-list-container {
+        margin-top: 13px;
+        .list-header-container {
+            h2 {
+                color: #c2185b;
+                margin: 2px;
+                display: block;
+                font-size: 1.1em;
+                text-align: center;
+            }
+            button {
+                margin: 1px;
+            }
+        }
+        .group-chips-list,
+        .tags-chips-list,
+        .locations-chips-list {
+            display: block;
+            text-align: center;
+            color: #be1b5b;
+            font-size: 15px;
+            border: 1px dashed #c2185b;
+            border-radius: 15px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            .group-chip,
+            .tag-chip,
+            .locations-chip {
+                cursor: pointer;
+                margin: 2px !important;
+                font-size: 0.8em !important;
+                padding: 0 9px !important;
+            }
+            .selected-chip {
+                background-color: #be1b5b;
+            }
+        }
+    }
+    .tags-table,
+    .locations-table {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10px;
+        table-layout: fixed;
+        max-width: 95%;
+        th {
+            text-align: left !important;
+            padding-right: 5px !important;
+            padding-left: 5px !important;
+        }
+        td {
+            text-align: left !important;
+            padding-right: 5px !important;
+            padding-left: 5px !important;
+        }
+    }
+    .calendar-width {
+        width: 85%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 4px;
+    }
+}

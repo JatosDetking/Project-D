@@ -1,0 +1,54 @@
+<div class="groups-chipls-list-container" *ngIf="currUserGroupsInfo.length>0">
+  <div class="list-header-container">
+    <h2 class="tag-header">
+      Select groups to display:
+    </h2>
+  </div>
+  <mat-chip-list class="group-chips-list">
+    <mat-chip class="group-chip" (click)="selectGroup(group)" [ngClass]="{'selected-chip':selectedGroup(group)}" *ngFor="let group of currUserGroupsInfo">
+      {{group.name}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+<div class="tags-chipls-list-container" *ngIf="allTagsInData.length>0">
+  <div class="list-header-container">
+    <h2 class="tag-header">
+      Deselect / select tags:
+    </h2>
+    <button mat-raised-button color="accent" (click)="selectAllTags()">Select All</button>
+    <button mat-raised-button color="accent" (click)="deselectAllTags()">Deselect All</button>
+    <button mat-raised-button color="accent" (click)="hideShowTagsList()">{{tagsListVisible?'Hide':'Show'}}</button>
+  </div>
+
+  <mat-chip-list class="tags-chips-list" [ngStyle]="{'display':tagsListVisible?'block':'none'}">
+    <mat-chip class="tag-chip" (click)="selectTag(tag)" [ngClass]="{'selected-chip':selectedTag(tag)}" *ngFor="let tag of allTagsInData">
+      {{tag}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+<div class="locations-chipls-list-container" *ngIf="AllLocations.length>0">
+  <div class="list-header-container">
+    <h2 class="locations-header">
+      Deselect / select locations:
+    </h2> 
+    <button mat-raised-button color="accent" (click)="selectAllLocations()">Select All</button>
+    <button mat-raised-button color="accent" (click)="deselectAllLocations()">Deselect All</button>
+    <button mat-raised-button color="accent" (click)="hideShowLocationsList()">{{locationsListVisible?'Hide':'Show'}}</button>
+  </div>
+  <mat-chip-list class="locations-chips-list" [ngStyle]="{'display':locationsListVisible?'block':'none'}">
+    <mat-chip class="locations-chip" (click)="selectLocation(location)" [ngClass]="{'selected-chip':selectedLocation(location)}" *ngFor="let location of AllLocations">
+      {{location}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+<mat-card class="calendar-width" *ngIf="expensesDates.length>0">
+  <mat-date-range-input class="input-range" [formGroup]="range" [rangePicker]="picker">
+    <input matStartDate formControlName="start" placeholder="Start date">
+    <input matEndDate formControlName="end" placeholder="End date">
+  </mat-date-range-input>
+  <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker [dateClass]="dateClass" #picker></mat-date-range-picker>
+  <!-- <mat-calendar [dateClass]="dateClass" #picker></mat-calendar> -->
+</mat-card>
+<div id="single-chart" [ngStyle]="{'display':filteredExpensesByDates.length>0?'block':'none'}">
+</div>

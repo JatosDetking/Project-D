@@ -1,0 +1,22 @@
+<mat-toolbar class="app-menu-bar" color="primary">
+  <div class="start-container">
+    <button mat-icon-button  *ngIf="this.authService.loggedId()"  matTooltip="Go to home page."  (click)="gotoHomePage()"><mat-icon>home</mat-icon></button>
+    <!-- <button mat-button *ngIf="this.authService.loggedId()"  matTooltip="Go to statistics page."  (click)="gotoGroupsPage()"><span class="btn-text">Groups</span></button>
+    <button mat-button *ngIf="this.authService.loggedId()"  matTooltip="Go to statistics page."  (click)="gotoStatisticsPage()"><span class="btn-text">Statistics</span></button> -->
+  </div>
+  <div class="center-container">
+    <!-- <h1 (click)="gotoInformationPage()" color="accent" class="pretium-logo" matTooltip="Go to information page.">PRETIUM STAT</h1> -->
+  </div>
+  <div class="end-container">
+    <!-- <h1 class="balance btn-text" *ngIf="this.authService.loggedId()"  matTooltip="My balance.">My balance: {{this.authService.balanceSubject | async}}</h1>-->
+   
+    
+
+    <button mat-button  *ngIf="!this.authService.loggedId()"  matTooltip="Go to login page."  (click)="goToLoginPage()"><span class="btn-text">Login</span></button>
+    <button mat-button  *ngIf="!this.authService.loggedId()"  matTooltip="Go to register page."  (click)="goToRegisterPage()"><span class="btn-text">Register</span></button>
+
+    <button mat-button  *ngIf="this.authService.loggedId()"  matTooltip="My balance." >My balance: {{this.authService.balanceSubject | async}}</button>
+    <button mat-icon-button  *ngIf="this.authService.loggedId()"  matTooltip="Go to my account page."  (click)="goToMyAccountPage()"><mat-icon>account_circle</mat-icon></button>
+    <button mat-icon-button  *ngIf="this.authService.loggedId()"  matTooltip="Logout from your account."  (click)="logout()"><mat-icon>logout</mat-icon></button>
+  </div> 
+</mat-toolbar>

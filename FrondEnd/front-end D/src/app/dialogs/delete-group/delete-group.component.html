@@ -1,0 +1,8 @@
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="delete-spinner" ></mat-spinner>
+</div>
+<p class="del-txt">Do you realy want to delete this group? All data in it will be lost.</p>
+<div class="btns-container">
+    <button mat-raised-button  color="warn" (click)="deleteGroup()" >Delete</button>
+    <button mat-raised-button class="margin-left" color="accent" (click)="closeDialog()">Cancel</button>
+</div>

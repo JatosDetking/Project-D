@@ -1,0 +1,126 @@
+.example-chip-list,
+.add-full-width {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+/* #reader{
+    display: none;
+} */
+
+.short-exp-container{
+    display: inline-block;
+    background-color: #c2185b;
+    border: 2px dashed #d1a760;
+    border-radius: 8px;
+    .short-exp{
+        width: 49px;
+        display: block;
+        height: 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+#qr-input-file{
+    width: 177px;
+}
+.camera-container{
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 17px;
+    height: fit-content;
+    text-align: center;
+    .upload-btn{
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+}
+
+.scan_msg{
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-bottom: 20px;
+    .scan_success{
+        background-color: #92ffa94a;
+        border-radius: 7px;
+    }
+    .scan_error{
+        background-color: #ff494999;
+        border-radius: 7px;
+    }
+}
+
+.upload-container {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    margin-bottom: 17px;
+    height: fit-content;
+    .upload-txt {
+        display: inline-block;
+        color: #e35a90;
+        margin-top: auto;
+        height: auto;
+        margin-bottom: auto;
+        border: 1px dashed #c2185b;
+        border-radius: 5px;
+        //width: calc(100% - 77px);
+        width: 100%;
+        padding: 5px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .upload-btn {
+        float: right;
+        display: inline-block;
+        margin-bottom: auto;
+        height: 36px;
+        margin-top: auto;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+}
+
+.add-container {
+    margin-top: 20px;
+}
+
+.added-exp {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.add-btns {
+    text-align: center;
+    .add-btn {
+        margin-left: 20px;
+    }
+}
+
+::ng-deep .example-chip-list{
+    .mat-chip-list-wrapper {
+        display: block !important;
+        text-align: left !important;
+    }
+}
+
+.added-msg{
+    text-align: center;
+    color: #bad5ba;
+}
+
+@media all and (max-width: 540px) {
+    .add-full-width,.camera-container,.scan_msg,.upload-container,.added-exp,.example-chip-list{
+        width: 95%;
+    }
+  }

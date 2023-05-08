@@ -1,0 +1,21 @@
+.sub-menubar-stats {
+    background-color: #3a3a3a;
+    text-align: center;
+    .buttons-container {
+        display: inline-block;
+        margin-right: auto;
+        margin-left: auto;
+        .selected {
+            border-bottom: 3px solid #c2185b;
+            border-radius: 0;
+        }
+        .sub-menu-btn{
+            transition-delay: 0.1s;
+            transition-duration: 0.07s;
+            transition-property: border-width;
+            transition-timing-function:linear;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+    }
+}
