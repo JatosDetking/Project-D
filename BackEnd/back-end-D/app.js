@@ -5,6 +5,7 @@ const terrainRoutre = require('./routers/terrainRoutes');
 const terrainDataRoutre = require('./routers/terrainDataRouters');
 const terrainVoteRoutre = require('./routers/terrainVoteRouters');
 const terrainCommentRoutre = require('./routers/terrainCommentRouters');
+const installationRoutre = require('./routers/installationRouters');
 //const suggestionsRoutes = require('./routers/suggestions');
 const sqlDB = require('./database/mysql');
 
@@ -45,6 +46,21 @@ function createTableUsers() {
         name VARCHAR(50) NOT NULL,
         balance DECIMAL(60,2) DEFAULT 0.00
       );`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        //console.log(result);      
+    })
+}
+
+function createTableInstallations() {
+    let sql = `CREATE TABLE IF NOT EXISTS installations (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        intervals VARCHAR(50) NOT NULL,
+        performance_factors VARCHAR(50) NOT NULL,
+        type VARCHAR(50) NOT NULL,
+        creator_id INT NOT NULL,
+        FOREIGN KEY (creator_id) REFERENCES users(id)
+    );`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      
@@ -328,6 +344,7 @@ app.use('/terrain', terrainRoutre.initTerrainRouter(db));
 app.use('/terrain/data', terrainDataRoutre.initTerrainDataRouter(db));
 app.use('/terrain/vote', terrainVoteRoutre.initTerrainVoteRouter(db));
 app.use('/terrain/comment', terrainCommentRoutre.initTerrainCommentRouter(db));
+app.use('/installation', installationRoutre.initInstallationRouter(db));
 //app.use('/suggestion', suggestionsRoutes.initSuggestionRouter(db));
 //app.use('/groups', initGroupsRouter(db));
 
@@ -346,5 +363,6 @@ if (prod) {
         createTableComments();
        // createTableSubcomments();
         createTableVotes();
+        createTableInstallations();
     })
 }
