@@ -52,20 +52,6 @@ function createTableUsers() {
     })
 }
 
-function createTableInstallations() {
-    let sql = `CREATE TABLE IF NOT EXISTS installations (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        intervals VARCHAR(50) NOT NULL,
-        performance_factors VARCHAR(50) NOT NULL,
-        type VARCHAR(50) NOT NULL,
-        creator_id INT NOT NULL,
-        FOREIGN KEY (creator_id) REFERENCES users(id)
-    );`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        //console.log(result);      
-    })
-}
 function createTableToken() {
     let sql = `CREATE TABLE IF NOT EXISTS auth_tokens (
         id INT PRIMARY KEY UNIQUE NOT NULL,
@@ -78,6 +64,23 @@ function createTableToken() {
         //console.log(result);      
     })
 }
+
+function createTableInstallations() {
+    let sql = `CREATE TABLE IF NOT EXISTS installations (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        intervals VARCHAR(50) NOT NULL,
+        performance_factors VARCHAR(50) NOT NULL,
+        type VARCHAR(50) NOT NULL,
+        price DECIMAL(20,2) NOT NULL,
+        creator_id INT NOT NULL,
+        FOREIGN KEY (creator_id) REFERENCES users(id)
+    );`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        //console.log(result);      
+    })
+}
+
 function createTableTerrains() {
     let sql = `CREATE TABLE IF NOT EXISTS terrains (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -345,8 +348,7 @@ app.use('/terrain/data', terrainDataRoutre.initTerrainDataRouter(db));
 app.use('/terrain/vote', terrainVoteRoutre.initTerrainVoteRouter(db));
 app.use('/terrain/comment', terrainCommentRoutre.initTerrainCommentRouter(db));
 app.use('/installation', installationRoutre.initInstallationRouter(db));
-//app.use('/suggestion', suggestionsRoutes.initSuggestionRouter(db));
-//app.use('/groups', initGroupsRouter(db));
+
 
 app.use(errorController.get404);
 app.use(errorController.get500);
@@ -361,7 +363,7 @@ if (prod) {
         createTableTerrains();
         createTableTerrainsData();
         createTableComments();
-       // createTableSubcomments();
+
         createTableVotes();
         createTableInstallations();
     })

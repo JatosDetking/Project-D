@@ -6,3 +6,4 @@ class TemperatureRadiation {
       this.year = year;
     }
   }
+  module.exports = TemperatureRadiation;

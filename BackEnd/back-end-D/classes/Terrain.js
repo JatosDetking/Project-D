@@ -7,3 +7,4 @@ class Terrain {
       this.price = price;
     }
   }
+  module.exports = Terrain;

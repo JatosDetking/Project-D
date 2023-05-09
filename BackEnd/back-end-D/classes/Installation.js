@@ -1,9 +1,10 @@
 class Installation {
 
-    constructor(temperatureRadiation, water, wind, price) {
-      this.temperatureRadiation = temperatureRadiation;
-      this.water = water;
-      this.wind = wind;
-      this.price = price;
-    }
+  constructor(type, intervals, performanceFactors, price) {
+    this.type = type;
+    this.intervals = intervals;
+    this.performanceFactors = performanceFactors;
+    this.price = price;
   }
+}
+module.exports = Installation;

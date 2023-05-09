@@ -4,3 +4,4 @@ class Wind {
       this.year = year;
     }
   }
+  module.exports = Wind;

@@ -4,3 +4,4 @@ class Water {
       this.year = year;
     }
   }
+  module.exports = Water;
