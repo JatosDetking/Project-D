@@ -1,28 +1,33 @@
-<div class="info-container">
-  <h2>Account Information</h2>
-  
+<div class="info-container" >
   <mat-card class="info-card">
-    <mat-card-content>
-      <mat-form-field class="info-field">
-        <mat-label>Username</mat-label>
-        <input matInput disabled placeholder="Username" [(ngModel)]="username" required>
-      </mat-form-field>
-
-      <mat-form-field class="info-field">
-        <mat-label>Email</mat-label>
-        <input matInput disabled placeholder="Email" [(ngModel)]="email" required>
-      </mat-form-field>
-
-      <mat-form-field class="info-field">
-        <mat-label>Name</mat-label>
-        <input matInput disabled placeholder="Name" [(ngModel)]="name" required>
-      </mat-form-field>
-
-      <mat-form-field class="info-field">
-        <mat-label>Balance</mat-label>
-        <input matInput disabled placeholder="Balance" [(ngModel)]="balance" required>      
-      </mat-form-field>
+    <mat-card-header>
+      <mat-card-title>Account Information</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content style="margin-top: 16px;">
+      <div>
+      <div class="info-field">
+        <mat-card-subtitle>Username</mat-card-subtitle>
+        <p>{{username}}</p>
+      </div>
+     <div class="info-field">
+      <mat-card-subtitle>Email</mat-card-subtitle>
+        <p>{{email}}</p>
+     </div>
+    </div> 
+   <mat-divider></mat-divider>
     </mat-card-content>
+
+    <div>
+      <div class="info-field">
+        <mat-card-subtitle>Name</mat-card-subtitle>
+        <p>{{name}}</p>
+      </div>
+     <div class="info-field">
+      <mat-card-subtitle>Balance</mat-card-subtitle>
+        <p>{{balance}}</p>
+     </div>
+    </div>
   </mat-card>
 
   <div class="action-buttons">

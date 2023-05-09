@@ -188,6 +188,23 @@ exports.initUserController = (db) => {
             res.status(200).send({ ...loginInfo });
         });
     }
+    controller.getMyUserInfo = (req, res, next) => {
+
+        let sql = `SELECT * FROM users WHERE id = '${req.userId}'`
+        db.query(sql, (err, result) => {
+            if (err) {
+                next(res.status(500))
+            }
+            let loginInfo = {
+                email: result[0].email,
+                name: result[0].name,
+                username: result[0].username,
+                token: result[0].token,
+                balance:result[0].balance
+            }
+            res.status(200).send({ ...loginInfo });
+        });
+    }
 
     controller.getUserId = (db, email) => {
         return new Promise((resolve, reject) => {

@@ -12,6 +12,7 @@
   margin-bottom: 25px;
 }
 
+
 .action-buttons {
   display: flex;
   justify-content: center;
@@ -19,7 +20,8 @@
 }
 
 .info-field {
-  margin: 0 15px;
+ width: 50%;
+ display: inline-block;
 }
 
 button {

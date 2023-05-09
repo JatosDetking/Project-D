@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthAPIService } from 'src/app/api/auth-api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,18 +11,24 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class MenubarComponent implements AfterViewInit {
 
+ balance: any;
 
   constructor(
     private menuService:MenuService,
     public authService:AuthService,
     private authApiService:AuthAPIService,
-    private router:Router
+    private router:Router,
+    private ref:ChangeDetectorRef
   ) {
 
   }
 
   ngAfterViewInit(): void {
     this.toggle = this.menuService.toggle;
+    this.authService.balanceSubject.subscribe(balance=>{
+      this.balance=balance;
+      this.ref.detectChanges();
+    })
     this.authService.balanceSubject.next(localStorage.getItem("balance"));
   }
 

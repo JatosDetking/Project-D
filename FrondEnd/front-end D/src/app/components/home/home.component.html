@@ -2,8 +2,10 @@
   <mat-grid-tile 
       *ngFor="let tile of tiles"
       [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
+      [rowspan]="tile.rows"     
+
+      style="background-image: url('{{tile.url}}');"
+      (click)="tile.func()">
     {{tile.text}}
   </mat-grid-tile>
 </mat-grid-list>

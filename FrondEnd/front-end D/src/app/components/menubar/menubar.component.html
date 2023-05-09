@@ -15,7 +15,7 @@
     <button mat-button  *ngIf="!this.authService.loggedId()"  matTooltip="Go to login page."  (click)="goToLoginPage()"><span class="btn-text">Login</span></button>
     <button mat-button  *ngIf="!this.authService.loggedId()"  matTooltip="Go to register page."  (click)="goToRegisterPage()"><span class="btn-text">Register</span></button>
 
-    <button mat-button  *ngIf="this.authService.loggedId()"  matTooltip="My balance." >My balance: {{this.authService.balanceSubject | async}}</button>
+    <button mat-button  *ngIf="this.authService.loggedId()"  matTooltip="My balance." disableRipple="true">My balance: {{balance}}</button>
     <button mat-icon-button  *ngIf="this.authService.loggedId()"  matTooltip="Go to my account page."  (click)="goToMyAccountPage()"><mat-icon>account_circle</mat-icon></button>
     <button mat-icon-button  *ngIf="this.authService.loggedId()"  matTooltip="Logout from your account."  (click)="logout()"><mat-icon>logout</mat-icon></button>
   </div> 

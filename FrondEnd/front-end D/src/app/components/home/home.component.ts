@@ -6,6 +6,8 @@ export interface Tile {
   cols: number;
   rows: number;
   text: string;
+  func: ()=>void;
+  url: string
 }
 
 @Component({
@@ -16,10 +18,10 @@ export interface Tile {
 export class HomeComponent {
 
   tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+    {text: 'One', cols: 3, rows: 1, color: 'lightblue',func: ()=>{this.gotoAllUsersPage()}, url: "/assets/login 1.jpg"},
+    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen', func: ()=>{console.log("2")}, url: "/assets/login 1.png"},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink', func: ()=>{console.log("3")}, url: "/assets/login 1.jpg"},
+    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1', func: ()=>{console.log("4")}, url: "/assets/login 1.png"}
   ];
 
   gotoAllUsersPage(){

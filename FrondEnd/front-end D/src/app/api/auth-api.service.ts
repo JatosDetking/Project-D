@@ -24,6 +24,10 @@ export class AuthAPIService {
     )
   }
 
+  getMyInfo(){
+    return this.http.get(`${databaseURL}/user/getmyinfo`)
+  }
+
   register(username:string,password:string, email:string,name:string){
     return this.http.post(`${databaseURL}/user/register`,
       {username,password,email,name}

@@ -73,7 +73,12 @@ export class AuthService {
 
   updateBalance(balance:number){
     return this.authAPI.updateBalance(balance).pipe(map((res)=>{
-      console.log(res);
+      return res
+    }))
+  }
+  updateMyInfo(){
+    return this.authAPI.getMyInfo().pipe(map((res)=>{
+      this.saveUserInfo(res);
       return res
     }))
   }

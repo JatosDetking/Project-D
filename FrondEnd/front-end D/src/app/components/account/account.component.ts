@@ -1,46 +1,39 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ChangeBalanceComponent } from 'src/app/dialogs/change-balance/change-balance.component';
+import { AuthService } from 'src/app/services/auth.service';
 
-export interface DialogData {
-  balance: string;
-
-}
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent  {
+export class AccountComponent implements AfterViewInit {
   username: string = localStorage.getItem('username')!;
   email: string = localStorage.getItem('email')!;
   name: string = localStorage.getItem('name')!;
-  balance: string = localStorage.getItem('balance')!;
+  balance:any;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    public authService:AuthService,
+    private ref:ChangeDetectorRef
+    ) {}
+
+    ngAfterViewInit(): void {
+      this.authService.balanceSubject.subscribe(balance=>{
+        this.balance=balance;
+        this.ref.detectChanges();
+      })
+      this.authService.balanceSubject.next(localStorage.getItem("balance"));
+    }
 
  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {balance: this.balance},
-    });
+    const dialogRef = this.dialog.open(ChangeBalanceComponent);
 
     dialogRef.afterClosed().subscribe(result => {
           
     });
-  }
-}
-
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: './dialog-overview-example-dialog.html',
-})
-export class DialogOverviewExampleDialog {
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }
