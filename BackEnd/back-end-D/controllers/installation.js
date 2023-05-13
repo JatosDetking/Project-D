@@ -105,10 +105,10 @@ exports.initInstallationController = (db) => {
                 throw err
             } else {
                 let msg = `Installation taken.`
-                let intervals = results[0].intervals.split("-")
-                let performanceFactors = results[0].performance_factors.split("-")
-                takenInstallation = new Installation(results[0].type,intervals,performanceFactors,results[0].price,)
-                console.log(takenInstallation);
+               // let intervals = results[0].intervals.split("-")
+               // let performanceFactors = results[0].performance_factors.split("-")
+               // takenInstallation = new Installation(results[0].type,intervals,performanceFactors,results[0].price,)
+               // console.log(takenInstallation);
                 console.log(msg);
                 res.status(200).send({ ...results });
                 return;
