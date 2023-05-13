@@ -85,20 +85,141 @@ function knapSack(capital, cost, efficienc, index) {
 function sumResult(cost, index, efficiency) {
     let maxEfficiency = 0;
     let sumCost = 0;
-  
+
     for (let i = 0; i < cost.length; i++) {
-      if (index[i] === 1) {
-        let p = i + 1;
-        let d = cost[i];
-        let f = efficiency[i];
-        sumCost += cost[i];
-        maxEfficiency += efficiency[i];
-      }
+        if (index[i] === 1) {
+            let p = i + 1;
+            let d = cost[i];
+            let f = efficiency[i];
+            sumCost += cost[i];
+            maxEfficiency += efficiency[i];
+        }
     }
-  
-    return {efficiency: maxEfficiency, cost: sumCost};
-  }
-  
+
+    return { efficiency: maxEfficiency, cost: sumCost };
+}
+
+function calculateMean(numbers) {
+    const sum = numbers.reduce((total, num) => total + num, 0);
+    const mean = sum / numbers.length;
+    return mean;
+}
+
+function calculateVariance(numbers) {
+    const mean = calculateMean(numbers);
+    const squaredDifferences = numbers.map(num => Math.pow(num - mean, 2));
+    const variance = calculateMean(squaredDifferences);
+    console.log(variance);
+    return variance;
+}
+
+function calculateStandardDeviation(numbers) {
+    const variance = calculateVariance(numbers);
+    const standardDeviation = Math.sqrt(variance);
+    return standardDeviation;
+}
+
+///////////////////////////
+function MaximumExpectedEfficiency(arrA, arrP) {
+    const arrAxP = matrixMultiplication(arrA, arrP);
+
+    const max = [0];
+    const indexV = [0];
+
+    maxArrValue2(arrAxP, max, indexV);
+
+    console.log(max);
+    console.log(indexV);
+}
+
+
+function MaximumProfitInTheMostProbableCondition(terrain) {
+    const index = [0];
+    const maxP = [0];
+    const indexV = [0, 0];
+    const max = [0];
+    maxArrValue2(terrain.getProbabilities(), maxP, index);
+    maxArrValue3(terrain.getEfficiency(), max, indexV, index);
+
+    terrain.setOptimalEff(max[0]);
+    terrain.setOptimalCost(terrain.getCost(indexV[0]));
+    terrain.setIndex(indexV[0]);
+}
+
+function MaximumGuaranteedProfit(terrain) {
+    const arrMin = [0, 0, 0];
+    const index = [0, 0, 0];
+    const max = [0];
+    const indexV = [0, 0];
+    minArrValue2d(terrain.getEfficiency(), arrMin, index);
+    maxArrValue(arrMin, max, index, indexV);
+    terrain.setOptimalEff(max[0]);
+    terrain.setOptimalCost(terrain.getCost(indexV[0]));
+    terrain.setIndex(indexV[0]);
+}
+
+function minArrValue2d(arr, arrMin, index) {
+    for (let i = 0; i < arr.length; i++) {
+        let min = arr[i][0];
+        let indexV = 0;
+        for (let j = 1; j < arr[i].length; j++) {
+            if (min >= arr[i][j]) {
+                min = arr[i][j];
+                indexV = j;
+            }
+        }
+        arrMin[i] = min;
+        index[i] = indexV;
+    }
+}
+
+function maxArrValue(arr, max, index, indexV) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            max[0] = arr[i];
+            indexV[0] = i;
+            indexV[1] = index[i];
+        } else if (max[0] <= arr[i]) {
+            max[0] = arr[i];
+            indexV[0] = i;
+            indexV[1] = index[i];
+        }
+    }
+}
+
+function maxArrValue2(arr, max, index) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            max[0] = arr[i];
+            index[0] = i;
+        } else if (max[0] <= arr[i]) {
+            max[0] = arr[i];
+            index[0] = i;
+        }
+    }
+}
+
+function maxArrValue3(arr, max, indexV, index) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            max[0] = arr[i][index[0]];
+            indexV[0] = i;
+            indexV[1] = index[0];
+        } else if (max[0] <= arr[i][index[0]]) {
+            max[0] = arr[i][index[0]];
+            indexV[0] = i;
+        }
+    }
+}
+
+
+const testA = [
+    [3, 3, 3, 3],
+    [-2, -4, 30, 20],
+    [2, 6, -8, -4]
+];
+const testP = [0.3, 0.4, 0.1, 0.2];
+ MaximumExpectedEfficiency(testA, testP);
 
 
 
