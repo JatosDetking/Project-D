@@ -109,7 +109,7 @@ function calculateVariance(numbers) {
     const mean = calculateMean(numbers);
     const squaredDifferences = numbers.map(num => Math.pow(num - mean, 2));
     const variance = calculateMean(squaredDifferences);
-    console.log(variance);
+    //console.log(variance);
     return variance;
 }
 
@@ -119,63 +119,23 @@ function calculateStandardDeviation(numbers) {
     return standardDeviation;
 }
 
-///////////////////////////
-
-function MaximumExpectedEfficiency(arrA, arrP) {
-
-    const arrAxP = matrixMultiplication(arrA, arrP);
-
-    const max = [0];
-    const indexV = [0];
-
-    maxArrValue2(arrAxP, max, indexV);
-
-    console.log(max);
-    console.log(indexV);
-}
-
-
- function MaximumEfficiencyUnderMostProbableCondition(arrA, arrP) {
-    const index = [0];
-    const maxP = [0];
-    const indexV = [0, 0];
-    const max = [0];
-    maxArrValue2(arrP, maxP, index);
-
-    maxArrValue3(arrA, max, indexV, index);
-
-    console.log(max[0]);
-    console.log(indexV[0]);
-}
-
-function MaximumGuaranteedEfficiency(arrA) {
-    const arrMin = [0, 0, 0];
-    const index = [0, 0, 0];
-    const max = [0];
-    const indexV = [0];
-    minArrValue2d(arrA, arrMin, index);
-    maxArrValue(arrMin, max, index, indexV);
-
-    console.log(max[0]);
-    console.log(indexV[0]);
-   // terrain.setOptimalEff(max[0]);
-   // terrain.setOptimalCost(terrain.getCost(indexV[0]));
-   // terrain.setIndex(indexV[0]);
-}
 
 function BenefitArr(arrA) {
     const arrMax = [0, 0, 0];
     const index = [0, 0, 0];
-    const benefitArr = [[],[],[]];
+    const benefitArr = [[], [], []];
 
     maxArrValue2d(arrA, arrMax, index);
 
     for (let i = 0; i < arrA[0].length; i++) {
         for (let j = 0; j < arrA.length; j++) {
-            benefitArr[j][i] = arrMax[i] -arrA[j][i];
-        }      
+            benefitArr[j][i] = arrMax[i] - arrA[j][i];
+        }
     }
 
+    console.log(benefitArr[0]);
+    console.log(benefitArr[1]);
+    console.log(benefitArr[2]);
     return benefitArr;
 }
 
@@ -207,16 +167,43 @@ function maxArrValue2d(arr, arrMax) {
     }
 }
 
+function maxArrValue2d2(arr, arrMax, index) {
+    for (let i = 0; i < arr.length; i++) {
+        let max = arr[i][0];
+        let indexV = 0;
+        for (let j = 1; j < arr[i].length; j++) {
+            if (max <= arr[i][j]) {
+                max = arr[i][j];
+                indexV = j;
+            }
+        }
+        arrMax[i] = max;
+        index[i] = indexV;
+    }
+}
+
 function maxArrValue(arr, max, index, indexV) {
     for (let i = 0; i < arr.length; i++) {
         if (i === 0) {
             max[0] = arr[i];
             indexV[0] = i;
-           // indexV[1] = index[i];
+            // indexV[1] = index[i];
         } else if (max[0] <= arr[i]) {
             max[0] = arr[i];
             indexV[0] = i;
-          //  indexV[1] = index[i];
+            //  indexV[1] = index[i];
+        }
+    }
+}
+
+function minArrValue(arr, min, index) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            min[0] = arr[i];
+            index[0] = i;
+        } else if (min[0] >= arr[i]) {
+            min[0] = arr[i];
+            index[0] = i;
         }
     }
 }
@@ -244,18 +231,145 @@ function maxArrValue3(arr, max, indexV, index) {
         }
     }
 }
+function minArrValue3(arr, min, indexV, index) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            min[0] = arr[i][index[0]];
+            indexV[0] = i;
+        } else if (min[0] >= arr[i][index[0]]) {
+            min[0] = arr[i][index[0]];
+            indexV[0] = i;
+        }
+    }
+}
+
+function probability(arr) {
+    let mean = calculateMean(arr);
+    let standardDeviation = calculateStandardDeviation(arr);
+    let n1=0;
+    let n2=0;
+    let n3=0;
+    let arrLength = arr.length;
+    let lowerBound = mean - standardDeviation;
+    let upperBound = mean + standardDeviation;
+    for (const element of arr) {
+        if (element < lowerBound){
+            n1++;
+        }else if(lowerBound <= element && element <= upperBound){
+            n2++;
+        }else if(element > upperBound){
+            n3++;
+        }        
+  }
+        return [n1/arrLength,n2/arrLength,3/arrLength]
+}
+//////////////////////////////////////////////////////////////////
+
+function MaximumExpectedEfficiency(arrA, arrP) {
+
+    const arrAxP = matrixMultiplication(arrA, arrP);
+
+    const max = [0];
+    const indexV = [0];
+
+    maxArrValue2(arrAxP, max, indexV);
+
+    console.log(max[0]);
+    console.log(indexV[0]);
+}
 
 
-const testA = [
-    [3, 3, 3, 3],
-    [-2, -4, 30, 20],
-    [2, 6, -8, -4]
+function MaximumEfficiencyUnderMostProbableCondition(arrA, arrP) {
+    const index = [0];
+    const maxP = [0];
+    const indexV = [0, 0];
+    const max = [0];
+    maxArrValue2(arrP, maxP, index);
+
+    maxArrValue3(arrA, max, indexV, index);
+
+    console.log(max[0]);
+    console.log(indexV[0]);
+}
+
+function MaximumGuaranteedEfficiency(arrA) {
+    const arrMin = [0, 0, 0];
+    const index = [0, 0, 0];
+    const max = [0];
+    const indexV = [0];
+    minArrValue2d(arrA, arrMin, index);
+    maxArrValue(arrMin, max, index, indexV);
+
+    console.log(max[0]);
+    console.log(indexV[0]);
+    // terrain.setOptimalEff(max[0]);
+    // terrain.setOptimalCost(terrain.getCost(indexV[0]));
+    // terrain.setIndex(indexV[0]);
+}
+
+function MinimumAverageForegoneBenefits(arrB, arrP) {
+
+    const arrAxP = matrixMultiplication(arrB, arrP);
+
+    const min = [0];
+    const indexV = [0];
+
+    minArrValue(arrAxP, min, indexV);
+
+    console.log(min[0]);
+    console.log(indexV[0]);
+}
+
+function MinimumMissedBenefitUnderMostLikelyCondition(arrB, arrP) {
+
+    const index = [0];
+    const maxP = [0];
+    const indexV = [0];
+    const min = [0];
+    maxArrValue2(arrP, maxP, index);
+    minArrValue3(arrB, min, indexV, index);
+    console.log(min[0]);
+    console.log(indexV[0]);
+}
+
+function MinimumGuaranteedBenefitForegone(arrB, arrP) {
+
+    const arrMax = [0, 0, 0];
+    const index = [0, 0, 0];
+    const min = [0];
+    const indexV = [0];
+    maxArrValue2d2(arrB, arrMax, index);
+    minArrValue(arrMax, min, indexV);
+
+    console.log(min[0]);
+    console.log(indexV[0]);
+
+}
+
+//////////////////////////////////////////////////
+
+/*const testA = [
+    [2.1, 1.6, 4.2],
+    [1.2, -1.1, 5.1],
+    [2.8, 2.4, 3.1]
 ];
 
-const testP = [0.3, 0.4, 0.1, 0.2];
+const testP = [0.2, 0.3, 0.5];
 
-BenefitArr(testA, testP);
+testB = BenefitArr(testA);
 
-
+console.log("MaximumExpectedEfficiency");
+MaximumExpectedEfficiency(testA, testP);
+console.log("MaximumEfficiencyUnderMostProbableCondition");
+MaximumEfficiencyUnderMostProbableCondition(testA, testP);
+console.log("MaximumGuaranteedEfficiency");
+MaximumGuaranteedEfficiency(testA);
+console.log("MinimumAverageForegoneBenefits");
+MinimumAverageForegoneBenefits(testB, testP);
+console.log("MinimumMissedBenefitUnderMostLikelyCondition");
+MinimumMissedBenefitUnderMostLikelyCondition(testB, testP);
+console.log("MinimumGuaranteedBenefitForegone");
+MinimumGuaranteedBenefitForegone(testB, testP);
+*/
 
 
