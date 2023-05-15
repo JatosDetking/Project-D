@@ -39,6 +39,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenIInterceptor } from './token-i.interceptor';
 import { AccountComponent } from './components/account/account.component';
 import { ChangeBalanceComponent } from './dialogs/change-balance/change-balance.component';
+import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -71,7 +72,8 @@ export const httpInterceptorProviders = [
     DoughnutComponent,
     CalculationsComponent,
     AccountComponent,
-    ChangeBalanceComponent
+    ChangeBalanceComponent,
+    ChangePasswordComponent
   ],
   imports: [
     FormsModule,

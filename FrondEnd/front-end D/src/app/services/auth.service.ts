@@ -76,6 +76,11 @@ export class AuthService {
       return res
     }))
   }
+  updatePassword(password:string){
+    return this.authAPI.updatePassword(password).pipe(map((res)=>{
+      return res
+    }))
+  }
   updateMyInfo(){
     return this.authAPI.getMyInfo().pipe(map((res)=>{
       this.saveUserInfo(res);

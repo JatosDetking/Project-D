@@ -23,6 +23,12 @@ export class AuthAPIService {
       {balance}
     )
   }
+  
+  updatePassword(password:string){
+    return this.http.put(`${databaseURL}/user/changepassword`,
+      {password}
+    )
+  }
 
   getMyInfo(){
     return this.http.get(`${databaseURL}/user/getmyinfo`)

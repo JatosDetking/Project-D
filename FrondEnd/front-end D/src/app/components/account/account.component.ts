@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ChangeBalanceComponent } from 'src/app/dialogs/change-balance/change-balance.component';
+import { ChangePasswordComponent } from 'src/app/dialogs/change-password/change-password.component';
 import { AuthService } from 'src/app/services/auth.service';
-
 
 @Component({
   selector: 'app-account',
@@ -29,8 +29,15 @@ export class AccountComponent implements AfterViewInit {
       this.authService.balanceSubject.next(localStorage.getItem("balance"));
     }
 
- openDialog(): void {
+ openDialogChangeBalance(): void {
     const dialogRef = this.dialog.open(ChangeBalanceComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+          
+    });
+  }
+  openDialogChangePassword(): void {
+    const dialogRef = this.dialog.open(ChangePasswordComponent);
 
     dialogRef.afterClosed().subscribe(result => {
           
