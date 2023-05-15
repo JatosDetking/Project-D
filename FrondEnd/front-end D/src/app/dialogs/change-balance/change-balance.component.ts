@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
@@ -14,7 +14,10 @@ export class ChangeBalanceComponent implements OnInit {
    public dialogRef: MatDialogRef<ChangeBalanceComponent>
    ) { }
 
-  balance: FormControl = new FormControl(localStorage.getItem('balance'));
+  balance: FormControl = new FormControl(localStorage.getItem('balance'), [
+    Validators.required, 
+    Validators.pattern('^[0-9]+$')
+  ]);
 
   setBalance(){
     this.authService.updateBalance(this.balance.value).subscribe(res=>{

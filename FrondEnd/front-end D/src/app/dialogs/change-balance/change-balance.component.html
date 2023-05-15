@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Enter balance</mat-label>
-    <input matInput [formControl]="balance">
+    <input matInput [formControl]="balance" type="number">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button class="button" color="primary" (click)="setBalance()">Change Balance</button>
+  <button mat-raised-button class="button" color="primary" (click)="setBalance()" [disabled]="balance.invalid">Change Balance</button>
 </div>   
