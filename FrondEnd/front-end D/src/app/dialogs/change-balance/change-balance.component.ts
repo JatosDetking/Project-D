@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './change-balance.component.html',
   styleUrls: ['./change-balance.component.scss']
 })
-export class ChangeBalanceComponent implements OnInit {
+export class ChangeBalanceComponent implements OnInit, AfterViewInit {
 
   constructor
   (private authService:AuthService,
@@ -15,8 +15,8 @@ export class ChangeBalanceComponent implements OnInit {
    ) { }
 
   balance: FormControl = new FormControl(localStorage.getItem('balance'), [
-    Validators.required, 
-    Validators.pattern('^[0-9]+$')
+    Validators.pattern(/^\d+$/), 
+    Validators.required
   ]);
 
   setBalance(){
@@ -28,6 +28,10 @@ export class ChangeBalanceComponent implements OnInit {
   }
   
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.balance.valueChanges.subscribe(x=>console.log(this.balance))
   }
 
 }

@@ -1,10 +1,13 @@
- <h1 mat-dialog-title>Change balance </h1>
+<h1 mat-dialog-title>Change Balance</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Enter balance</mat-label>
-    <input matInput [formControl]="balance" type="number">
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Balance</mat-label>
+    <input type="number" matInput [formControl]="balance">
+    <mat-error *ngIf="balance.hasError('pattern')|| balance.invalid">
+      Invalid character!
+    </mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button class="button" color="primary" (click)="setBalance()" [disabled]="balance.invalid">Change Balance</button>
-</div>   
+</div>

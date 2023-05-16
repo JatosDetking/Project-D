@@ -30,8 +30,8 @@ export class AccountComponent implements AfterViewInit {
   }
   openDialogChangeBalance(): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '1500px'; // Задайте желаната ширина на диалога
-    dialogConfig.height = '300px';
+    dialogConfig.width = '350px'; 
+    dialogConfig.height = '230px';
     const dialogRef = this.dialog.open(ChangeBalanceComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -40,7 +40,7 @@ export class AccountComponent implements AfterViewInit {
   }
   openDialogChangePassword(): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '400px'; // Задайте желаната ширина на диалога
+    dialogConfig.width = '400px'; 
     dialogConfig.height = '350px';
     const dialogRef = this.dialog.open(ChangePasswordComponent,dialogConfig);
 
