@@ -31,7 +31,7 @@ export class AccountComponent implements AfterViewInit {
   openDialogChangeBalance(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '350px'; 
-    dialogConfig.height = '230px';
+    dialogConfig.height = '250px';
     const dialogRef = this.dialog.open(ChangeBalanceComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -41,7 +41,7 @@ export class AccountComponent implements AfterViewInit {
   openDialogChangePassword(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '400px'; 
-    dialogConfig.height = '350px';
+    dialogConfig.height = '340px';
     const dialogRef = this.dialog.open(ChangePasswordComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {

@@ -42,7 +42,9 @@ export class AuthService {
 
   saveUserInfo(res: any){
     this.balanceSubject.next(res.balance)
-    localStorage.setItem("token", res.token)
+    if( res.token){
+      localStorage.setItem("token", res.token)
+    }
     localStorage.setItem("email", res.email)
     localStorage.setItem("username", res.username)
     localStorage.setItem("name", res.name)
