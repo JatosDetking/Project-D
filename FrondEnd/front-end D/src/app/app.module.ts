@@ -37,9 +37,10 @@ import { DoughnutComponent } from './components/doughnut/doughnut.component';
 import { CalculationsComponent } from './components/calculations/calculations.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenIInterceptor } from './token-i.interceptor';
-import { AccountComponent } from './components/account/account.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 import { ChangeBalanceComponent } from './dialogs/change-balance/change-balance.component';
 import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
+import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-list-of-terrains.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -71,9 +72,10 @@ export const httpInterceptorProviders = [
     CompareChartsComponent,
     DoughnutComponent,
     CalculationsComponent,
-    AccountComponent,
+    MyAccountComponent,
     ChangeBalanceComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MyListOfTerrainsComponent
   ],
   imports: [
     FormsModule,

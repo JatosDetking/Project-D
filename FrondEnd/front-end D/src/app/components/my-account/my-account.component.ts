@@ -3,13 +3,14 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 import { ChangeBalanceComponent } from 'src/app/dialogs/change-balance/change-balance.component';
 import { ChangePasswordComponent } from 'src/app/dialogs/change-password/change-password.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  templateUrl: './my-account.component.html',
+  styleUrls: ['./my-account.component.scss']
 })
-export class AccountComponent implements AfterViewInit {
+export class MyAccountComponent implements AfterViewInit {
   username: string = localStorage.getItem('username')!;
   email: string = localStorage.getItem('email')!;
   name: string = localStorage.getItem('name')!;
@@ -18,7 +19,8 @@ export class AccountComponent implements AfterViewInit {
   constructor(
     public dialog: MatDialog,
     public authService: AuthService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private router:Router
   ) { }
 
   ngAfterViewInit(): void {
@@ -27,6 +29,9 @@ export class AccountComponent implements AfterViewInit {
       this.ref.detectChanges();
     })
     this.authService.balanceSubject.next(localStorage.getItem("balance"));
+  }
+  gotoMyTerrainsPage(){
+    this.router.navigate(['myterrains'])
   }
   openDialogChangeBalance(): void {
     const dialogConfig = new MatDialogConfig();

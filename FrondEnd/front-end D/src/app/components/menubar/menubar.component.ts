@@ -35,7 +35,7 @@ export class MenubarComponent implements AfterViewInit {
   toggle!:()=>void
 
   goToMyAccountPage(){
-    this.router.navigate(['account'])
+    this.router.navigate(['myaccount'])
   }
   gotoHomePage(){
     this.router.navigate(['home'])
