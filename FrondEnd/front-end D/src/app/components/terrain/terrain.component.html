@@ -1,0 +1,38 @@
+<div class="info-container" >
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Terrain Information</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content style="margin-top: 16px;">
+        <div>
+        <div class="info-field">
+          <mat-card-subtitle>Name</mat-card-subtitle>
+          <p>{{terrain.name}}</p>
+        </div>
+       <div class="info-field">
+        <mat-card-subtitle>Price</mat-card-subtitle>
+          <p>{{terrain.price}}</p>
+       </div>
+      </div> 
+     <mat-divider></mat-divider>
+      </mat-card-content>
+  
+      <div>
+        <div class="info-field">
+          <mat-card-subtitle>Creator</mat-card-subtitle>
+          <p>{{terrain.creator_id}}</p>
+        </div>
+       <div class="info-field">
+        <mat-card-subtitle>Last change</mat-card-subtitle>
+          <p>{{terrain.last_change_time}}</p>
+       </div>
+      </div>
+    </mat-card>
+  
+    <div class="action-buttons">
+     <!--  <button mat-raised-button color="primary" (click)="gotoMyTerrainsPage()">List of Terrains</button>
+      <button mat-raised-button color="primary" (click)="openDialogChangePassword()">Change Password</button>
+      <button mat-raised-button color="primary" (click)="openDialogChangeBalance()">Change Balance</button> -->
+    </div>
+  </div>

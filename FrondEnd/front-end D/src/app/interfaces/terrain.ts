@@ -12,7 +12,7 @@ export  interface Terrain {
     price: number;
     creator_id: number;
     type: string;
-    last_change_time: Date;
+    last_change_time: string;
     last_change_id: number;
     terrainsData: TerrainData[];
 }

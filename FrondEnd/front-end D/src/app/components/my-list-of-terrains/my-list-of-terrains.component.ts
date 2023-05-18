@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Terrain } from 'src/app/interfaces/terrain';
 import { TerrainService } from 'src/app/services/terrain.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-list-of-terrains',
@@ -19,7 +20,10 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private terrainService: TerrainService) { }
+  constructor(
+    private terrainService: TerrainService,
+    private router: Router
+    ) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -50,7 +54,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
           price: terrainData.price,
           creator_id: terrainData.creator_id,
           type: terrainData.type,
-          last_change_time: new Date(terrainData.last_change_time),
+          last_change_time: this.formatDateTime(terrainData.last_change_time),
           last_change_id: terrainData.last_change_id,
           terrainsData: []
         };
@@ -58,6 +62,19 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
       }
       this.dataSource.data = terrainArray;
     });
+  }
+
+  onRowClick(row: Terrain) {
+    this.router.navigate(['terrain'], { queryParams: { terrain: JSON.stringify(row) } });
+  }
+
+  formatDateTime(dateString: string): string {
+    const date = new Date(dateString);
+  
+    const formattedDate = date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+  
+    return `${formattedTime} ${formattedDate}`;
   }
 }
 
