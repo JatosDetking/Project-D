@@ -1,0 +1,13 @@
+<mat-card class="info-card">
+    <mat-card-content *ngIf="data" style="margin-top: 16px;">
+        <mat-label></mat-label>
+        <p>{{data.user_id}}</p>
+        <div>{{data.content}}</div>
+        <div>{{data.edit_date}}</div>
+    </mat-card-content> 
+    <div *ngIf="data">
+        <app-comment *ngFor="let comment of data.subComment" [data]="comment"></app-comment>
+    </div>
+    
+  </mat-card>
+  

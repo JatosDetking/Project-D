@@ -56,7 +56,6 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
           type: terrainData.type,
           last_change_time: this.formatDateTime(terrainData.last_change_time),
           last_change_id: terrainData.last_change_id,
-          terrainsData: []
         };
         terrainArray.push(terrain);
       }

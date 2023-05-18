@@ -3,7 +3,6 @@ export interface TerrainData {
     data: number;
     type: string;
     year: number;
-    terrain_id: number;
 }
 
 export  interface Terrain {
@@ -14,5 +13,4 @@ export  interface Terrain {
     type: string;
     last_change_time: string;
     last_change_id: number;
-    terrainsData: TerrainData[];
 }

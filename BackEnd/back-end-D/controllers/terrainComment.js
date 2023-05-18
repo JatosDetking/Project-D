@@ -134,9 +134,12 @@ exports.initTerrainCommentController = (db) => {
                 for (const comment of comments) {
                     for (const subComment of results) {
                         if (comment.id == subComment.parent_id) {
+                            delete subComment.terrain_id;
+                            delete subComment.parent_id;
                             comment.subComment.push(subComment);
                         }
                     }
+                    delete comment.terrain_id;
                 }
 
                 let msg = `Comments taken.`;

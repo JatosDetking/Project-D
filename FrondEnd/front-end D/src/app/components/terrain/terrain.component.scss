@@ -8,7 +8,7 @@
   
   .info-card {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin-bottom: 25px;
   }
   
@@ -20,10 +20,27 @@
   }
   
   .info-field {
-   width: 50%;
+   width: 33%;
    display: inline-block;
+   margin-top: 10px;
+  }
+  .edit-button-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.line{
+    margin-top: 10px;
+}
+.example-action-buttons {
+    padding-bottom: 20px;
   }
   
-  button {
-    margin: 0 10px;
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
   }

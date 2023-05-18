@@ -179,19 +179,41 @@ exports.initTerrainDataController = (db) => {
 
     controller.getDataFromTerrain = (req, res, next) => {
 
-        let sql = `SELECT * FROM terrains_data WHERE terrain_id = ${req.query.terrainId}`;
-
-        db.query(sql, (err, results) => {
+        let sqlt = `SELECT * FROM terrains WHERE id = ${req.query.terrainId}`
+        db.query(sqlt, (err, terrain) => {
             if (err) {
-                res.status(500).send(['500'])
-                throw err
-            } else {
-                let msg = `Data taken.`
-                console.log(msg);
-                res.status(200).send({ ...results });
+                res.status(500).send([err.message])
                 return;
+            } else {
+                if (terrain[0].type != "private") {
+                    let sql = `SELECT * FROM terrains_data WHERE terrain_id = ${req.query.terrainId}`;
+
+                    db.query(sql, (err, results) => {
+                        if (err) {
+                            res.status(500).send(['500'])
+                            throw err
+                        } else {
+                            // let data = results;
+                            for (const element of results) {
+                                delete element.terrain_id;
+                            }
+
+                            let msg = `Data taken.`
+                            console.log(msg);
+                            res.status(200).send({ ...results });
+                            return;
+                        }
+                    });
+                }
+                else {
+                    let msg = `Access denied.`
+                    console.log(msg);
+                    res.status(403).send([msg]);
+                    return;
+                }
             }
-        });
+        })
+
     };
 
     controller.deleteTerrainData = (req, res, next) => {

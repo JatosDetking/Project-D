@@ -34,7 +34,8 @@ exports.initUserController = (db) => {
                     email: result[0].email,
                     name: result[0].name,
                     username: result[0].username,
-                    balance: result[0].balance
+                    balance: result[0].balance,
+                    id:result[0].id
                 }
 
                 console.log(tokenData)
@@ -200,7 +201,8 @@ exports.initUserController = (db) => {
                 name: result[0].name,
                 username: result[0].username,
                 token: result[0].token,
-                balance:result[0].balance
+                balance:result[0].balance,
+                id:result[0].id
             }
             res.status(200).send({ ...loginInfo });
         });

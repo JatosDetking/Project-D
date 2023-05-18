@@ -46,6 +46,7 @@ export class AuthService {
     localStorage.setItem("username", res.username)
     localStorage.setItem("name", res.name)
     localStorage.setItem("balance",res.balance)
+    localStorage.setItem("id",res.id)
   }
 
   login(email:string,password:string){
@@ -93,5 +94,6 @@ export class AuthService {
     localStorage.removeItem("username")
     localStorage.removeItem("name")
     localStorage.removeItem("balance")
+    localStorage.removeItem("id")
   }
 }

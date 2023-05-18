@@ -1,38 +1,86 @@
-<div class="info-container" >
+<div class="info-container">
     <mat-card class="info-card">
-      <mat-card-header>
-        <mat-card-title>Terrain Information</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content style="margin-top: 16px;">
+        <mat-card-header>
+            <mat-card-title>Terrain Information</mat-card-title>
+            <div *ngIf="isEditable" class="edit-button-container">
+                <button mat-mini-fab color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        </mat-card-header>
+
+        <mat-divider class="line"></mat-divider>
+        <mat-card-content style="margin-top: 16px;">
+            <div>
+                <div class="info-field">
+                    <mat-card-subtitle>Name</mat-card-subtitle>
+                    <p>{{terrain.name}}</p>
+                </div>
+                <div class="info-field">
+                    <mat-card-subtitle>Price</mat-card-subtitle>
+                    <p>{{terrain.price}}</p>
+                </div>
+
+            </div>
+            <mat-divider class="line"></mat-divider>
+        </mat-card-content>
         <div>
-        <div class="info-field">
-          <mat-card-subtitle>Name</mat-card-subtitle>
-          <p>{{terrain.name}}</p>
+            <div class="info-field">
+                <mat-card-subtitle>Creator</mat-card-subtitle>
+                <p>{{creator.name}}</p>
+            </div>
+            <div class="info-field">
+                <mat-card-subtitle>Last Editor</mat-card-subtitle>
+                <p>{{editor.name}}</p>
+            </div>
+            <div class="info-field">
+                <mat-card-subtitle>Last change</mat-card-subtitle>
+                <p>{{terrain.last_change_time}}</p>
+            </div>
         </div>
-       <div class="info-field">
-        <mat-card-subtitle>Price</mat-card-subtitle>
-          <p>{{terrain.price}}</p>
-       </div>
-      </div> 
-     <mat-divider></mat-divider>
-      </mat-card-content>
-  
-      <div>
-        <div class="info-field">
-          <mat-card-subtitle>Creator</mat-card-subtitle>
-          <p>{{terrain.creator_id}}</p>
-        </div>
-       <div class="info-field">
-        <mat-card-subtitle>Last change</mat-card-subtitle>
-          <p>{{terrain.last_change_time}}</p>
-       </div>
-      </div>
     </mat-card>
-  
-    <div class="action-buttons">
-     <!--  <button mat-raised-button color="primary" (click)="gotoMyTerrainsPage()">List of Terrains</button>
-      <button mat-raised-button color="primary" (click)="openDialogChangePassword()">Change Password</button>
-      <button mat-raised-button color="primary" (click)="openDialogChangeBalance()">Change Balance</button> -->
-    </div>
-  </div>
+</div>
+<!-- <div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div> -->
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Terrain Data
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Terrain Data 1</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Comments
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-comment *ngFor="let comment of comments" [data]="comment"></app-comment>
+    </mat-expansion-panel>
+
+</mat-accordion>
+<!-- </div>
+<mat-accordion>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Terrain Data
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Terrain Data 1</p>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Comments
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Comments1</p>
+    </mat-expansion-panel>
+</mat-accordion> -->
