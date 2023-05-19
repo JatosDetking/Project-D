@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Terrain } from 'src/app/interfaces/terrain';
 import { TerrainService } from 'src/app/services/terrain.service';
 import { Router } from '@angular/router';
+import { SharedLogicService } from 'src/app/services/shared.logic.service';
 
 @Component({
   selector: 'app-my-list-of-terrains',
@@ -22,7 +23,8 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private terrainService: TerrainService,
-    private router: Router
+    private router: Router,
+    private sharedLogicService: SharedLogicService
     ) { }
 
   ngAfterViewInit() {
@@ -54,7 +56,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
           price: terrainData.price,
           creator_id: terrainData.creator_id,
           type: terrainData.type,
-          last_change_time: this.formatDateTime(terrainData.last_change_time),
+          last_change_time: this.sharedLogicService.formatDateTime(terrainData.last_change_time),
           last_change_id: terrainData.last_change_id,
         };
         terrainArray.push(terrain);
@@ -67,14 +69,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
     this.router.navigate(['terrain'], { queryParams: { terrain: JSON.stringify(row) } });
   }
 
-  formatDateTime(dateString: string): string {
-    const date = new Date(dateString);
   
-    const formattedDate = date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-  
-    return `${formattedTime} ${formattedDate}`;
-  }
 }
 
 

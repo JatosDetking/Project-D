@@ -16,7 +16,7 @@
 .action-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .info-field {
@@ -26,4 +26,13 @@
 
 button {
   margin: 0 10px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
 }

@@ -18,8 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent ,canActivate:[LoggedInGuard]},
   { path: 'stats', component: StatsComponent ,canActivate:[LoggedInGuard]},
   { path: 'myaccount', component: MyAccountComponent ,canActivate:[LoggedInGuard]},
-  { path: 'myterrains', component: MyListOfTerrainsComponent,canActivate:[LoggedInGuard]},
-  { path: 'terrain', component: TerrainComponent }
+  { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]}
 ];
 
 @NgModule({

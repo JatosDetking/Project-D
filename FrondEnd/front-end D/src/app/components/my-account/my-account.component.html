@@ -31,11 +31,20 @@
   </mat-card>
 
   <div class="action-buttons">
-    <button mat-raised-button color="primary" (click)="gotoMyTerrainsPage()">My Terrains</button>
     <button mat-raised-button color="primary" (click)="openDialogChangePassword()">Change Password</button>
     <button mat-raised-button color="primary" (click)="openDialogChangeBalance()">Change Balance</button>
   </div>
 </div>
 
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+             My Terrain List
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-my-list-of-terrains></app-my-list-of-terrains>
+  </mat-expansion-panel>
+</mat-accordion>
 
     

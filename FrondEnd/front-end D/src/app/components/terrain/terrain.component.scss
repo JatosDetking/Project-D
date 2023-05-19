@@ -24,6 +24,15 @@
    display: inline-block;
    margin-top: 10px;
   }
+  .comment-field {
+    max-width: 800px;
+    width: 50%;
+    display: inline-block;
+    margin-top: 10px;
+   }
+  .info-vote {
+    margin-bottom: 7px;
+   }
   .edit-button-container {
     margin-left: auto;
     display: flex;
@@ -31,6 +40,12 @@
 }
 .line{
     margin-top: 10px;
+}
+.lineEdit{
+  margin-top: 22px;
+}
+.infoEdit{
+  margin-top: 28px;
 }
 .example-action-buttons {
     padding-bottom: 20px;
@@ -43,4 +58,19 @@
   
   .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
     margin-left: 8px;
+  }
+
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
   }

@@ -1,13 +1,30 @@
-<mat-card class="info-card">
+<mat-card (mouseenter)="isHidden = !isHidden" (mouseleave)="isHidden = !isHidden" [class.info-card]="!sub" [class.subCom]="sub">
     <mat-card-content *ngIf="data" style="margin-top: 16px;">
-        <mat-label></mat-label>
-        <p>{{data.user_id}}</p>
-        <div>{{data.content}}</div>
-        <div>{{data.edit_date}}</div>
+      <mat-label></mat-label>
+      <div *ngIf="isMyComment() && isHidden" class="edit-button-container">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" >
+          <mat-icon >edit</mat-icon>
+        </button>
+      </div>
+      <p *ngIf="user"><strong>{{user.username}}</strong></p>
+      <div>{{data.content}}</div>
+      <div class="edit-date">{{data.edit_date}}</div>
     </mat-card-content> 
-    <div *ngIf="data">
-        <app-comment *ngFor="let comment of data.subComment" [data]="comment"></app-comment>
-    </div>
     
+    <div *ngIf="data">
+      <app-comment *ngFor="let comment of data.subComment" [data]="comment" [sub]="true"></app-comment>
+    </div>
+    <div  *ngIf="!sub">
+        <div class="comment-field">
+        <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput placeholder="Comment..."></textarea>
+          </mat-form-field>
+        </div>
+        <div class="comment-field">
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" >
+                <mat-icon >comment</mat-icon>
+              </button>
+        </div>
+    </div>
   </mat-card>
-  

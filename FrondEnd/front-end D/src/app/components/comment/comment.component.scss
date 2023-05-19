@@ -1,5 +1,39 @@
 .info-card {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     margin-bottom: 25px;
   }
+  .subCom{
+    max-width: 800px;
+    width: 75%;
+    margin-top: 10px;
+  }
+  .edit-button-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+  .edit-date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    font-style: italic;
+    color: #888;
+    font-size: 10px; /* Adjust the font size as needed */
+  }
+
+  .comment-field {
+  width: 50%;
+  display: inline-block;
+  margin-top: 10px;
+ }
+ textarea {
+  resize: vertical;
+  min-height: 40px;
+  resize:horizontal;
+  min-width: 400px;
+}
