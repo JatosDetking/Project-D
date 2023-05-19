@@ -55,13 +55,18 @@ exports.initTerrainVoteController = (db) => {
 
                 let msg = `Vote taken.`;
                 console.log(msg);
-                res.status(200).send({ ...results });
+                if (results.length == 0) {
+                    results = { type: -1 };
+                }
+                //console.log(results);
+                res.status(200).send({ ...results[0] });
                 return;
             }
         });
     };
 
     controller.deleteTerrainVote = (req, res, next) => {
+
 
         let sql = `SELECT *
         FROM votes
@@ -71,6 +76,7 @@ exports.initTerrainVoteController = (db) => {
                 res.status(500).send([err.message])
                 return;
             } else {
+                console.log(resVote)
                 if (req.userId == resVote[0].user_id) {
 
                     let deleteVote = `DELETE FROM votes
@@ -96,6 +102,7 @@ exports.initTerrainVoteController = (db) => {
                 }
             }
         })
+
     }
 
     return controller

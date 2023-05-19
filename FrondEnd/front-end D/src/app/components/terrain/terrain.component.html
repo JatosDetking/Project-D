@@ -23,14 +23,16 @@
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle  class="info-vote">Votes</mat-card-subtitle>
-                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                        <button (click)=" myVoteType== 1? myVoteType = -1: myVoteType=1;  setMyVote();" style="margin-right: 20px;" [ngStyle]="{'backgroundColor':myVoteType== 1?'#009688':'', 'color': myVoteType === 1 ? '#FFFFFF' : ''}" 
+                         mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+
                             <mat-icon>thumb_up</mat-icon>
                           </button> 
-                          <label>1</label>
-                          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                          <label style="margin-right: 20px;" *ngIf="votes">{{votes.upvote}}</label>
+                          <button (click)="myVoteType== 0? myVoteType = -1 : myVoteType=0; setMyVote();" style="margin-right: 20px;" [ngStyle]="{'backgroundColor':myVoteType== 0?'#009688':'', 'color': myVoteType === 0 ? '#FFFFFF' : ''}" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
                             <mat-icon>thumb_down</mat-icon>
                           </button>
-                          <label>1</label>    
+                          <label style="margin-right: 20px;" *ngIf="votes">{{votes.downvote}}</label>    
                     </div>               
                 </div>
                 <mat-divider class="line"></mat-divider>
@@ -106,17 +108,23 @@
                 <div>
                     <div class="info-field">
                         <mat-card-subtitle>Name</mat-card-subtitle>
-                        <input matInput  [formControl]="name">
+                        <input  matInput type="text" [formControl]="name">
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle>Price</mat-card-subtitle>
-                        <input matInput type="text" [formControl]="price">
-
+                        <input matInput type="number" [formControl]="price">
                     </div>
-
-                </div>
-               
-                  
+                    <div class="info-field ">
+                        <mat-card-subtitle class="info-vote">Type</mat-card-subtitle>
+                        <mat-form-field>                           
+                            <mat-select [(ngModel)]="selecteType">
+                              <mat-option value="private">private</mat-option>
+                              <mat-option value="editable">editable</mat-option>
+                              <mat-option value="uneditable">uneditable</mat-option>        
+                            </mat-select>
+                          </mat-form-field>                
+                    </div>   
+                </div>     
                 <mat-divider class="lineEdit"></mat-divider>
             </mat-card-content>
             <div class="infoEdit">

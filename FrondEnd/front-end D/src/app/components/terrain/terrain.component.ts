@@ -8,6 +8,8 @@ import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/interfaces/comment';
 import { FormControl, Validators } from '@angular/forms';
 import { SharedLogicService } from 'src/app/services/shared.logic.service';
+import { VotesService } from 'src/app/services/votes.service';
+import { E } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -15,20 +17,25 @@ import { SharedLogicService } from 'src/app/services/shared.logic.service';
   templateUrl: './terrain.component.html',
   styleUrls: ['./terrain.component.scss']
 })
-export class TerrainComponent implements OnInit{
+export class TerrainComponent implements OnInit {
 
   @ViewChild(MatAccordion)
   accordion!: MatAccordion;
 
   isEditable = true;
   inEdit = false;
-  
+  selecteType?: string
+  myVoteType = -1;
+  myVote: any;
+  like = false;
+  dislike = false;
+
   myId: number = +(localStorage.getItem("id") || 0);
-  
 
   name = new FormControl('', [Validators.required]);
-  price = new FormControl('', [Validators.required]);
-  
+  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required]);
+
+  votes: any;
   comments: Comment[] = [];
 
   terrain: Terrain = {
@@ -53,26 +60,27 @@ export class TerrainComponent implements OnInit{
     name: "editor"
   };
 
-
-
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private commentService: CommentService,
-    private sharedLogicService: SharedLogicService
+    private sharedLogicService: SharedLogicService,
+    private votesService: VotesService
   ) { }
 
   ngOnInit(): void {
     this.terrain = JSON.parse(this.route.snapshot.queryParams['terrain']);
-    //console.log(this.terrain.id)
     this.creator = this.userService.getUser(this.terrain.creator_id);
     this.editor = this.userService.getUser(this.terrain.last_change_id);
-    this.fillList(this.terrain.id);
+    this.fillList();
     this.name.setValue(this.terrain.name);
     this.price.setValue(this.terrain.price);
+    this.selecteType = this.terrain.type;
+    this.getVotes();
+    this.getMyVote();
+
   }
 
-  
 
   hideComponent() {
     if (this.terrain.type == "editable" || this.terrain.creator_id == this.myId) {
@@ -89,18 +97,51 @@ export class TerrainComponent implements OnInit{
   saveChanges() {
     this.inEdit = false;
   }
-  fillList(id: number) {
-    this.commentService.getComments(id).subscribe((res: any) => {
+  fillList() {
+    this.commentService.getComments(this.terrain.id).subscribe((res: any) => {
       for (const key in res) {
         const CommentData = res[key];
 
         CommentData.edit_date = this.sharedLogicService.formatDateTime(CommentData.edit_date);
 
-        for (const key2 in CommentData.subComment) {   
+        for (const key2 in CommentData.subComment) {
           CommentData.subComment[key2].edit_date = this.sharedLogicService.formatDateTime(CommentData.subComment[key2].edit_date);
         }
         this.comments.push(CommentData);
       }
+    });
+  }
+  getVotes() {
+    this.votesService.getVotes(this.terrain.id).subscribe((res: any) => {
+      this.votes = { upvote: res.upvote, downvote: res.downvote };
+    });
+  }
+  getMyVote() {
+    this.votesService.getMyVotes(this.terrain.id).subscribe((res: any) => {
+      if (res.type != -1) {
+       this.myVoteType = res.type;
+       console.log(11111111111111)
+        this.myVote = res;
+      }
+    });
+  }
+
+  voteControle() {
+    if (this.myVoteType == 1) {
+      this.deleteMyVote()
+    }else if (this.myVoteType == 0 ){
+      this.deleteMyVote()
+    }
+  }
+  setMyVote() {
+    this.votesService.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
+      this.getVotes();
+    });
+  }
+
+  deleteMyVote() {
+    this.votesService.deleteMyVote(this.myVote.id).subscribe((res: any) => {
+      this.getVotes();
     });
   }
 }
