@@ -22,18 +22,23 @@
                         <p>{{terrain.price}}</p>
                     </div>
                     <div class="info-field">
-                        <mat-card-subtitle  class="info-vote">Votes</mat-card-subtitle>
-                        <button (click)=" myVoteType== 1? myVoteType = -1: myVoteType=1;  setMyVote();" style="margin-right: 20px;" [ngStyle]="{'backgroundColor':myVoteType== 1?'#009688':'', 'color': myVoteType === 1 ? '#FFFFFF' : ''}" 
-                         mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                        <mat-card-subtitle class="info-vote">Votes</mat-card-subtitle>
+                        <button (click)=" myVoteType== 1? myVoteType = -1: myVoteType=1;  setMyVote();"
+                            style="margin-right: 20px;"
+                            [ngStyle]="{'backgroundColor':myVoteType== 1?'#009688':'', 'color': myVoteType === 1 ? '#FFFFFF' : ''}"
+                            mat-icon-button aria-label="Example icon button with a vertical three dot icon">
 
                             <mat-icon>thumb_up</mat-icon>
-                          </button> 
-                          <label style="margin-right: 20px;" *ngIf="votes">{{votes.upvote}}</label>
-                          <button (click)="myVoteType== 0? myVoteType = -1 : myVoteType=0; setMyVote();" style="margin-right: 20px;" [ngStyle]="{'backgroundColor':myVoteType== 0?'#009688':'', 'color': myVoteType === 0 ? '#FFFFFF' : ''}" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                        </button>
+                        <label style="margin-right: 20px;" *ngIf="votes">{{votes.upvote}}</label>
+                        <button (click)="myVoteType== 0? myVoteType = -1 : myVoteType=0; setMyVote();"
+                            style="margin-right: 20px;"
+                            [ngStyle]="{'backgroundColor':myVoteType== 0?'#009688':'', 'color': myVoteType === 0 ? '#FFFFFF' : ''}"
+                            mat-icon-button aria-label="Example icon button with a vertical three dot icon">
                             <mat-icon>thumb_down</mat-icon>
-                          </button>
-                          <label style="margin-right: 20px;" *ngIf="votes">{{votes.downvote}}</label>    
-                    </div>               
+                        </button>
+                        <label style="margin-right: 20px;" *ngIf="votes">{{votes.downvote}}</label>
+                    </div>
                 </div>
                 <mat-divider class="line"></mat-divider>
             </mat-card-content>
@@ -53,7 +58,7 @@
             </div>
         </mat-card>
     </div>
-  
+
     <mat-accordion class="example-headers-align" multi>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -74,14 +79,14 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Leave a comment</mat-label>
                     <textarea matInput placeholder="Comment..."></textarea>
-                  </mat-form-field>
-                </div>
-                <div class="comment-field">
-                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" >
-                        <mat-icon >comment</mat-icon>
-                      </button>
-                </div>
-            <app-comment *ngFor="let comment of comments" [data]="comment" >             
+                </mat-form-field>
+            </div>
+            <div class="comment-field">
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary">
+                    <mat-icon>comment</mat-icon>
+                </button>
+            </div>
+            <app-comment *ngFor="let comment of comments" [data]="comment">
             </app-comment>
         </mat-expansion-panel>
 
@@ -91,7 +96,7 @@
 
 
 <div *ngIf="inEdit">
-  
+
     <div class="info-container">
         <mat-card class="info-card">
             <mat-card-header>
@@ -108,23 +113,27 @@
                 <div>
                     <div class="info-field">
                         <mat-card-subtitle>Name</mat-card-subtitle>
-                        <input  matInput type="text" [formControl]="name">
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="text" [formControl]="name">
+                        </mat-form-field>
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle>Price</mat-card-subtitle>
+                        <mat-form-field class="example-full-width">
                         <input matInput type="number" [formControl]="price">
+                    </mat-form-field>
                     </div>
                     <div class="info-field ">
-                        <mat-card-subtitle class="info-vote">Type</mat-card-subtitle>
-                        <mat-form-field>                           
+                        <mat-card-subtitle >Type</mat-card-subtitle>
+                        <mat-form-field>
                             <mat-select [(ngModel)]="selecteType">
-                              <mat-option value="private">private</mat-option>
-                              <mat-option value="editable">editable</mat-option>
-                              <mat-option value="uneditable">uneditable</mat-option>        
+                                <mat-option value="private">private</mat-option>
+                                <mat-option value="editable">editable</mat-option>
+                                <mat-option value="uneditable">uneditable</mat-option>
                             </mat-select>
-                          </mat-form-field>                
-                    </div>   
-                </div>     
+                        </mat-form-field>
+                    </div>
+                </div>
                 <mat-divider class="lineEdit"></mat-divider>
             </mat-card-content>
             <div class="infoEdit">

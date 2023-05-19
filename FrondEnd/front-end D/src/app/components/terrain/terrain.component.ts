@@ -9,7 +9,6 @@ import { Comment } from 'src/app/interfaces/comment';
 import { FormControl, Validators } from '@angular/forms';
 import { SharedLogicService } from 'src/app/services/shared.logic.service';
 import { VotesService } from 'src/app/services/votes.service';
-import { E } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -81,7 +80,6 @@ export class TerrainComponent implements OnInit {
 
   }
 
-
   hideComponent() {
     if (this.terrain.type == "editable" || this.terrain.creator_id == this.myId) {
       this.isEditable = true;
@@ -126,21 +124,9 @@ export class TerrainComponent implements OnInit {
     });
   }
 
-  voteControle() {
-    if (this.myVoteType == 1) {
-      this.deleteMyVote()
-    }else if (this.myVoteType == 0 ){
-      this.deleteMyVote()
-    }
-  }
   setMyVote() {
     this.votesService.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
-      this.getVotes();
-    });
-  }
-
-  deleteMyVote() {
-    this.votesService.deleteMyVote(this.myVote.id).subscribe((res: any) => {
+      
       this.getVotes();
     });
   }

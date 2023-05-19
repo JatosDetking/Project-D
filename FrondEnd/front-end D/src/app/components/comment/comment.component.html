@@ -1,4 +1,4 @@
-<mat-card (mouseenter)="isHidden = !isHidden" (mouseleave)="isHidden = !isHidden" [class.info-card]="!sub" [class.subCom]="sub">
+<mat-card (mouseenter)="isHidden = !isHidden;" (mouseleave)="isHidden = !isHidden;" [class.info-card]="!sub" [class.subCom]="sub">
     <mat-card-content *ngIf="data" style="margin-top: 16px;">
       <mat-label></mat-label>
       <div *ngIf="isMyComment() && isHidden" class="edit-button-container">

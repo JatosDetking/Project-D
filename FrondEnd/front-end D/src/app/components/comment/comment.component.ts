@@ -40,4 +40,9 @@ export class CommentComponent implements OnInit {
     return result;
   }
 
+  stopEvent(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GroupService } from './group.service';
+import { TerrainService } from './terrain.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { GroupService } from './group.service';
 export class SharedService {
 
   GroupService?:GroupService
-
+  TerrainService?:TerrainService
   constructor(
     
   ) { }

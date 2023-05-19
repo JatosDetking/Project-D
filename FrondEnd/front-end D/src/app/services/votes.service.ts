@@ -29,11 +29,6 @@ export class VotesService {
       return res
     }))
   }
-  deleteMyVote(id: number) {
-    return this.votesApi.deleteMyVote(id).pipe(map((res) => {
-      return res
-    }))
-  }
 
   
 }

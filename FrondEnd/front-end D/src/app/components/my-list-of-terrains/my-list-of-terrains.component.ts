@@ -3,9 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Terrain } from 'src/app/interfaces/terrain';
-import { TerrainService } from 'src/app/services/terrain.service';
 import { Router } from '@angular/router';
 import { SharedLogicService } from 'src/app/services/shared.logic.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-my-list-of-terrains',
@@ -22,10 +22,10 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private terrainService: TerrainService,
+    private sharedService: SharedService,
     private router: Router,
     private sharedLogicService: SharedLogicService
-    ) { }
+  ) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -46,7 +46,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
   }
 
   fillList() {
-    this.terrainService.getMyTerrainsList().subscribe((res: any) => {
+    this.sharedService.TerrainService?.getMyTerrainsList().subscribe((res: any) => {
       const terrainArray: Terrain[] = [];
       for (const key in res) {
         const terrainData = res[key];
@@ -69,7 +69,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
     this.router.navigate(['terrain'], { queryParams: { terrain: JSON.stringify(row) } });
   }
 
-  
+
 }
 
 
