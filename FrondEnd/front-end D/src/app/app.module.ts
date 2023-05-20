@@ -43,6 +43,7 @@ import { ChangePasswordComponent } from './dialogs/change-password/change-passwo
 import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-list-of-terrains.component';
 import { TerrainComponent } from './components/terrain/terrain.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { ListOfTerrainDataComponent } from './components/list-of-terrain-data/list-of-terrain-data.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -79,7 +80,8 @@ export const httpInterceptorProviders = [
     ChangePasswordComponent,
     MyListOfTerrainsComponent,
     TerrainComponent,
-    CommentComponent
+    CommentComponent,
+    ListOfTerrainDataComponent
   ],
   imports: [
     FormsModule,

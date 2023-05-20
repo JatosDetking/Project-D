@@ -3,6 +3,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { GroupService } from './services/group.service';
 import { SharedService } from './services/shared.service';
 import { TerrainService } from './services/terrain.service';
+import { TerrainDataService } from './services/terrain.data.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit{
     private group:GroupService,
     private _adapter: DateAdapter<any>,
     private terrainService: TerrainService,
+    private terrainDataService:TerrainDataService,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
   }
