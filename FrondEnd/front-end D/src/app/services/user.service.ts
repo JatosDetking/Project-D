@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { UserAPIService } from "../api/user-api.service";
 import { User } from "../interfaces/user";
+import { SharedService } from "./shared.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,10 @@ import { User } from "../interfaces/user";
 export class UserService {
 
   constructor(
-    private userApi: UserAPIService
-  ) { }
-
+    private userApi: UserAPIService,
+    private sharedService: SharedService
+  ) { sharedService.shareSelf("UserService", this) }
+ 
   getUserInfo(id: number) {
     return this.userApi.getUserInfo(id).pipe(map((res) => {
       return res

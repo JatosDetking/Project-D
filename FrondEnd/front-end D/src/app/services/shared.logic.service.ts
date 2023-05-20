@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
+import { SharedService } from "./shared.service";
+
 
 
 @Injectable({
@@ -8,8 +10,8 @@ import { map } from "rxjs/operators";
   export class SharedLogicService {
   
     constructor(
-
-    ) { }
+      private sharedService: SharedService
+    ) { sharedService.shareSelf("SharedLogicService", this) }
 
     formatDateTime(dateString: string): string {
         const date = new Date(dateString);

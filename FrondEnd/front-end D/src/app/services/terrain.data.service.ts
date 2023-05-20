@@ -5,17 +5,22 @@ import { SharedService } from "./shared.service";
 
 @Injectable({
     providedIn: 'root'
-  })
-  export class TerrainDataService {
-  
-    constructor(
-        private terrainDataApi:TerrainDataApiService,
-        private sharedService: SharedService
-    ) {sharedService.shareSelf("TerrainDataService", this) }
+})
+export class TerrainDataService {
 
-    getMyTerrainDataList(id:number){
-        return this.terrainDataApi.getMyTerrainData(id).pipe(map((res)=>{
-          return res
+    constructor(
+        private terrainDataApi: TerrainDataApiService,
+        private sharedService: SharedService
+    ) { sharedService.shareSelf("TerrainDataService", this) }
+
+    getTerrainDataList(id: number) {
+        return this.terrainDataApi.getTerrainData(id).pipe(map((res) => {
+            return res
         }))
-      }
-  }
+    }
+    updateTerrainData(terrainId: number, data: number, id: number) {
+        return this.terrainDataApi.updateTerrainData(terrainId, data, id).pipe(map((res) => {
+            return res
+        }))
+    }
+}

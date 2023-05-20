@@ -15,5 +15,10 @@ export class TerrainApiService {
   getMyTerrains(){
     return this.http.get(`${databaseURL}/terrain/getmyterrain`)
   }
+  getTerrain(id:number){
+    return this.http.get(`${databaseURL}/terrain/getterrain`,{
+      params:new HttpParams().set('id',id)
+    })
+  }
 
 }

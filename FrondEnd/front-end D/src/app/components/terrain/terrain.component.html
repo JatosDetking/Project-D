@@ -77,16 +77,16 @@
             <div class="comment-field">
                 <mat-form-field class="example-full-width">
                     <mat-label>Leave a comment</mat-label>
-                    <textarea matInput placeholder="Comment..."></textarea>
+                    <textarea matInput placeholder="Comment..." [formControl]="content"></textarea>
                 </mat-form-field>
             </div>
             <div class="comment-field">
-                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary">
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" 
+                (click)="setMyComment()"[disabled]="content.invalid">
                     <mat-icon>comment</mat-icon>
                 </button>
             </div>
-            <app-comment *ngFor="let comment of comments" [data]="comment">
-            </app-comment>
+            <app-comment *ngFor="let comment of comments" [data]="comment" [fillList]="myCallbackFunctionFillList" [terrain_id]="terrain.id"></app-comment>
         </mat-expansion-panel>
 
     </mat-accordion>
@@ -101,7 +101,7 @@
             <mat-card-header>
                 <mat-card-title>Terrain Edit</mat-card-title>
                 <div *ngIf="isEditable" class="edit-button-container">
-                    <button mat-mini-fab color="primary" (click)="saveChanges()">
+                    <button mat-mini-fab color="primary" (click)="saveChanges() ">
                         <mat-icon>save</mat-icon>
                     </button>
                 </div>
@@ -156,10 +156,13 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Terrain Data
+                    Terrain Data 
                 </mat-panel-title>
+                <mat-panel-description>
+                    Click on the data you want to edit!
+                  </mat-panel-description>
             </mat-expansion-panel-header>
-            <app-list-of-terrain-data [data]="terrain.id"></app-list-of-terrain-data>
+            <app-list-of-terrain-data [data]="terrain.id" [inEdit]="inEdit"></app-list-of-terrain-data>
         </mat-expansion-panel>
 
     </mat-accordion>

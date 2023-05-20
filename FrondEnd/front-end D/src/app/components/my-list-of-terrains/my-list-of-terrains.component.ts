@@ -6,6 +6,8 @@ import { Terrain } from 'src/app/interfaces/terrain';
 import { Router } from '@angular/router';
 import { SharedLogicService } from 'src/app/services/shared.logic.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { MatDialogConfig } from '@angular/material/dialog';
+import { TerrainDataEditComponent } from 'src/app/dialogs/terrain-data-edit/terrain-data-edit.component';
 
 @Component({
   selector: 'app-my-list-of-terrains',
@@ -20,6 +22,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
 
   constructor(
     private sharedService: SharedService,
@@ -68,8 +71,7 @@ export class MyListOfTerrainsComponent implements OnInit, AfterViewInit {
   onRowClick(row: Terrain) {
     this.router.navigate(['terrain'], { queryParams: { terrain: JSON.stringify(row) } });
   }
-
-
+  
 }
 
 

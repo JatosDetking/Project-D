@@ -44,6 +44,7 @@ import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-l
 import { TerrainComponent } from './components/terrain/terrain.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ListOfTerrainDataComponent } from './components/list-of-terrain-data/list-of-terrain-data.component';
+import { TerrainDataEditComponent } from './dialogs/terrain-data-edit/terrain-data-edit.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -81,7 +82,8 @@ export const httpInterceptorProviders = [
     MyListOfTerrainsComponent,
     TerrainComponent,
     CommentComponent,
-    ListOfTerrainDataComponent
+    ListOfTerrainDataComponent,
+    TerrainDataEditComponent
   ],
   imports: [
     FormsModule,

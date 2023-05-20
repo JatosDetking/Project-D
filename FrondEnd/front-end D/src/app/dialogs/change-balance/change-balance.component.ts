@@ -23,8 +23,7 @@ export class ChangeBalanceComponent implements OnInit, AfterViewInit {
     this.authService.updateBalance(this.balance.value).subscribe(res=>{
       this.authService.updateMyInfo().subscribe();
       this.dialogRef.close();
-    });
-    
+    });    
   }
   
   ngOnInit(): void {

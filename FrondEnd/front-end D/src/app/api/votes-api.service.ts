@@ -30,10 +30,10 @@ export class VotesAPIService {
         )
     }
 
-    deleteMyVote(id: number) {
+  /*  deleteMyVote(id: number) {
         return this.http.delete(`${databaseURL}/terrain/vote/deletemyvote`,{
             params: new HttpParams().set('id', id)
         })      
     }
-
+*/
 }

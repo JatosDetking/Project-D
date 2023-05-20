@@ -2,29 +2,39 @@
     <mat-card-content *ngIf="data" style="margin-top: 16px;">
       <mat-label></mat-label>
       <div *ngIf="isMyComment() && isHidden" class="edit-button-container">
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" >
-          <mat-icon >edit</mat-icon>
-        </button>
+        <button *ngIf="!inEdit" mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" (click)="changeMode()">
+            <mat-icon >edit</mat-icon>
+          </button>
+          <button *ngIf="inEdit" mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" (click)="updateMyComment(); changeMode()"  [disabled]="contentFromUpdate.invalid">
+            <mat-icon >save</mat-icon>
+          </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" (click)="deleteMySubComment();">
+            <mat-icon >delete</mat-icon>
+          </button>
       </div>
       <p *ngIf="user"><strong>{{user.username}}</strong></p>
-      <div>{{data.content}}</div>
+      <div *ngIf="!inEdit">{{data.content}}</div>
+      <mat-form-field *ngIf="inEdit" style="min-width: 400px;">
+        <mat-label  >Edit a comment</mat-label>
+        <textarea matInput placeholder="Comment..." [formControl]="contentFromUpdate"></textarea>
+      </mat-form-field>
       <div class="edit-date">{{data.edit_date}}</div>
     </mat-card-content> 
     
     <div *ngIf="data">
-      <app-comment *ngFor="let comment of data.subComment" [data]="comment" [sub]="true"></app-comment>
+      <app-comment *ngFor="let comment of data.subComment" [data]="comment" [sub]="true" [fillList]="fillList"></app-comment>
     </div>
     <div  *ngIf="!sub">
         <div class="comment-field">
         <mat-form-field style="min-width: 400px;">
             <mat-label  >Leave a comment</mat-label>
-            <textarea matInput placeholder="Comment..."></textarea>
+            <textarea matInput placeholder="Comment..." [formControl]="content"></textarea>
           </mat-form-field>
         </div>
         <div class="comment-field">
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" >
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary" (click)="setMySubComment()" [disabled]="content.invalid">
                 <mat-icon >comment</mat-icon>
               </button>
-        </div>
+        </div> 
     </div>
   </mat-card>

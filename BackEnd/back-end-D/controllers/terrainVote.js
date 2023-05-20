@@ -20,7 +20,7 @@ exports.initTerrainVoteController = (db) => {
         let sql = `SELECT * FROM votes WHERE terrain_id = ${req.query.terrainId}`;
 
         db.query(sql, (err, results) => {
-            if (err) {
+            if (err) { 
                 res.status(500).send(['500']);
                 throw err;
             } else {
@@ -66,7 +66,6 @@ exports.initTerrainVoteController = (db) => {
     };
 
     controller.deleteTerrainVote = (req, res, next) => {
-
 
         let sql = `SELECT *
         FROM votes

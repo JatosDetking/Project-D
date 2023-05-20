@@ -4,6 +4,10 @@ import { GroupService } from './services/group.service';
 import { SharedService } from './services/shared.service';
 import { TerrainService } from './services/terrain.service';
 import { TerrainDataService } from './services/terrain.data.service';
+import { CommentService } from './services/comment.service'; 
+import { SharedLogicService } from './services/shared.logic.service';
+import { UserService } from './services/user.service';
+import { VotesService } from './services/votes.service';
 
 
 @Component({
@@ -19,6 +23,10 @@ export class AppComponent implements OnInit{
     private _adapter: DateAdapter<any>,
     private terrainService: TerrainService,
     private terrainDataService:TerrainDataService,
+    private commentService:CommentService,
+    private sharedLogicService:SharedLogicService,
+    private userService:UserService,
+    private votesService:VotesService,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
   }

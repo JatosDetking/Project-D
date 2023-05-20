@@ -101,9 +101,15 @@ exports.initTerrainController = (db) => {
                 res.status(500).send(['500'])
                 throw err
             } else {
+                let newResults = [];
+                for (const key in results) {
+                    if (results[key].creator_id == res.userId || results[key].type != "private") {
+                        newResults.push(results[key]);
+                    }
+                }
                 let msg = `Аll terrains for taken.`
                 console.log(msg);
-                res.status(200).send({ ...results });
+                res.status(200).send({ ...newResults });
                 return;
             }
         });
@@ -117,10 +123,17 @@ exports.initTerrainController = (db) => {
                 res.status(500).send(['500'])
                 throw err
             } else {
-                let msg = `Terrain taken.`
-                console.log(msg);
-                res.status(200).send({ ...results });
-                return;
+                if (results[0].creator_id == res.userId || results[0].type != "private") {
+                    let msg = `Terrain taken.`
+                    console.log(msg);
+                    res.status(200).send({ ...results[0] });
+                    return;
+                } else {
+                    let msg = `Access denied.`
+                    console.log(msg);
+                    res.status(403).send([msg]);
+                    return;
+                }
             }
         });
     }
@@ -135,9 +148,15 @@ exports.initTerrainController = (db) => {
                         res.status(500).send(['500'])
                         throw err
                     } else {
+                        let newResults = [];
+                        for (const key in results) {
+                            if (results[key].creator_id == res.userId || results[key].type != "private") {
+                                newResults.push(results[key]);
+                            }
+                        }
                         let msg = `Terrains taken.`
                         console.log(msg);
-                        res.status(200).send({ ...results });
+                        res.status(200).send({ ...newResults });
                         return;
                     }
                 });

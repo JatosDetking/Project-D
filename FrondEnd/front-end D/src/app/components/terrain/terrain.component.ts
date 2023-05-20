@@ -2,13 +2,11 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Terrain } from 'src/app/interfaces/terrain';
 import { User } from 'src/app/interfaces/user';
-import { UserService } from 'src/app/services/user.service';
 import { MatAccordion } from '@angular/material/expansion';
-import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/interfaces/comment';
 import { FormControl, Validators } from '@angular/forms';
-import { SharedLogicService } from 'src/app/services/shared.logic.service';
-import { VotesService } from 'src/app/services/votes.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -33,6 +31,7 @@ export class TerrainComponent implements OnInit {
 
   name = new FormControl('', [Validators.required]);
   price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required]);
+  content = new FormControl('', [Validators.required]);
 
   votes: any;
   comments: Comment[] = [];
@@ -61,16 +60,14 @@ export class TerrainComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
-    private commentService: CommentService,
-    private sharedLogicService: SharedLogicService,
-    private votesService: VotesService
+    private sharedService: SharedService,
+    private userService:UserService
   ) { }
 
   ngOnInit(): void {
     this.terrain = JSON.parse(this.route.snapshot.queryParams['terrain']);
-    this.creator = this.userService.getUser(this.terrain.creator_id);
-    this.editor = this.userService.getUser(this.terrain.last_change_id);
+    this.creator = this.sharedService.UserService?.getUser(this.terrain.creator_id)!;
+    this.editor = this.sharedService.UserService?.getUser(this.terrain.last_change_id)!;
     this.fillList();
     this.name.setValue(this.terrain.name);
     this.price.setValue(this.terrain.price);
@@ -94,40 +91,70 @@ export class TerrainComponent implements OnInit {
   }
   saveChanges() {
     this.inEdit = false;
+    this.refreshTerrain()
   }
   fillList() {
-    this.commentService.getComments(this.terrain.id).subscribe((res: any) => {
+    let newComments: Comment[] = [];
+    this.sharedService.CommentService?.getComments(this.terrain.id).subscribe((res: any) => {
       for (const key in res) {
         const CommentData = res[key];
 
-        CommentData.edit_date = this.sharedLogicService.formatDateTime(CommentData.edit_date);
+        CommentData.edit_date = this.sharedService.SharedLogicService?.formatDateTime(CommentData.edit_date);
 
         for (const key2 in CommentData.subComment) {
-          CommentData.subComment[key2].edit_date = this.sharedLogicService.formatDateTime(CommentData.subComment[key2].edit_date);
+          CommentData.subComment[key2].edit_date = this.sharedService.SharedLogicService?.formatDateTime(CommentData.subComment[key2].edit_date);
         }
-        this.comments.push(CommentData);
+        newComments.push(CommentData);
       }
+      this.comments = newComments;
     });
+
+  }
+  myCallbackFunctionFillList = (): void => {
+    this.fillList();
   }
   getVotes() {
-    this.votesService.getVotes(this.terrain.id).subscribe((res: any) => {
+    this.sharedService.VotesService?.getVotes(this.terrain.id).subscribe((res: any) => {
       this.votes = { upvote: res.upvote, downvote: res.downvote };
     });
   }
   getMyVote() {
-    this.votesService.getMyVotes(this.terrain.id).subscribe((res: any) => {
+    this.sharedService.VotesService?.getMyVotes(this.terrain.id).subscribe((res: any) => {
       if (res.type != -1) {
-       this.myVoteType = res.type;
-       console.log(11111111111111)
+        this.myVoteType = res.type;
         this.myVote = res;
       }
     });
   }
 
   setMyVote() {
-    this.votesService.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
-      
+    this.sharedService.VotesService?.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
+
       this.getVotes();
+    });
+  }
+
+  setMyComment() {
+    this.sharedService.CommentService?.setComments(this.terrain.id, this.content.value).subscribe((res: any) => {
+      this.content.setValue("");
+      this.content.markAsPristine();
+      this.content.markAsUntouched();
+      this.fillList();
+    });
+  }
+
+  refreshTerrain() {
+    this.sharedService.TerrainService?.getTerrain(this.terrain.id).subscribe((res: any) => {
+      res.last_change_time = this.sharedService.SharedLogicService?.formatDateTime(res.last_change_time);
+      this.terrain = res;
+    });
+  }
+  saveTerrain() {
+    this.sharedService.CommentService?.setComments(this.terrain.id, this.content.value).subscribe((res: any) => {
+      this.content.setValue("");
+      this.content.markAsPristine();
+      this.content.markAsUntouched();
+      this.fillList();
     });
   }
 }
