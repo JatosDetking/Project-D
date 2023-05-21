@@ -9,14 +9,15 @@ import { databaseURL } from './env';
 export class UserAPIService {
 
   constructor(
-    private http : HttpClient
-    ) { }
+    private http: HttpClient
+  ) { }
 
-  getUserInfo(id:number){
-    return this.http.get(`${databaseURL}/user/getuser`,{
-      params:new HttpParams().set('id',id)
+  getUserInfo(id: number) {
+    return this.http.get(`${databaseURL}/user/getuser`, {
+      params: new HttpParams().set('id', id)
     })
   }
-
-  
+  getAllUsers() {
+    return this.http.get(`${databaseURL}/user/getallusers`)
+  }
 }

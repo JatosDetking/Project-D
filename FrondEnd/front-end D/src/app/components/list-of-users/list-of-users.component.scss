@@ -1,0 +1,39 @@
+.filter {
+    margin-top: 15px;
+    margin-left: 25px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td,
+  th {
+    width: 25%;
+  }
+  
+  .table-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .heading {
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #000000;
+  }
+  .mat-row .mat-cell{
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-row:hover .mat-cell {
+    border-color: #000000;
+  }

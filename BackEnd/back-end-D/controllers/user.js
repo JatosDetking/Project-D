@@ -181,12 +181,23 @@ exports.initUserController = (db) => {
             if (err) {
                 next(res.status(500))
             }
-            let loginInfo = {
-                email: result[0].email,
-                name: result[0].name,
-                username: result[0].username
+            if(result[0]){
+                let loginInfo = {
+                    email: result[0].email,
+                    name: result[0].name,
+                    username: result[0].username
+                }
+                res.status(200).send({ ...loginInfo });
             }
-            res.status(200).send({ ...loginInfo });
+            else{
+                let loginInfo = {
+                    email: "",
+                    name: "",
+                    username: "Account is Deleted"
+                }
+                res.status(200).send({ ...loginInfo });
+            }
+           
         });
     }
     controller.getMyUserInfo = (req, res, next) => {
@@ -235,7 +246,6 @@ exports.initUserController = (db) => {
                 console.log(msg);
 
                 for (const key in results) {
-                    delete results[key].id;
                     delete results[key].password;
                     delete results[key].balance;
                 }

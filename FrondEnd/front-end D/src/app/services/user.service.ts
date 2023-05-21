@@ -35,4 +35,9 @@ export class UserService {
     });
     return user;
   }
+  getAllUsers() {
+    return this.userApi.getAllUsers().pipe(map((res) => {
+      return res
+    }))
+  }
 }

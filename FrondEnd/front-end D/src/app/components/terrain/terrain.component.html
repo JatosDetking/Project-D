@@ -50,7 +50,8 @@
                 </div>
                 <div class="info-field">
                     <mat-card-subtitle>Last Editor</mat-card-subtitle>
-                    <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(editor)">
+                    <p class="clickable"
+                        (click)="editor.name !=''? sharedService.SharedLogicService?.goToAccount(editor):''">
                         {{editor.username}}</p>
                 </div>
                 <div class="info-field">

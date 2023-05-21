@@ -16,7 +16,9 @@
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
-        <p *ngIf="user" class="title clickable"  (click)="sharedService.SharedLogicService?.goToAccount(user)"><strong>{{user.username}}</strong></p>
+        <p *ngIf="user" class="title clickable" (click)="sharedService.SharedLogicService?.goToAccount(user)">
+            <strong>{{user.username}}</strong>
+        </p>
         <div *ngIf="!inEdit">{{data.content}}</div>
         <mat-form-field *ngIf="inEdit" style="min-width: 400px;">
             <mat-label>Edit a comment</mat-label>

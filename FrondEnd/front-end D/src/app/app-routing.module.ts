@@ -11,6 +11,7 @@ import { ListOfTerrainsComponent } from './components/list-of-terrains/list-of-t
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { TerrainComponent } from './components/terrain/terrain.component';
 import { AccountComponent } from './components/account/account.component';
+import { ListOfUsersComponent } from './components/list-of-users/list-of-users.component';
 
 const routes: Routes = [
   { path: '', component: InformationPageComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'myaccount', component: MyAccountComponent ,canActivate:[LoggedInGuard]},
   { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]},
   { path: 'account', component: AccountComponent ,canActivate:[LoggedInGuard]},
-  { path: 'listofterrais', component: ListOfTerrainsComponent ,canActivate:[LoggedInGuard]}
+  { path: 'listofterrais', component: ListOfTerrainsComponent ,canActivate:[LoggedInGuard]},
+  { path: 'listofusers', component: ListOfUsersComponent ,canActivate:[LoggedInGuard]}
 ];
 
 @NgModule({
