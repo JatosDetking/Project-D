@@ -98,15 +98,15 @@ function createTableTerrains() {
     })
 }
 function createTableTerrainsData() {
-       let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
+    let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        data DECIMAL(5,2) NOT NULL,
+        data DECIMAL(12,2) NOT NULL,
         type VARCHAR(50) NOT NULL,
         year INT NOT NULL,
         terrain_id INT NOT NULL,
         UNIQUE KEY (year, type, terrain_id),
         FOREIGN KEY (terrain_id) REFERENCES terrains(id) ON DELETE CASCADE
-      );`; 
+      );`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      

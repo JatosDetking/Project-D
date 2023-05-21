@@ -14,7 +14,8 @@ export class TerrainDataEditComponent implements OnInit {
 
 
   dataValue: FormControl = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.maxLength(10)
   ]);
   constructor(
     public dialogRef: MatDialogRef<TerrainDataEditComponent>,
