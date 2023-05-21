@@ -17,7 +17,7 @@ import { TerrainDataEditComponent } from 'src/app/dialogs/terrain-data-edit/terr
 export class ListOfTerrainsComponent implements OnInit, AfterViewInit {
 
 
-  @Input() location?: string = "";
+  @Input() location?: string = '0';
   @Input() id?: number;
 
   displayedColumns: string[] = ['name', 'price'];
