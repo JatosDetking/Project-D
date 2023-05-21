@@ -35,7 +35,7 @@
     <button mat-raised-button color="primary" (click)="openDialogChangeBalance()">Change Balance</button>
   </div>
 </div>
-
+<div class="container">
 <mat-accordion class="example-headers-align" multi>
   <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -43,8 +43,8 @@
              My Terrain List
           </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-my-list-of-terrains></app-my-list-of-terrains>
+      <app-list-of-terrains [location]="'isMyAccount'"></app-list-of-terrains>
   </mat-expansion-panel>
 </mat-accordion>
-
+</div>
     

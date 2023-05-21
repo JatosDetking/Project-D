@@ -45,11 +45,13 @@
             <div>
                 <div class="info-field">
                     <mat-card-subtitle>Creator</mat-card-subtitle>
-                    <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(creator)">{{creator.name}}</p>
+                    <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(creator)">
+                        {{creator.username}}</p>
                 </div>
                 <div class="info-field">
                     <mat-card-subtitle>Last Editor</mat-card-subtitle>
-                    <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(editor)">{{editor.name}}</p>
+                    <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(editor)">
+                        {{editor.username}}</p>
                 </div>
                 <div class="info-field">
                     <mat-card-subtitle>Last change</mat-card-subtitle>
@@ -59,39 +61,40 @@
         </mat-card>
     </div>
 
-    <mat-accordion class="example-headers-align" multi>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Terrain Data
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <app-list-of-terrain-data [data]="terrain.id"></app-list-of-terrain-data>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Comments
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="comment-field">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Leave a comment</mat-label>
-                    <textarea matInput placeholder="Comment..." [formControl]="content"></textarea>
-                </mat-form-field>
-            </div>
-            <div class="comment-field">
-                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="primary"
-                    (click)="setMyComment()" [disabled]="content.invalid">
-                    <mat-icon>comment</mat-icon>
-                </button>
-            </div>
-            <app-comment *ngFor="let comment of comments" [data]="comment" [fillList]="myCallbackFunctionFillList"
-                [terrain_id]="terrain.id"></app-comment>
-        </mat-expansion-panel>
+    <div class="container">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Terrain Data
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-list-of-terrain-data [data]="terrain.id"></app-list-of-terrain-data>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Comments
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="comment-field">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Leave a comment</mat-label>
+                        <textarea matInput placeholder="Comment..." [formControl]="content"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="comment-field">
+                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                        color="primary" (click)="setMyComment()" [disabled]="content.invalid">
+                        <mat-icon>comment</mat-icon>
+                    </button>
+                </div>
+                <app-comment *ngFor="let comment of comments" [data]="comment" [fillList]="myCallbackFunctionFillList"
+                    [terrain_id]="terrain.id"></app-comment>
+            </mat-expansion-panel>
 
-    </mat-accordion>
-
+        </mat-accordion>
+    </div>
 </div>
 
 
@@ -102,69 +105,71 @@
             <mat-card-header>
                 <mat-card-title>Terrain Edit</mat-card-title>
                 <div class="edit-button-container">
-                    <button mat-mini-fab color="primary" (click)="saveChanges()" [disabled]="name.invalid|| price.invalid">
+                    <button mat-mini-fab color="primary" (click)="saveChanges()"
+                        [disabled]="name.invalid|| price.invalid">
                         <mat-icon>save</mat-icon>
                     </button>
                 </div>
             </mat-card-header>
 
             <mat-divider class=" line"></mat-divider>
-                        <mat-card-content style="margin-top: 16px;">
-                            <div>
-                                <div class="info-field">
-                                    <mat-card-subtitle>Name</mat-card-subtitle>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput type="text" [formControl]="name">
-                                    </mat-form-field>
-                                </div>
-                                <div class="info-field">
-                                    <mat-card-subtitle>Price</mat-card-subtitle>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput type="number" [formControl]="price">
-                                    </mat-form-field>
-                                </div>
-                                <div *ngIf="isCreator" class="info-field ">
-                                    <mat-card-subtitle>Type</mat-card-subtitle>
-                                    <mat-form-field>
-                                        <mat-select [(ngModel)]="selecteType">
-                                            <mat-option value="private">private</mat-option>
-                                            <mat-option value="editable">editable</mat-option>
-                                            <mat-option value="uneditable">uneditable</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <mat-divider class="lineEdit"></mat-divider>
-                        </mat-card-content>
-                        <div class="infoEdit">
-                            <div class="info-field">
-                                <mat-card-subtitle>Creator</mat-card-subtitle>
-                                <p>{{creator.name}}</p>
-                            </div>
-                            <div class="info-field">
-                                <mat-card-subtitle>Last Editor</mat-card-subtitle>
-                                <p>{{editor.name}}</p>
-                            </div>
-                            <div class="info-field">
-                                <mat-card-subtitle>Last change</mat-card-subtitle>
-                                <p>{{terrain.last_change_time}}</p>
-                            </div>
-                        </div>
+            <mat-card-content style="margin-top: 16px;">
+                <div>
+                    <div class="info-field">
+                        <mat-card-subtitle>Name</mat-card-subtitle>
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="text" [formControl]="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="info-field">
+                        <mat-card-subtitle>Price</mat-card-subtitle>
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="number" [formControl]="price">
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="isCreator" class="info-field ">
+                        <mat-card-subtitle>Type</mat-card-subtitle>
+                        <mat-form-field>
+                            <mat-select [(ngModel)]="selecteType">
+                                <mat-option value="private">private</mat-option>
+                                <mat-option value="editable">editable</mat-option>
+                                <mat-option value="uneditable">uneditable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="lineEdit"></mat-divider>
+            </mat-card-content>
+            <div class="infoEdit">
+                <div class="info-field">
+                    <mat-card-subtitle>Creator</mat-card-subtitle>
+                    <p>{{creator.name}}</p>
+                </div>
+                <div class="info-field">
+                    <mat-card-subtitle>Last Editor</mat-card-subtitle>
+                    <p>{{editor.name}}</p>
+                </div>
+                <div class="info-field">
+                    <mat-card-subtitle>Last change</mat-card-subtitle>
+                    <p>{{terrain.last_change_time}}</p>
+                </div>
+            </div>
         </mat-card>
     </div>
+    <div class="container">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Terrain Data
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Click on the data you want to edit!
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-list-of-terrain-data [data]="terrain.id" [inEdit]="inEdit"></app-list-of-terrain-data>
+            </mat-expansion-panel>
 
-    <mat-accordion class="example-headers-align" multi>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Terrain Data
-                </mat-panel-title>
-                <mat-panel-description>
-                    Click on the data you want to edit!
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <app-list-of-terrain-data [data]="terrain.id" [inEdit]="inEdit"></app-list-of-terrain-data>
-        </mat-expansion-panel>
-
-    </mat-accordion>
+        </mat-accordion>
+    </div>
 </div>

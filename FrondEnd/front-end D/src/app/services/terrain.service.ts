@@ -18,9 +18,18 @@ export class TerrainService {
       return res
     }))
   }
-
+  getUserTerrains(id: number) {
+    return this.terrainApi.getUserTerrains(id).pipe(map((res) => {
+      return res
+    }))
+  }
   getTerrain(id: number) {
     return this.terrainApi.getTerrain(id).pipe(map((res) => {
+      return res
+    }))
+  }
+  getAllTerrains() {
+    return this.terrainApi.getAllTerrains().pipe(map((res) => {
       return res
     }))
   }

@@ -40,7 +40,7 @@ import { TokenIInterceptor } from './token-i.interceptor';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { ChangeBalanceComponent } from './dialogs/change-balance/change-balance.component';
 import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
-import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-list-of-terrains.component';
+import { ListOfTerrainsComponent } from './components/list-of-terrains/list-of-terrains.component';
 import { TerrainComponent } from './components/terrain/terrain.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ListOfTerrainDataComponent } from './components/list-of-terrain-data/list-of-terrain-data.component';
@@ -80,7 +80,7 @@ export const httpInterceptorProviders = [
     MyAccountComponent,
     ChangeBalanceComponent,
     ChangePasswordComponent,
-    MyListOfTerrainsComponent,
+    ListOfTerrainsComponent,
     TerrainComponent,
     CommentComponent,
     ListOfTerrainDataComponent,

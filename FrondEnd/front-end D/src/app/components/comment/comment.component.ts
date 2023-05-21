@@ -30,7 +30,7 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private sharedService: SharedService
+    public sharedService: SharedService
   ) { }
 
   ngOnInit(): void {

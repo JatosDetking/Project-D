@@ -1,89 +1,103 @@
 .info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  
-  .info-card {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 25px;
-  }
-  
-  
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-  }
-  
-  .info-field {
-   width: 33%;
-   display: inline-block;
-   margin-top: 10px;
-  }
-  .comment-field {
-    max-width: 800px;
-    width: 50%;
-    display: inline-block;
-    margin-top: 10px;
-   }
-  .info-vote {
-    margin-bottom: 7px;
-   }
-  .edit-button-container {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
-.line{
-    margin-top: 10px;
+
+.info-card {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 25px;
 }
-.lineEdit{
+
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.info-field {
+  width: 33%;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.comment-field {
+  max-width: 800px;
+  width: 50%;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.info-vote {
+  margin-bottom: 7px;
+}
+
+.edit-button-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  margin-top: 10px;
+}
+
+.lineEdit {
   margin-top: 22px;
 }
-.infoEdit{
+
+.infoEdit {
   margin-top: 28px;
 }
-.example-action-buttons {
-    padding-bottom: 20px;
-  }
-  
-  .example-headers-align .mat-expansion-panel-header-description {
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
-    margin-left: 8px;
-  }
 
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-  
-  input::-webkit-outer-spin-button,
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field+.mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type=number] {
   -moz-appearance: textfield;
 }
-.clickable:hover{
+
+.clickable:hover {
   font-weight: bold;
   cursor: pointer;
-  }
+}
+
+.container {
+  margin-left: 10px;
+  margin-right: 10px;
+}

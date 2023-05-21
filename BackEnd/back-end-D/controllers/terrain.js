@@ -1,3 +1,4 @@
+const { query } = require('express')
 const uC = require('./../controllers/user')
 
 
@@ -140,30 +141,50 @@ exports.initTerrainController = (db) => {
 
     controller.getUserTerrains = (req, res, next) => {
 
-        userController.getUserId(db, req.query.email)
-            .then(userId => {
-                let sql = `SELECT * FROM terrains WHERE creator_id = ${userId}`;
-                db.query(sql, (err, results) => {
-                    if (err) {
-                        res.status(500).send(['500'])
-                        throw err
-                    } else {
-                        let newResults = [];
-                        for (const key in results) {
-                            if (results[key].creator_id == res.userId || results[key].type != "private") {
-                                newResults.push(results[key]);
-                            }
-                        }
-                        let msg = `Terrains taken.`
-                        console.log(msg);
-                        res.status(200).send({ ...newResults });
-                        return;
+        /* userController.getUserId(db, req.query.email)
+             .then(userId => {
+                 let sql = `SELECT * FROM terrains WHERE creator_id = ${userId}`;
+                 db.query(sql, (err, results) => {
+                     if (err) {
+                         res.status(500).send(['500'])
+                         throw err
+                     } else {
+                         let newResults = [];
+                         for (const key in results) {
+                             if (results[key].creator_id == res.userId || results[key].type != "private") {
+                                 newResults.push(results[key]);
+                             }
+                         }
+                         let msg = `Terrains taken.`
+                         console.log(msg);
+                         res.status(200).send({ ...newResults });
+                         return;
+                     }
+                 });
+             })
+             .catch(error => {
+                 console.error(error);
+             });*/
+        let sql = `SELECT * FROM terrains WHERE creator_id = ${req.query.id}`;
+        db.query(sql,(err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('500');
+                return;
+            } else {
+                let newResults = [];
+                console.log(results)
+                for (const key in results) {
+                    if (results[key].creator_id == res.userId || results[key].type != "private") {
+                        newResults.push(results[key]);
                     }
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                }
+                let msg = 'Terrains taken.';
+                console.log(msg);
+                res.status(200).send(newResults); // No need for object spread operator
+                return;
+            }
+        });
     }
 
     controller.getMyTerrains = (req, res, next) => {

@@ -7,7 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
-import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-list-of-terrains.component';
+import { ListOfTerrainsComponent } from './components/list-of-terrains/list-of-terrains.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { TerrainComponent } from './components/terrain/terrain.component';
 import { AccountComponent } from './components/account/account.component';
@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'stats', component: StatsComponent ,canActivate:[LoggedInGuard]},
   { path: 'myaccount', component: MyAccountComponent ,canActivate:[LoggedInGuard]},
   { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]},
-  { path: 'account', component: AccountComponent ,canActivate:[LoggedInGuard]}
+  { path: 'account', component: AccountComponent ,canActivate:[LoggedInGuard]},
+  { path: 'listofterrais', component: ListOfTerrainsComponent ,canActivate:[LoggedInGuard]}
 ];
 
 @NgModule({

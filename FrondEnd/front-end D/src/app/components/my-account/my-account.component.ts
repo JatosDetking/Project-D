@@ -5,6 +5,7 @@ import { ChangePasswordComponent } from 'src/app/dialogs/change-password/change-
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { MatAccordion } from '@angular/material/expansion';
+
 @Component({
   selector: 'app-account',
   templateUrl: './my-account.component.html',

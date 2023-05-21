@@ -19,17 +19,18 @@
         <p>{{user?.name}}</p>
       </div>
       </div> 
-     <mat-divider></mat-divider>
       </mat-card-content>
     </mat-card>
-   
+   </div>
+   <div class="container">
   <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-               My Terrain List
+                Terrain List
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-my-list-of-terrains></app-my-list-of-terrains>
+        <app-list-of-terrains [location]="'isAccount'" [id]="user?.id"></app-list-of-terrains>
     </mat-expansion-panel>
   </mat-accordion>
+</div>

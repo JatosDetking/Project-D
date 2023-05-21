@@ -9,21 +9,30 @@ import { databaseURL } from './env';
 export class TerrainApiService {
 
   constructor(
-    private http : HttpClient
-    ) { }
+    private http: HttpClient
+  ) { }
 
-  getMyTerrains(){
+  getMyTerrains() { 
     return this.http.get(`${databaseURL}/terrain/getmyterrain`)
   }
-  getTerrain(id:number){
-    return this.http.get(`${databaseURL}/terrain/getterrain`,{
-      params:new HttpParams().set('id',id)
+  getTerrain(id: number) {
+    return this.http.get(`${databaseURL}/terrain/getterrain`, {
+      params: new HttpParams().set('id', id)
     })
   }
+  getUserTerrains(id: number) {
+    return this.http.get(`${databaseURL}/terrain/getuserterrain`, {
+      params: new HttpParams().set('id', id)
+    })
+  }
+  getAllTerrains() { 
+    return this.http.get(`${databaseURL}/terrain/getallterrains`)
+  }
+  
   updateTerrain(id: number, name: string, price: number, type: string) {
     return this.http.put(`${databaseURL}/terrain/editterrain`,
-        { id, name, price, type}
+      { id, name, price, type }
     )
-}
+  }
 
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-account',
@@ -8,6 +9,9 @@ import { User } from 'src/app/interfaces/user';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
+  
+  @ViewChild(MatAccordion)
+  accordion!: MatAccordion;
 
   user?:User;
 
