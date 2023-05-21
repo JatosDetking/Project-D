@@ -25,9 +25,9 @@ export class TerrainDataEditComponent implements OnInit {
     this.data = data,
       this.dataValue.setValue(this.data.terrainData.data);
       if(this.data.terrainData.type == "temp"){
-        this.dataValue.addValidators( Validators.pattern(/^\-*\d+$/));
+        this.dataValue.addValidators( Validators.pattern(/^\-*\d+\.*\d+$/));
       }else{
-        this.dataValue.addValidators( Validators.pattern(/^\d+$/));
+        this.dataValue.addValidators( Validators.pattern(/^\d+\.*\d+$/));
       }
       
   }

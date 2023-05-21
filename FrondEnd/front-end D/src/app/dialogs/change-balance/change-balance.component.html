@@ -6,6 +6,9 @@
     <mat-error *ngIf="balance.hasError('pattern')|| balance.invalid">
       Invalid character!
     </mat-error>
+    <mat-error *ngIf="balance.hasError('maxLength')|| balance.invalid">
+      Tоo big value?
+    </mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

@@ -44,7 +44,7 @@ function createTableUsers() {
         email VARCHAR(50) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         name VARCHAR(50) NOT NULL,
-        balance DECIMAL(60,2) DEFAULT 0.00
+        balance INT(50) DEFAULT 0
       );`;
     db.query(sql, (err, result) => {
         if (err) throw err;
@@ -71,7 +71,7 @@ function createTableInstallations() {
         intervals VARCHAR(50) NOT NULL,
         performance_factors VARCHAR(50) NOT NULL,
         type VARCHAR(50) NOT NULL,
-        price DECIMAL(20,2) NOT NULL,
+        price INT(50) NOT NULL,
         creator_id INT NOT NULL,
         FOREIGN KEY (creator_id) REFERENCES users(id)
     );`;
@@ -85,7 +85,7 @@ function createTableTerrains() {
     let sql = `CREATE TABLE IF NOT EXISTS terrains (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
-        price DECIMAL(20,2) NOT NULL,
+        price INT(50) NOT NULL,
         creator_id INT NOT NULL,
         type VARCHAR(50) NOT NULL,
         last_change_time DATETIME NOT NULL,
@@ -98,7 +98,7 @@ function createTableTerrains() {
     })
 }
 function createTableTerrainsData() {
-    let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
+       let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
         id INT PRIMARY KEY AUTO_INCREMENT,
         data DECIMAL(12,2) NOT NULL,
         type VARCHAR(50) NOT NULL,
@@ -106,7 +106,7 @@ function createTableTerrainsData() {
         terrain_id INT NOT NULL,
         UNIQUE KEY (year, type, terrain_id),
         FOREIGN KEY (terrain_id) REFERENCES terrains(id) ON DELETE CASCADE
-      );`;
+      );`; 
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      
@@ -115,7 +115,7 @@ function createTableTerrainsData() {
 function createTableComments() {
     let sql = `CREATE TABLE IF NOT EXISTS comments (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        content VARCHAR(255) NOT NULL,
+        content LONGTEXT NOT NULL,
         user_id INT NOT NULL,
         terrain_id INT NOT NULL,
         edit_date DATETIME NOT NULL,
@@ -172,6 +172,14 @@ function createTableVotes() {
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY (terrain_id) REFERENCES terrains(id) ON DELETE CASCADE
       );`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        //console.log(result);      
+    })
+}
+function updateTable() {
+    let sql = `ALTER TABLE comments
+    MODIFY COLUMN content LONGTEXT NOT NULL;`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      
@@ -358,6 +366,7 @@ if (prod) {
 } else {
     app.listen(`${port}`, () => {
         console.log(`Server listening on port ${port}`);
+       // updateTable();
         createTableUsers();
         createTableToken();
         createTableTerrains();

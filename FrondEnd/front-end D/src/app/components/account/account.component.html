@@ -1,0 +1,35 @@
+<div class="info-container" >
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Account Information</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content style="margin-top: 16px;">
+        <div>
+        <div class="info-field">
+          <mat-card-subtitle>Username</mat-card-subtitle>
+          <p>{{user?.username}}</p>
+        </div>
+       <div class="info-field">
+        <mat-card-subtitle>Email</mat-card-subtitle>
+          <p>{{user?.email}}</p>
+       </div>
+       <div class="info-field">
+        <mat-card-subtitle>Name</mat-card-subtitle>
+        <p>{{user?.name}}</p>
+      </div>
+      </div> 
+     <mat-divider></mat-divider>
+      </mat-card-content>
+    </mat-card>
+   
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+               My Terrain List
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-my-list-of-terrains></app-my-list-of-terrains>
+    </mat-expansion-panel>
+  </mat-accordion>

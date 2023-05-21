@@ -10,6 +10,7 @@ import { LoggedOutGuard } from './guards/logged-out.guard';
 import { MyListOfTerrainsComponent } from './components/my-list-of-terrains/my-list-of-terrains.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { TerrainComponent } from './components/terrain/terrain.component';
+import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [
   { path: '', component: InformationPageComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent ,canActivate:[LoggedInGuard]},
   { path: 'stats', component: StatsComponent ,canActivate:[LoggedInGuard]},
   { path: 'myaccount', component: MyAccountComponent ,canActivate:[LoggedInGuard]},
-  { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]}
+  { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]},
+  { path: 'account', component: AccountComponent ,canActivate:[LoggedInGuard]}
 ];
 
 @NgModule({

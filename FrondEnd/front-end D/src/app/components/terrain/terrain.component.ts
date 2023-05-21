@@ -20,8 +20,9 @@ export class TerrainComponent implements OnInit {
   accordion!: MatAccordion;
 
   isEditable = true;
+  isCreator = true;
   inEdit = false;
-  selecteType?: string
+  selecteType = "";
   myVoteType = -1;
   myVote: any;
   like = false;
@@ -29,9 +30,9 @@ export class TerrainComponent implements OnInit {
 
   myId: number = +(localStorage.getItem("id") || 0);
 
-  name = new FormControl('', [Validators.required]);
-  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required]);
-  content = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
+  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
+  content = new FormControl('', [Validators.required, Validators.maxLength(250)]);
 
   votes: any;
   comments: Comment[] = [];
@@ -60,8 +61,8 @@ export class TerrainComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sharedService: SharedService,
-    private userService:UserService
+    public sharedService: SharedService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -74,24 +75,31 @@ export class TerrainComponent implements OnInit {
     this.selecteType = this.terrain.type;
     this.getVotes();
     this.getMyVote();
-
+    this.editorProfile();
   }
 
-  hideComponent() {
+  editorProfile() {
     if (this.terrain.type == "editable" || this.terrain.creator_id == this.myId) {
       this.isEditable = true;
     }
     else {
       this.isEditable = false;
     }
-
+    if (this.terrain.creator_id == this.myId) {
+      this.isCreator = true;
+    }
+    else {
+      this.isCreator = false;
+    }
   }
   goToEditMode() {
     this.inEdit = true;
   }
   saveChanges() {
-    this.inEdit = false;
-    this.refreshTerrain()
+    this.sharedService.TerrainService?.updateTerrain(this.terrain.id, this.name.value, this.price.value, this.selecteType).subscribe((res: any) => {
+      this.inEdit = false;
+      this.refreshTerrain();
+    });
   }
   fillList() {
     let newComments: Comment[] = [];
@@ -125,6 +133,7 @@ export class TerrainComponent implements OnInit {
         this.myVote = res;
       }
     });
+   
   }
 
   setMyVote() {
@@ -147,14 +156,10 @@ export class TerrainComponent implements OnInit {
     this.sharedService.TerrainService?.getTerrain(this.terrain.id).subscribe((res: any) => {
       res.last_change_time = this.sharedService.SharedLogicService?.formatDateTime(res.last_change_time);
       this.terrain = res;
-    });
-  }
-  saveTerrain() {
-    this.sharedService.CommentService?.setComments(this.terrain.id, this.content.value).subscribe((res: any) => {
-      this.content.setValue("");
-      this.content.markAsPristine();
-      this.content.markAsUntouched();
-      this.fillList();
+      console.log(this.terrain);
+      this.name.setValue(this.terrain.name);
+      this.price.setValue(this.terrain.price);
+      this.selecteType = this.terrain.type;
     });
   }
 }

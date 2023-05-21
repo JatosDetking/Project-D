@@ -37,3 +37,11 @@
   min-height: 40px;
 
 }
+.title{
+  font-size: 20px; 
+}
+.clickable:hover{
+  -webkit-text-stroke: 1px black;
+  color: black;
+  cursor: pointer;
+  }

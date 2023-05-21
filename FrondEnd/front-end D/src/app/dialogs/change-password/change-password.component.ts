@@ -25,7 +25,6 @@ export class ChangePasswordComponent implements OnInit {
     onlyWordChars
   ])
 
-  //password: string= "";
   passmatch = true
 
   checkPasswordsMatch  = ()=>{

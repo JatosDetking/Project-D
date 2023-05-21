@@ -19,7 +19,7 @@ export class CommentComponent implements OnInit {
   @Input() fillList?: () => void;
 
   content = new FormControl('', [Validators.required]);
-  contentFromUpdate = new FormControl('', [Validators.required]);
+  contentFromUpdate = new FormControl('', [Validators.required, Validators.maxLength(250)]);
   name?: string;
   myId: string = localStorage.getItem('id')!;
   //content?:string;

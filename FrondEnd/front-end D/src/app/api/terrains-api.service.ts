@@ -20,5 +20,10 @@ export class TerrainApiService {
       params:new HttpParams().set('id',id)
     })
   }
+  updateTerrain(id: number, name: string, price: number, type: string) {
+    return this.http.put(`${databaseURL}/terrain/editterrain`,
+        { id, name, price, type}
+    )
+}
 
 }
