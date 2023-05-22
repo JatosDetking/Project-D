@@ -23,8 +23,18 @@ export class InstallationService {
             return res
         }))
     }
-    updateAllInstallation(id: number, name: string, intervals: string, performance_factors: string, price: number) {
+    getAllUserInstallations(id:number) {
+        return this.installationApiService.getAllUserInstallations(id).pipe(map((res) => {
+            return res
+        }))
+    }
+    updateInstallation(id: number, name: string, intervals: string, performance_factors: string, price: number) {
         return this.installationApiService.updateInstalation(id,name,intervals,performance_factors,price).pipe(map((res) => {
+            return res
+        }))
+    }
+    addInstallation(name: string, intervals: string, performance_factors: string, price: number, type: string) {
+        return this.installationApiService.addInstalation(name,intervals,performance_factors,price,type).pipe(map((res) => {
             return res
         }))
     }

@@ -5,7 +5,7 @@
                 <mat-card-title>Add Installation</mat-card-title>
                 <div class="edit-button-container">
                     <button  mat-mini-fab color="primary"  [disabled]="name.invalid || price.invalid || inter1.invalid || inter2.invalid || performance1.invalid
-                        || performance2.invalid || performance3.invalid">
+                        || performance2.invalid || performance3.invalid" (click)="addInstalation()">
                         <mat-icon>save</mat-icon>
                     </button>
                 </div>
@@ -70,10 +70,10 @@
                                 <label style="margin: 0; padding: 0;"> ∞)</label>
                             </td>
                         </tr>
-                        <mat-error *ngIf="inter1.hasError('maxlength')">You must enter at least 1 or at most 10
+                        <mat-error *ngIf="inter1.hasError('maxLength')">You must enter at least 1 or at most 10
                             characters.
                         </mat-error>
-                        <mat-error *ngIf="inter2.hasError('maxlength')">You must enter at least 1 or at most 10
+                        <mat-error *ngIf="inter2.hasError('maxLength')">You must enter at least 1 or at most 10
                             characters.
                         </mat-error>
                     </table>

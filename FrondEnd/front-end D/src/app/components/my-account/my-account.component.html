@@ -45,6 +45,14 @@
       </mat-expansion-panel-header>
       <app-list-of-terrains [location]="'isMyAccount'"></app-list-of-terrains>
   </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Installation List
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-list-of-installations [location]="'isAccount'" [id]="id"></app-list-of-installations>
+</mat-expansion-panel>
 </mat-accordion>
 </div>
     

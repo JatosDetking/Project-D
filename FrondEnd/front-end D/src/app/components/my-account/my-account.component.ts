@@ -15,6 +15,7 @@ export class MyAccountComponent implements AfterViewInit {
   @ViewChild(MatAccordion)
   accordion!: MatAccordion;
   
+  id:number=+localStorage.getItem('id')!;
   username: string = localStorage.getItem('username')!;
   email: string = localStorage.getItem('email')!;
   name: string = localStorage.getItem('name')!;

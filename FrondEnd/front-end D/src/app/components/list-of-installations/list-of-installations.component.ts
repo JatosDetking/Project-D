@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Installation } from 'src/app/interfaces/installation';
 import { Router } from '@angular/router';
 import { SharedLogicService } from 'src/app/services/shared.logic.service';
+import { User } from 'src/app/interfaces/user';
 
 
 @Component({
@@ -52,10 +53,17 @@ export class ListOfInstallationsComponent implements OnInit {
   }
 
   fillList() {
-    if (this.location == 'isMyAccount') {
-
-    } else if (this.location == 'isAccount') {
-
+    if (this.location == 'isAccount') {
+      this.sharedService.InstallationService?.getAllUserInstallations(this.id!).subscribe((res: any) => {
+        const installationArray: Installation[] = [];
+        for (const key in res) {
+          const instalationData = res[key];
+          const instalation: Installation = instalationData;
+          installationArray.push(instalation);
+        }
+        this.dataSource.data = installationArray;
+      });
+      this.listSize = [10, 20, 50, 100, 1000];
     } else {
       this.sharedService.InstallationService?.getAllInstallation().subscribe((res: any) => {
         const installationArray: Installation[] = [];

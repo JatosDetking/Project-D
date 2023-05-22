@@ -84,7 +84,7 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
   saveChanges() {
     let interval = this.inter1.value + "-" + this.inter2.value;
     let parformance = this.performance1.value + "-" + this.performance2.value + "-" + this.performance3.value;
-    this.sharedService.InstallationService?.updateAllInstallation(this.installation.id, this.name.value, interval, parformance, this.price.value).subscribe((res: any) => {
+    this.sharedService.InstallationService?.updateInstallation(this.installation.id, this.name.value, interval, parformance, this.price.value).subscribe((res: any) => {
 
       this.refreshInstallation();
     });

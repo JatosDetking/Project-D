@@ -1,6 +1,7 @@
 import { Component, OnInit,AfterViewChecked,AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-add-instalation',
@@ -18,14 +19,15 @@ export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewC
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
   price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
-  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
+  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
+  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
+  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
+  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
+  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
   constructor(
     private ref: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private sharedService:SharedService
   ) { }
 
   ngOnInit(): void {
@@ -55,4 +57,11 @@ export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewC
     this.ref.detectChanges();
   }
 
+  addInstalation() {
+    let interval = this.inter1.value + "-" + this.inter2.value;
+    let parformance = this.performance1.value + "-" + this.performance2.value + "-" + this.performance3.value;
+    this.sharedService.InstallationService?.addInstallation(this.name.value,interval,parformance, this.price.value, this.selecteType).subscribe((res: any) => {
+      this.router.navigate(['home']);
+    });
+  }
 }
