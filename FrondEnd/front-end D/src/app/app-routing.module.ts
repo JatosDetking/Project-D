@@ -14,6 +14,7 @@ import { AccountComponent } from './components/account/account.component';
 import { ListOfUsersComponent } from './components/list-of-users/list-of-users.component';
 import { ListOfInstallationsComponent } from './components/list-of-installations/list-of-installations.component';
 import { InstallationComponent } from './components/installation/installation.component';
+import { AddInstalationComponent } from './components/add-instalation/add-instalation.component';
 
 const routes: Routes = [
   { path: '', component: InformationPageComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'listofterrais', component: ListOfTerrainsComponent ,canActivate:[LoggedInGuard]},
   { path: 'listofusers', component: ListOfUsersComponent ,canActivate:[LoggedInGuard]},
   { path: 'listofinstallations', component: ListOfInstallationsComponent ,canActivate:[LoggedInGuard]},
-  { path: 'installation', component: InstallationComponent ,canActivate:[LoggedInGuard]}
+  { path: 'installation', component: InstallationComponent ,canActivate:[LoggedInGuard]},
+  { path: 'addinstallation', component: AddInstalationComponent ,canActivate:[LoggedInGuard]}
 ];
 
 @NgModule({
