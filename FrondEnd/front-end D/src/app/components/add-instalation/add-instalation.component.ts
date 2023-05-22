@@ -19,11 +19,11 @@ export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewC
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
   price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
-  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
-  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
-  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
-  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
-  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d?\d?\d?\d?\d?$/), Validators.required, Validators.maxLength(10)]);
+  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
   constructor(
     private ref: ChangeDetectorRef,
     private router: Router,

@@ -1,13 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Terrain } from 'src/app/interfaces/terrain';
 import { User } from 'src/app/interfaces/user';
-import { MatAccordion } from '@angular/material/expansion';
-import { Comment } from 'src/app/interfaces/comment';
 import { FormControl, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/services/shared.service';
-import { UserService } from 'src/app/services/user.service';
 import { Installation } from 'src/app/interfaces/installation';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmationsComponent } from 'src/app/dialogs/confirmations/confirmations.component';
 
 
 @Component({
@@ -23,17 +21,18 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
   @ViewChild('inputInterval4') inputInterval4?: ElementRef
   isCreator = true;
   inEdit = false;
+  confirmation = false
   perform_factors: string[] = [];
 
   myId: number = +(localStorage.getItem("id") || 0);
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
   price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
-  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
-  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d+$/), Validators.required, Validators.maxLength(10)]);
+  inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance2 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
+  performance3 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
 
   creator: User = {
     id: 0,
@@ -56,7 +55,9 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
     private route: ActivatedRoute,
     public sharedService: SharedService,
     private ref: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -139,9 +140,20 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
     this.ref.detectChanges();
   }
 
-  deleteInstallation(){
-    this.sharedService.InstallationService?.deleteInstallation(this.installation.id).subscribe((res: any) => {
-      this.router.navigate(['home']);
+  deleteInstallation(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '350px';
+    dialogConfig.height = '200px';
+    dialogConfig.data = 'Are you sure you want to delete this installation?';
+
+    const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.confirmation =result;
+      if(this.confirmation==true)
+      this.sharedService.InstallationService?.deleteInstallation(this.installation.id).subscribe((res: any) => {
+        this.router.navigate(['home']);
+      });
     });
   }
 }

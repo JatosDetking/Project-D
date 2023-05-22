@@ -50,6 +50,7 @@ import { ListOfUsersComponent } from './components/list-of-users/list-of-users.c
 import { ListOfInstallationsComponent } from './components/list-of-installations/list-of-installations.component';
 import { InstallationComponent } from './components/installation/installation.component';
 import { AddInstalationComponent } from './components/add-instalation/add-instalation.component';
+import { ConfirmationsComponent } from './dialogs/confirmations/confirmations.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -93,7 +94,8 @@ export const httpInterceptorProviders = [
     ListOfUsersComponent,
     ListOfInstallationsComponent,
     InstallationComponent,
-    AddInstalationComponent
+    AddInstalationComponent,
+    ConfirmationsComponent
   ],
   imports: [
     FormsModule,
