@@ -13,8 +13,23 @@ export class InstallationService {
         private sharedService: SharedService
     ) { sharedService.shareSelf("InstallationService", this) }
 
-    getAllInstalation() {
-        return this.installationApiService.getAllInstalation().pipe(map((res) => {
+    getAllInstallation() {
+        return this.installationApiService.getAllInstallations().pipe(map((res) => {
+            return res
+        }))
+    }
+    getInstallation(id:number) {
+        return this.installationApiService.getInstallation(id).pipe(map((res) => {
+            return res
+        }))
+    }
+    updateAllInstallation(id: number, name: string, intervals: string, performance_factors: string, price: number) {
+        return this.installationApiService.updateInstalation(id,name,intervals,performance_factors,price).pipe(map((res) => {
+            return res
+        }))
+    }
+    deleteInstallation(id:number) {
+        return this.installationApiService.deleteInstallation(id).pipe(map((res) => {
             return res
         }))
     }

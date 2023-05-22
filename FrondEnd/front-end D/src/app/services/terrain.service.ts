@@ -39,5 +39,10 @@ export class TerrainService {
       return res
     }))
   }
+  deteleTerrain(id: number) {
+    return this.terrainApi.deleteTerrain(id).pipe(map((res) => {
+      return res
+    }))
+  }
 
 }

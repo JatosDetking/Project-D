@@ -35,4 +35,10 @@ export class TerrainApiService {
     )
   }
 
+  deleteTerrain(id: number) {
+    return this.http.delete(`${databaseURL}/terrain/deleteterrain`, {
+      params: new HttpParams().set('id', id)
+    })
+  }
+
 }

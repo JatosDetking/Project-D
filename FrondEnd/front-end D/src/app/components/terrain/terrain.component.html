@@ -7,6 +7,9 @@
                     <button mat-mini-fab color="primary" (click)="goToEditMode()">
                         <mat-icon>edit</mat-icon>
                     </button>
+                    <button *ngIf="isCreator" mat-mini-fab color="primary" style="margin-left: 5px;" (click)="deleteTerrain()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </mat-card-header>
 

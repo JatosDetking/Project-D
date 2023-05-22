@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Terrain } from 'src/app/interfaces/terrain';
 import { User } from 'src/app/interfaces/user';
 import { MatAccordion } from '@angular/material/expansion';
@@ -62,7 +62,8 @@ export class TerrainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public sharedService: SharedService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -135,14 +136,12 @@ export class TerrainComponent implements OnInit {
     });
    
   }
-
   setMyVote() {
     this.sharedService.VotesService?.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
 
       this.getVotes();
     });
   }
-
   setMyComment() {
     this.sharedService.CommentService?.setComments(this.terrain.id, this.content.value).subscribe((res: any) => {
       this.content.setValue("");
@@ -151,7 +150,6 @@ export class TerrainComponent implements OnInit {
       this.fillList();
     });
   }
-
   refreshTerrain() {
     this.sharedService.TerrainService?.getTerrain(this.terrain.id).subscribe((res: any) => {
       res.last_change_time = this.sharedService.SharedLogicService?.formatDateTime(res.last_change_time);
@@ -160,6 +158,11 @@ export class TerrainComponent implements OnInit {
       this.name.setValue(this.terrain.name);
       this.price.setValue(this.terrain.price);
       this.selecteType = this.terrain.type;
+    });
+  }
+  deleteTerrain() {
+    this.sharedService.TerrainService?.deteleTerrain(this.terrain.id).subscribe((res: any) => {
+      this.router.navigate(['home']);
     });
   }
 }

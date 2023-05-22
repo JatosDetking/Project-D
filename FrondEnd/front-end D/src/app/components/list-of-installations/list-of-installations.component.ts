@@ -57,7 +57,7 @@ export class ListOfInstallationsComponent implements OnInit {
     } else if (this.location == 'isAccount') {
 
     } else {
-      this.sharedService.InstallationService?.getAllInstalation().subscribe((res: any) => {
+      this.sharedService.InstallationService?.getAllInstallation().subscribe((res: any) => {
         const installationArray: Installation[] = [];
         for (const key in res) {
           const instalationData = res[key];
