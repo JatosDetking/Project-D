@@ -6,6 +6,7 @@ import { CommentService } from './comment.service';
 import { SharedLogicService } from './shared.logic.service';
 import { UserService } from './user.service';
 import { VotesService } from './votes.service';
+import { InstallationService } from './installation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SharedService {
   SharedLogicService?:SharedLogicService
   UserService?:UserService
   VotesService?:VotesService
+  InstallationService?:InstallationService
   constructor(
     
   ) { }

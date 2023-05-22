@@ -35,7 +35,7 @@ exports.initUserController = (db) => {
                     name: result[0].name,
                     username: result[0].username,
                     balance: result[0].balance,
-                    id:result[0].id
+                    id: result[0].id
                 }
 
                 console.log(tokenData)
@@ -181,23 +181,23 @@ exports.initUserController = (db) => {
             if (err) {
                 next(res.status(500))
             }
-            if(result[0]){
-                let loginInfo = {
+            if (result[0]) {
+                let userInfo = {
                     email: result[0].email,
                     name: result[0].name,
                     username: result[0].username
                 }
-                res.status(200).send({ ...loginInfo });
+                res.status(200).send({ ...userInfo });
             }
-            else{
-                let loginInfo = {
+            else {
+                let userInfo = {
                     email: "",
                     name: "",
                     username: "Account is Deleted"
                 }
-                res.status(200).send({ ...loginInfo });
+                res.status(200).send({ ...userInfo });
             }
-           
+
         });
     }
     controller.getMyUserInfo = (req, res, next) => {
@@ -212,27 +212,40 @@ exports.initUserController = (db) => {
                 name: result[0].name,
                 username: result[0].username,
                 token: result[0].token,
-                balance:result[0].balance,
-                id:result[0].id
+                balance: result[0].balance,
+                id: result[0].id
             }
             res.status(200).send({ ...loginInfo });
         });
     }
 
-    controller.getUserId = (db, email) => {
+    controller.getUserById = (db, id) => {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT id FROM users WHERE email = '${email}';`;
-            db.query(sql, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else if (result.length === 0) {
-                    reject(new Error('User not found'));
-                } else {
-                    resolve(result[0].id);
-                }
-            });
+          let sql = 'SELECT id, email, name, username FROM users WHERE id = ?;';
+          db.query(sql, [id], (err, result) => {
+            if (err) {
+              reject(err);
+            } else if (result.length === 0) {
+              let userInfo = {
+                id: id,
+                email: '',
+                name: '',
+                username: 'Account is Deleted'
+              };
+              resolve(userInfo);
+            } else {
+              let userInfo = {
+                id: result[0].id,
+                username: result[0].username,
+                email: result[0].email,
+                name: result[0].name           
+              };
+              resolve(userInfo);
+            }
+          });
         });
-    }
+      };
+      
 
     controller.getAllUsers = (req, res, next) => {
 

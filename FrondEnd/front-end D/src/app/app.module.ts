@@ -47,6 +47,8 @@ import { ListOfTerrainDataComponent } from './components/list-of-terrain-data/li
 import { TerrainDataEditComponent } from './dialogs/terrain-data-edit/terrain-data-edit.component';
 import { AccountComponent } from './components/account/account.component';
 import { ListOfUsersComponent } from './components/list-of-users/list-of-users.component';
+import { ListOfInstallationsComponent } from './components/list-of-installations/list-of-installations.component';
+import { InstallationComponent } from './components/installation/installation.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -87,7 +89,9 @@ export const httpInterceptorProviders = [
     ListOfTerrainDataComponent,
     TerrainDataEditComponent,
     AccountComponent,
-    ListOfUsersComponent
+    ListOfUsersComponent,
+    ListOfInstallationsComponent,
+    InstallationComponent
   ],
   imports: [
     FormsModule,

@@ -8,6 +8,7 @@ import { CommentService } from './services/comment.service';
 import { SharedLogicService } from './services/shared.logic.service';
 import { UserService } from './services/user.service';
 import { VotesService } from './services/votes.service';
+import { InstallationService } from './services/installation.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit{
     private sharedLogicService:SharedLogicService,
     private userService:UserService,
     private votesService:VotesService,
+    private installationService:InstallationService,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
   }
