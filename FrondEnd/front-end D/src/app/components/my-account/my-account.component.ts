@@ -2,9 +2,10 @@ import { Component, OnInit, Inject, AfterViewInit, ChangeDetectorRef, ViewChild 
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { ChangeBalanceComponent } from 'src/app/dialogs/change-balance/change-balance.component';
 import { ChangePasswordComponent } from 'src/app/dialogs/change-password/change-password.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { MatAccordion } from '@angular/material/expansion';
+import { ConfirmationsComponent } from 'src/app/dialogs/confirmations/confirmations.component';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-account',
@@ -23,17 +24,17 @@ export class MyAccountComponent implements AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
-    public authService: AuthService,
     private ref: ChangeDetectorRef,
-    private router:Router
+    private router:Router,
+    private sharedService:SharedService
   ) { }
 
   ngAfterViewInit(): void {
-    this.authService.balanceSubject.subscribe(balance => {
+    this.sharedService.AuthService?.balanceSubject.subscribe(balance => {
       this.balance = balance;
       this.ref.detectChanges();
     })
-    this.authService.balanceSubject.next(localStorage.getItem("balance"));
+    this.sharedService.AuthService?.balanceSubject.next(localStorage.getItem("balance"));
   }
   openDialogChangeBalance(): void {
     const dialogConfig = new MatDialogConfig();
@@ -53,6 +54,22 @@ export class MyAccountComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
+    });
+  }
+  deleteAccount(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '350px';
+    dialogConfig.height = '200px';
+    dialogConfig.data = 'Are you sure you want to delete your account?';
+
+    const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if(result==true)
+      this.sharedService.AuthService?.deleteMyAccount().subscribe((res: any) => {
+        this.sharedService.AuthService?.logout();
+        this.router.navigate(['login']);
+      });
     });
   }
 }

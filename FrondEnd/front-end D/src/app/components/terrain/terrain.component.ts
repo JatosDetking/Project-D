@@ -7,6 +7,8 @@ import { Comment } from 'src/app/interfaces/comment';
 import { FormControl, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/services/shared.service';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmationsComponent } from 'src/app/dialogs/confirmations/confirmations.component';
 
 
 @Component({
@@ -63,7 +65,8 @@ export class TerrainComponent implements OnInit {
     private route: ActivatedRoute,
     public sharedService: SharedService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -134,7 +137,7 @@ export class TerrainComponent implements OnInit {
         this.myVote = res;
       }
     });
-   
+
   }
   setMyVote() {
     this.sharedService.VotesService?.setMyVote(this.terrain.id, this.myVoteType).subscribe((res: any) => {
@@ -161,8 +164,18 @@ export class TerrainComponent implements OnInit {
     });
   }
   deleteTerrain() {
-    this.sharedService.TerrainService?.deteleTerrain(this.terrain.id).subscribe((res: any) => {
-      this.router.navigate(['home']);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '350px';
+    dialogConfig.height = '200px';
+    dialogConfig.data = 'Are you sure you want to delete this terrain?';
+
+    const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == true)
+        this.sharedService.TerrainService?.deteleTerrain(this.terrain.id).subscribe((res: any) => {
+          this.router.navigate(['home']);
+        });
     });
   }
 }

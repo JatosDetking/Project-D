@@ -9,34 +9,37 @@ import { databaseURL } from './env';
 export class AuthAPIService {
 
   constructor(
-    private http : HttpClient
-    ) { }
+    private http: HttpClient
+  ) { }
 
-  login(email:string,password:string){
-    return this.http.get(`${databaseURL}/user/login`,{
-      params:new HttpParams().set('email',email).set('password',password)
+  login(email: string, password: string) {
+    return this.http.get(`${databaseURL}/user/login`, {
+      params: new HttpParams().set('email', email).set('password', password)
     })
   }
 
-  updateBalance(balance:number){
+  updateBalance(balance: number) {
     return this.http.put(`${databaseURL}/user/updatebalance`,
-      {balance}
-    )
-  }
-  
-  updatePassword(password:string){
-    return this.http.put(`${databaseURL}/user/changepassword`,
-      {password}
+      { balance }
     )
   }
 
-  getMyInfo(){
+  updatePassword(password: string) {
+    return this.http.put(`${databaseURL}/user/changepassword`,
+      { password }
+    )
+  }
+
+  getMyInfo() {
     return this.http.get(`${databaseURL}/user/getmyinfo`)
   }
+  deleteMyAccount() {
+    return this.http.delete(`${databaseURL}/user/deleteaccaunt`)
+  }
 
-  register(username:string,password:string, email:string,name:string){
+  register(username: string, password: string, email: string, name: string) {
     return this.http.post(`${databaseURL}/user/register`,
-      {username,password,email,name}
+      { username, password, email, name }
     )
   }
 }

@@ -4,7 +4,8 @@ import { Comment } from 'src/app/interfaces/comment';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { SharedService } from 'src/app/services/shared.service';
-
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmationsComponent } from 'src/app/dialogs/confirmations/confirmations.component';
 
 @Component({
   selector: 'app-comment',
@@ -30,7 +31,8 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -59,15 +61,23 @@ export class CommentComponent implements OnInit {
       });
     }
   }
-  deleteMySubComment() {
-    if (this.data) {
-    
-      this.sharedService.CommentService?.deleteComments(this.data.id).subscribe((res: any) => {
-        if (this.fillList) {
-          this.fillList();
-        }
-      });
-    }
+  deleteMyComment(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '350px';
+    dialogConfig.height = '200px';
+    dialogConfig.data = 'Are you sure you want to delete this comment?';
+
+    const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result==true && this.data) {
+        this.sharedService.CommentService?.deleteComments(this.data.id).subscribe((res: any) => {
+          if (this.fillList) {
+            this.fillList();
+          }
+        });
+      }
+    });
   }
   changeMode(){
     if (this.data) {

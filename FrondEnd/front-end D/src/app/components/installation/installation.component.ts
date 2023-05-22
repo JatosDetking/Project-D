@@ -21,7 +21,6 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
   @ViewChild('inputInterval4') inputInterval4?: ElementRef
   isCreator = true;
   inEdit = false;
-  confirmation = false
   perform_factors: string[] = [];
 
   myId: number = +(localStorage.getItem("id") || 0);
@@ -56,8 +55,7 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
     public sharedService: SharedService,
     private ref: ChangeDetectorRef,
     private router: Router,
-    public dialog: MatDialog,
-
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -149,8 +147,7 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
     const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.confirmation =result;
-      if(this.confirmation==true)
+      if(result==true)
       this.sharedService.InstallationService?.deleteInstallation(this.installation.id).subscribe((res: any) => {
         this.router.navigate(['home']);
       });

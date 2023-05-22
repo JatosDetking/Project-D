@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthAPIService } from '../api/auth-api.service';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class AuthService {
 
   constructor(
     private authAPI:AuthAPIService,
-    ) { }
+    private sharedService:SharedService
+    ) { sharedService.shareSelf("AuthService", this) }
 
   balanceSubject = new Subject();
 
@@ -84,6 +86,11 @@ export class AuthService {
   updateMyInfo(){
     return this.authAPI.getMyInfo().pipe(map((res)=>{
       this.saveUserInfo(res);
+      return res
+    }))
+  }
+  deleteMyAccount(){
+    return this.authAPI.deleteMyAccount().pipe(map((res)=>{
       return res
     }))
   }
