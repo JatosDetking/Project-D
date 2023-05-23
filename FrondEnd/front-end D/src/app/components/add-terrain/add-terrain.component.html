@@ -1,41 +1,109 @@
-<!-- <button mat-raised-button (click)="isEditable = !isEditable">
-    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
-  </button> -->
-  
-  <mat-stepper linear #stepper>
-    <mat-step [stepControl]="firstFormGroup" >
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
+<mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" state="phone">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Enter the terrain information</ng-template>
+            <div class="info-container">
+                <mat-card class="info-card">
+                    <mat-card-header>
+                        <mat-card-title>Terrain information</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider class=" line"></mat-divider>
+                    <mat-card-content style="margin-top: 16px;">
+                        <div class="info-field">
+                            <mat-card-subtitle>Name</mat-card-subtitle>
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" formControlName="name" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="info-field">
+                            <mat-card-subtitle>Price</mat-card-subtitle>
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" formControlName="price" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="info-field ">
+                            <mat-card-subtitle>Type</mat-card-subtitle>
+                            <mat-form-field>
+                                <mat-select formControlName="selectedType" required>
+                                    <mat-option value="private">private</mat-option>
+                                    <mat-option value="editable">editable</mat-option>
+                                    <mat-option value="uneditable">uneditable</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="info-field">
+                            <button mat-raised-button color="primary" matStepperNext>Next</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" >
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
+    <mat-step [stepControl]="secondFormGroup" state="phone">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Enter terrain data</ng-template>
+            <div class="info-container">
+                <mat-card class="info-card2">
+                    <mat-card-header>
+                        <mat-card-title>Terrain Data</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider class=" line"></mat-divider>
+                    <mat-card-content style="margin-top: 16px;">
+                        <div class="info-field2">
+                            <div class="info-field">
+                                <mat-card-subtitle>Temperature</mat-card-subtitle>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" [formControl]="temp">
+                                </mat-form-field>
+                            </div>
+                            <div class="info-field">
+                                <mat-card-subtitle>Solar radiation</mat-card-subtitle>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" [formControl]="rad">
+                                </mat-form-field>
+                            </div>
+                            <div class="info-field">
+                                <mat-card-subtitle>Wind speed</mat-card-subtitle>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" [formControl]="wind">
+                                </mat-form-field>
+                            </div>
+                            <div class="info-field">
+                                <mat-card-subtitle>Water level</mat-card-subtitle>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" [formControl]="water">
+                                </mat-form-field>
+                            </div>
+                            <div class="info-field">
+                                <mat-card-subtitle>Year</mat-card-subtitle>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" [formControl]="year">
+                                </mat-form-field>
+                            </div>
+                            <div class="info-field">
+                                <button mat-raised-button color="primary" (click)="addData()">Add Data</button>
+                            </div>
+                        </div>
+                        <div class="info-field2">
+                            <app-list-of-terrain-data  #dataTable [mode]="'add'" [(terrainData)]="terrainData"
+                                [inEdit]="true">
+                            </app-list-of-terrain-data>
+                            <div class="info-field"  style="margin-top: 30px;">
+                                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                                <button mat-raised-button color="primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
     </mat-step>
-  </mat-stepper>
-  
+</mat-stepper>

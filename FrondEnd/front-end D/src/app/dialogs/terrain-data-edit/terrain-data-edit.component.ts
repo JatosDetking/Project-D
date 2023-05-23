@@ -31,10 +31,12 @@ export class TerrainDataEditComponent implements OnInit {
     this.data = data,
       this.dataValue.setValue(this.data.terrainData.data);
 
+    if (this.data.mode == 'add') {
+      data.creator = true;
+    }
     if (this.data.hasOwnProperty('terrainData2')) {
       this.dataValue2.setValue(this.data.terrainData2.data);
-
-      if (this.data.terrainData2.type == "temp") {
+      if (this.data.terrainData2.type == "temperature") {
         this.dataValue2.addValidators(Validators.pattern(/^\-*\d+\.*\d*$/));
       } else {
         this.dataValue2.addValidators(Validators.pattern(/^\d+\.*\d*$/));
@@ -45,41 +47,59 @@ export class TerrainDataEditComponent implements OnInit {
   }
 
   updateTerrainData() {
-    if (this.data.hasOwnProperty('terrainData2')) {
-      this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue.value, this.data.terrainData.id).subscribe(res => {
-      });
-      this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue2.value, this.data.terrainData2.id).subscribe(res => {
-        this.dialogRef.close();
-      });
-    } else {
-      this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue.value, this.data.terrainData.id).subscribe(res => {
-        this.dialogRef.close();
+    if (this.data.mode == 'add') {
+      if (this.data.hasOwnProperty('terrainData2')) {
+
+        this.dialogRef.close({ action: 'update', data: [this.dataValue.value, this.dataValue2.value] });
+      } else {
+        this.dialogRef.close({ action: 'update', data: [this.dataValue.value] });
+      }
+    }
+    else {
+      if (this.data.hasOwnProperty('terrainData2')) {
+        console.log(this.dataValue.value)
+        console.log(this.dataValue2.value)
+        console.log(this.data.terrainData.id)
+        console.log(this.data.terrainData2.id)
+        this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue.value, this.data.terrainData.id).subscribe(res => {
+          this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue2.value, this.data.terrainData2.id).subscribe(res => {
+            this.dialogRef.close();
+          });
+        });
+      } else {
+        this.sharedService.TerrainDataService?.updateTerrainData(this.data.terrainId, this.dataValue.value, this.data.terrainData.id).subscribe(res => {
+          this.dialogRef.close();
+        });
+      }
+    }
+  }
+  deleteTerrainData() {
+    if (this.data.mode == 'add') {
+      this.dialogRef.close({ action: 'delete' });
+    }
+    else {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.width = '350px';
+      dialogConfig.height = '200px';
+      dialogConfig.data = 'Are you sure you want to delete this data?';
+
+      const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result == true) {
+          if (this.data.hasOwnProperty('terrainData2')) {
+            this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, this.data.terrainData2.id).subscribe(res => {
+              this.dialogRef.close();
+            });
+          } else {
+            this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, -1).subscribe(res => {
+              this.dialogRef.close();
+            });
+          }
+        }
       });
     }
 
-  }
-  deleteTerrainData() {
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '350px';
-    dialogConfig.height = '200px';
-    dialogConfig.data = 'Are you sure you want to delete this data?';
-
-    const dialogRef = this.dialog.open(ConfirmationsComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == true) {
-        if (this.data.hasOwnProperty('terrainData2')) {
-          this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, this.data.terrainData2.id).subscribe(res => {
-            this.dialogRef.close();
-          });
-        } else {
-          this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, -1).subscribe(res => {
-            this.dialogRef.close();
-          });
-        }
-      }
-    });
   }
 
   ngOnInit(): void {

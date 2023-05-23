@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewChecked,AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
@@ -8,13 +8,13 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './add-instalation.component.html',
   styleUrls: ['./add-instalation.component.scss']
 })
-export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewChecked {
+export class AddInstalationComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @ViewChild('inputInterval') inputInterval?: ElementRef
   @ViewChild('inputInterval2') inputInterval2?: ElementRef
   @ViewChild('inputInterval3') inputInterval3?: ElementRef
   @ViewChild('inputInterval4') inputInterval4?: ElementRef
-  
+
   selecteType = 'solar'
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
@@ -27,11 +27,11 @@ export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewC
   constructor(
     private ref: ChangeDetectorRef,
     private router: Router,
-    private sharedService:SharedService
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
-    
+
   }
   ngAfterViewInit(): void {
     this.inter1.valueChanges.subscribe(value => {
@@ -60,7 +60,7 @@ export class AddInstalationComponent implements OnInit, AfterViewInit,AfterViewC
   addInstalation() {
     let interval = this.inter1.value + "-" + this.inter2.value;
     let parformance = this.performance1.value + "-" + this.performance2.value + "-" + this.performance3.value;
-    this.sharedService.InstallationService?.addInstallation(this.name.value,interval,parformance, this.price.value, this.selecteType).subscribe((res: any) => {
+    this.sharedService.InstallationService?.addInstallation(this.name.value, interval, parformance, this.price.value, this.selecteType).subscribe((res: any) => {
       this.router.navigate(['home']);
     });
   }

@@ -37,7 +37,7 @@ export class TerrainApiService {
   }
   addTerrain(name: string, price: number, type: string, data: TerrainData[]) {
     return this.http.post(`${databaseURL}/terrain/add`,
-      { name, price, type }
+      { name, price, type, data }
     )
   }
   deleteTerrain(id: number) {

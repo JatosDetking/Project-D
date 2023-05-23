@@ -52,6 +52,8 @@ import { InstallationComponent } from './components/installation/installation.co
 import { AddInstalationComponent } from './components/add-instalation/add-instalation.component';
 import { ConfirmationsComponent } from './dialogs/confirmations/confirmations.component';
 import { AddTerrainComponent } from './components/add-terrain/add-terrain.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -99,7 +101,20 @@ export const httpInterceptorProviders = [
     ConfirmationsComponent,
     AddTerrainComponent
   ],
+
+  /*  imports: [
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
+}) */
   imports: [
+    MatStepperModule,
+    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

@@ -149,6 +149,8 @@ exports.initTerrainDataController = (db) => {
                     SET data = ${req.body.data}
                     WHERE id = ${req.body.id}`;
 
+                    console.log(req.body.data);
+                    console.log(req.body.id);
                     const now = new Date();
                     const year = now.getFullYear();
                     const month = ('0' + (now.getMonth() + 1)).slice(-2);

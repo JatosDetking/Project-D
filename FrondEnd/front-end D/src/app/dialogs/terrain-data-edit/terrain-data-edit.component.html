@@ -38,10 +38,15 @@
       </mat-form-field>
     </div>
   </div>
-  <div class="button-container">
-    <button mat-raised-button class="button" color="primary"
+  <div  *ngIf="data.creator" class="button-container">
+    <button mat-raised-button  color="primary"
       [disabled]="dataValue.invalid || data.hasOwnProperty('terrainData2')? dataValue2.invalid:false"
       (click)="updateTerrainData()">Save changes</button>
-    <button mat-raised-button class="button" color="primary" (click)="deleteTerrainData()">Delete</button>
+    <button mat-raised-button color="primary" (click)="deleteTerrainData()">Delete</button>
+  </div>
+  <div *ngIf="!data.creator" class="button-container" style="display: flex; justify-content: center; text-align: center;">
+    <button mat-raised-button color="primary"
+      [disabled]="dataValue.invalid || data.hasOwnProperty('terrainData2') ? dataValue2.invalid : false"
+      (click)="updateTerrainData()">Save changes</button>
   </div>
 </div>

@@ -1,118 +1,117 @@
-
-    <div class="info-container">
-        <mat-card class="info-card">
-            <mat-card-header>
-                <mat-card-title>Add Installation</mat-card-title>
-                <div class="edit-button-container">
-                    <button  mat-mini-fab color="primary"  [disabled]="name.invalid || price.invalid || inter1.invalid || inter2.invalid || performance1.invalid
+<div class="info-container">
+    <mat-card class="info-card">
+        <mat-card-header>
+            <mat-card-title>Add Installation</mat-card-title>
+            <div class="edit-button-container">
+                <button mat-mini-fab color="primary" [disabled]="name.invalid || price.invalid || inter1.invalid || inter2.invalid || performance1.invalid
                         || performance2.invalid || performance3.invalid" (click)="addInstalation()">
-                        <mat-icon>save</mat-icon>
-                    </button>
-                </div>
-            </mat-card-header>
-
-            <mat-divider class=" line"></mat-divider>
-            <mat-card-content style="margin-top: 16px;">
-              
-                    <div class="info-field2">
-                        <mat-card-subtitle>Name</mat-card-subtitle>
-                        <mat-form-field class="example-full-width">
-                            <input matInput type="text" [formControl]="name">
-                        </mat-form-field>
-                    </div>
-                    <div class="info-field2">
-                        <mat-card-subtitle>Price</mat-card-subtitle>
-                        <mat-form-field class="example-full-width">
-                            <input matInput type="number" [formControl]="price">
-                        </mat-form-field>
-                    </div>
-                    <div class="info-field2">
-                        <mat-form-field>
-                            <mat-card-subtitle>Type</mat-card-subtitle>
-                            <mat-select [(ngModel)]="selecteType">
-                                <mat-option value="solar">solar installation</mat-option>
-                                <mat-option value="wind">air turbines</mat-option>
-                                <mat-option value="water">hydroelectric power plant</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                  
-                <mat-divider class="lineEdit"></mat-divider>
-            </mat-card-content>
-
-            <div class="infoEdit">
-                <div class="info-field2" style="white-space: nowrap;">
-                    <mat-card-subtitle>Performance intervals</mat-card-subtitle>
-                    <table>
-                        <tr>
-                            <td>
-                                <label style="margin: 0; padding: 0;">(0; </label>
-                                <input #inputInterval matInput type="number" [value]="inter1.value"
-                                    (input)="inter1.setValue(inputInterval.value)" style="border: 1px solid #ccc;">
-                                <label style="margin: 0; padding: 0;">)</label>
-                            </td>
-                            <td>
-                                <label style="margin: 0; padding: 0;">( </label>
-                                <input #inputInterval2 matInput type="number" [value]="inter1.value"
-                                    (input)="inter1.setValue(inputInterval2.value)" style="border: 1px solid #ccc;">
-                                <label style="margin: 0; padding: 0;">; </label>
-                                <input #inputInterval3 matInput type="number" style="margin: 0; padding: 0;"
-                                    [value]="inter2.value" (input)="inter2.setValue(inputInterval3.value)"
-                                    style="border: 1px solid #ccc;">
-                                <label style="margin: 0; padding: 0;">)</label>
-                            </td>
-                            <td>
-                                <label style="margin: 0; padding: 0;">( </label>
-                                <input #inputInterval4 matInput type="number" style="margin: 0; padding: 0;"
-                                    [value]="inter2.value" (input)="inter2.setValue(inputInterval4.value)"
-                                    style="border: 1px solid #ccc;">
-                                <label style="margin: 0; padding: 0;">; </label>
-                                <label style="margin: 0; padding: 0;"> ∞)</label>
-                            </td>
-                        </tr>
-                        <mat-error *ngIf="inter1.hasError('maxLength')">You must enter at least 1 or at most 10
-                            characters.
-                        </mat-error>
-                        <mat-error *ngIf="inter2.hasError('maxLength')">You must enter at least 1 or at most 10
-                            characters.
-                        </mat-error>
-                    </table>
-                </div>
-                <mat-divider class="lineEdit"></mat-divider>
+                    <mat-icon>save</mat-icon>
+                </button>
             </div>
-            <div class="infoEdit">
-                <div class="info-field2">
-                    <mat-card-subtitle>Efficiency</mat-card-subtitle>
-                    <div>
-                        <label class="info-field4">Efficiency in the first interval: </label>
-                        <mat-form-field>
-                            <input class="info-field4" matInput type="number" [formControl]='performance1'>
-                        </mat-form-field>
-                    </div>
-                    <mat-error *ngIf="performance1.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
-                    </mat-error>
-                    <div>
-                        <label class="info-field4">Efficiency in the second interval: </label>
-                        <mat-form-field>
-                            <input class="info-field4" matInput type="number" [formControl]='performance2'>
-                        </mat-form-field>
-                    </div>
-                    <mat-error *ngIf="performance2.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
-                    </mat-error>
-                    <div>
-                        <label class="info-field4">Efficiency in the third interval: </label>
-                        <mat-form-field>
-                            <input class="info-field4" matInput type="number" [formControl]='performance3'>
-                        </mat-form-field>
-                    </div>
-                    <mat-error *ngIf="performance3.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
-                    </mat-error>
-                </div>
-                <mat-divider class="lineEdit"></mat-divider>
+        </mat-card-header>
 
+        <mat-divider class=" line"></mat-divider>
+        <mat-card-content style="margin-top: 16px;">
+
+            <div class="info-field2">
+                <mat-card-subtitle>Name</mat-card-subtitle>
+                <mat-form-field class="example-full-width">
+                    <input matInput type="text" [formControl]="name">
+                </mat-form-field>
             </div>
-        </mat-card>
-    </div>
+            <div class="info-field2">
+                <mat-card-subtitle>Price</mat-card-subtitle>
+                <mat-form-field class="example-full-width">
+                    <input matInput type="number" [formControl]="price">
+                </mat-form-field>
+            </div>
+            <div class="info-field2">
+                <mat-form-field>
+                    <mat-card-subtitle>Type</mat-card-subtitle>
+                    <mat-select [(ngModel)]="selecteType">
+                        <mat-option value="solar">solar installation</mat-option>
+                        <mat-option value="wind">air turbines</mat-option>
+                        <mat-option value="water">hydroelectric power plant</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-divider class="lineEdit"></mat-divider>
+        </mat-card-content>
+
+        <div class="infoEdit">
+            <div class="info-field2" style="white-space: nowrap;">
+                <mat-card-subtitle>Performance intervals</mat-card-subtitle>
+                <table>
+                    <tr>
+                        <td>
+                            <label style="margin: 0; padding: 0;">(0; </label>
+                            <input #inputInterval matInput type="number" [value]="inter1.value"
+                                (input)="inter1.setValue(inputInterval.value)" style="border: 1px solid #ccc;">
+                            <label style="margin: 0; padding: 0;">)</label>
+                        </td>
+                        <td>
+                            <label style="margin: 0; padding: 0;">( </label>
+                            <input #inputInterval2 matInput type="number" [value]="inter1.value"
+                                (input)="inter1.setValue(inputInterval2.value)" style="border: 1px solid #ccc;">
+                            <label style="margin: 0; padding: 0;">; </label>
+                            <input #inputInterval3 matInput type="number" style="margin: 0; padding: 0;"
+                                [value]="inter2.value" (input)="inter2.setValue(inputInterval3.value)"
+                                style="border: 1px solid #ccc;">
+                            <label style="margin: 0; padding: 0;">)</label>
+                        </td>
+                        <td>
+                            <label style="margin: 0; padding: 0;">( </label>
+                            <input #inputInterval4 matInput type="number" style="margin: 0; padding: 0;"
+                                [value]="inter2.value" (input)="inter2.setValue(inputInterval4.value)"
+                                style="border: 1px solid #ccc;">
+                            <label style="margin: 0; padding: 0;">; </label>
+                            <label style="margin: 0; padding: 0;"> ∞)</label>
+                        </td>
+                    </tr>
+                    <mat-error *ngIf="inter1.hasError('maxLength')">You must enter at least 1 or at most 10
+                        characters.
+                    </mat-error>
+                    <mat-error *ngIf="inter2.hasError('maxLength')">You must enter at least 1 or at most 10
+                        characters.
+                    </mat-error>
+                </table>
+            </div>
+            <mat-divider class="lineEdit"></mat-divider>
+        </div>
+        <div class="infoEdit">
+            <div class="info-field2">
+                <mat-card-subtitle>Efficiency</mat-card-subtitle>
+                <div>
+                    <label class="info-field4">Efficiency in the first interval: </label>
+                    <mat-form-field>
+                        <input class="info-field4" matInput type="number" [formControl]='performance1'>
+                    </mat-form-field>
+                </div>
+                <mat-error *ngIf="performance1.hasError('maxlength')">You must enter at least 1 or at most 10
+                    characters.
+                </mat-error>
+                <div>
+                    <label class="info-field4">Efficiency in the second interval: </label>
+                    <mat-form-field>
+                        <input class="info-field4" matInput type="number" [formControl]='performance2'>
+                    </mat-form-field>
+                </div>
+                <mat-error *ngIf="performance2.hasError('maxlength')">You must enter at least 1 or at most 10
+                    characters.
+                </mat-error>
+                <div>
+                    <label class="info-field4">Efficiency in the third interval: </label>
+                    <mat-form-field>
+                        <input class="info-field4" matInput type="number" [formControl]='performance3'>
+                    </mat-form-field>
+                </div>
+                <mat-error *ngIf="performance3.hasError('maxlength')">You must enter at least 1 or at most 10
+                    characters.
+                </mat-error>
+            </div>
+            <mat-divider class="lineEdit"></mat-divider>
+
+        </div>
+    </mat-card>
+</div>

@@ -24,13 +24,13 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.tdData]="inEdit"
-            (click)=" inEdit?openDialogChangeTerrainDataEdit(row):'' "></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i =index" [class.tdData]="inEdit"
+            (click)=" inEdit?openDialogChangeTerrainDataEdit(row,i):'' "></tr>
 
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="3">No data matching the filter "{{input.value}}"</td>
         </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="listSize" aria-label="Select page of users"></mat-paginator>
 </div>
