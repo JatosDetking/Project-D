@@ -51,6 +51,7 @@ import { ListOfInstallationsComponent } from './components/list-of-installations
 import { InstallationComponent } from './components/installation/installation.component';
 import { AddInstalationComponent } from './components/add-instalation/add-instalation.component';
 import { ConfirmationsComponent } from './dialogs/confirmations/confirmations.component';
+import { AddTerrainComponent } from './components/add-terrain/add-terrain.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -95,7 +96,8 @@ export const httpInterceptorProviders = [
     ListOfInstallationsComponent,
     InstallationComponent,
     AddInstalationComponent,
-    ConfirmationsComponent
+    ConfirmationsComponent,
+    AddTerrainComponent
   ],
   imports: [
     FormsModule,

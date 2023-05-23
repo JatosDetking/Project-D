@@ -1,27 +1,47 @@
-<h1 mat-dialog-title>Edit Terrain Data</h1>
-<div mat-dialog-content>
-    <div mat-dialog-content>
-        <mat-form-field class="register-full-width" appearance="fill">
-          <mat-label>Data</mat-label>
-          <input type="number" matInput [formControl]="dataValue">
-          <mat-error *ngIf="dataValue.hasError('pattern')|| dataValue.invalid">
-            Invalid character!
-          </mat-error>
-        </mat-form-field>
+<div style="position: relative; width: 100%; height: 100%;">
+  <h1 mat-dialog-title>Edit Terrain Data</h1>
+  <div mat-dialog-content>
+    <div *ngIf="data.hasOwnProperty('terrainData2')" mat-dialog-content>
+      <mat-form-field class="register-full-width" appearance="fill">
+        <mat-label>Data</mat-label>
+        <input type="number" matInput [formControl]="dataValue2">
+        <mat-error *ngIf="dataValue2.hasError('pattern')|| dataValue2.invalid">
+          Invalid character!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="data.hasOwnProperty('terrainData2')" mat-dialog-content>
+      <mat-form-field class="register-full-width" appearance="fill">
+        <mat-label>Type</mat-label>
+        <input type="text" matInput value={{data.terrainData2.type}} disabled>
+      </mat-form-field>
     </div>
     <div mat-dialog-content>
-        <mat-form-field class="register-full-width" appearance="fill">
-          <mat-label>Type</mat-label>
-          <input type="text" matInput value={{data.terrainData.type}} disabled>
-        </mat-form-field>
+      <mat-form-field class="register-full-width" appearance="fill">
+        <mat-label>Data</mat-label>
+        <input type="number" matInput [formControl]="dataValue">
+        <mat-error *ngIf="dataValue.hasError('pattern')|| dataValue.invalid">
+          Invalid character!
+        </mat-error>
+      </mat-form-field>
     </div>
     <div mat-dialog-content>
-        <mat-form-field class="register-full-width" appearance="fill">
-          <mat-label>Year</mat-label>
-          <input type="number" matInput value={{data.terrainData.year}} disabled>
-        </mat-form-field>
+      <mat-form-field class="register-full-width" appearance="fill">
+        <mat-label>Type</mat-label>
+        <input type="text" matInput value={{data.terrainData.type}} disabled>
+      </mat-form-field>
     </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button class="button" color="primary"  [disabled]="dataValue.invalid" (click)="updateTerrainData()">Save changes</button>
+    <div mat-dialog-content>
+      <mat-form-field class="register-full-width" appearance="fill">
+        <mat-label>Year</mat-label>
+        <input type="number" matInput value={{data.terrainData.year}} disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="button-container">
+    <button mat-raised-button class="button" color="primary"
+      [disabled]="dataValue.invalid || data.hasOwnProperty('terrainData2')? dataValue2.invalid:false"
+      (click)="updateTerrainData()">Save changes</button>
+    <button mat-raised-button class="button" color="primary" (click)="deleteTerrainData()">Delete</button>
+  </div>
 </div>

@@ -23,5 +23,17 @@ export class TerrainDataApiService {
         )
     }
 
+    deleteTerrainData(terrainId: number, data1Id: number, data2Id: number) {
+        if(data2Id != -1){
+            return this.http.delete(`${databaseURL}/terrain/data/deletedata`, {
+                params: new HttpParams().set('terrainId', terrainId).set('data1Id',data1Id).set('data2Id',data2Id)
+            })
+        }else{
+            return this.http.delete(`${databaseURL}/terrain/data/deletedata`, {
+                params: new HttpParams().set('terrainId', terrainId).set('data1Id',data1Id)
+            })
+        }
+
+    }
 
 }

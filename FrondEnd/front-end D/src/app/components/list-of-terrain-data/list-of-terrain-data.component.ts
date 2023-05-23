@@ -15,18 +15,18 @@ import { TerrainDataEditComponent } from 'src/app/dialogs/terrain-data-edit/terr
 export class ListOfTerrainDataComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   @Input() data?: number;
   @Input() inEdit?: boolean;
-  
-  displayedColumns: string[] = ['year', 'type','data'];
+
+  displayedColumns: string[] = ['year', 'type', 'data'];
 
   dataSource: MatTableDataSource<TerrainData> = new MatTableDataSource<TerrainData>([]);
 
 
   constructor(
     public dialog: MatDialog,
-    private sharedService:SharedService
+    private sharedService: SharedService
   ) { }
 
 
@@ -45,33 +45,50 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   this.fillList()
+    this.fillList()
   }
 
   fillList() {
-    if(this.data){
-    this.sharedService.TerrainDataService?.getTerrainDataList(this.data).subscribe((res: any) => {
-      const terrainArray: TerrainData[] = [];
-      for (const key in res) {
-        const terrainData = res[key];
-       
-        terrainArray.push(terrainData);
-      }
-      this.dataSource.data = terrainArray;
-    });
-  }
+    if (this.data) {
+      this.sharedService.TerrainDataService?.getTerrainDataList(this.data).subscribe((res: any) => {
+        const terrainArray: TerrainData[] = [];
+        for (const key in res) {
+          const terrainData = res[key];
+
+          terrainArray.push(terrainData);
+        }
+        this.dataSource.data = terrainArray;
+      });
+    }
   }
 
   openDialogChangeTerrainDataEdit(row: TerrainData): void {
+
+
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '350px';
-    dialogConfig.height = '400px';
-    dialogConfig.data = { terrainData: row, terrainId: this.data }; 
-  
+    if (row.type == 'temp') {
+      dialogConfig.width = '350px';
+      dialogConfig.height = '550px';
+      dialogConfig.data = {
+        terrainData: this.dataSource.data.find(data => data.type === 'rad' && data.year === row.year), terrainId: this.data, terrainData2: row
+      };
+    } else if (row.type == 'rad') {
+
+      dialogConfig.width = '350px';
+      dialogConfig.height = '550px';
+      dialogConfig.data = {
+        terrainData: row, terrainId: this.data, terrainData2: this.dataSource.data.find(data => data.type === 'temp' && data.year === row.year)
+      };
+    } else {
+      dialogConfig.width = '350px';
+      dialogConfig.height = '400px';
+      dialogConfig.data = { terrainData: row, terrainId: this.data };
+    }
+
     const dialogRef = this.dialog.open(TerrainDataEditComponent, dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe((result: any) => {
-     this.fillList();
+      this.fillList();
     });
   }
 }

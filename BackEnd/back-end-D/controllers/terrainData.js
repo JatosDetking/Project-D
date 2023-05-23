@@ -42,19 +42,24 @@ exports.initTerrainDataController = (db) => {
     };
 
     controller.addData = (req, res, next) => {
-
-        let sql = `SELECT * FROM terrains WHERE id = ${req.body.terrainId}`
+        let sql = `SELECT * FROM terrains WHERE id = ${req.body.terrainId}`;
         db.query(sql, (err, terrain) => {
             if (err) {
-                res.status(500).send([err.message])
+                res.status(500).send([err.message]);
                 return;
             } else {
                 if (req.userId == terrain[0].creator_id) {
+                    let data = req.body.data;
 
-                    let sql = `INSERT INTO terrains_data (data, type, year, terrain_id)
-                   VALUES
-                       (${req.body.data}, '${req.body.type}', ${req.body.year}, ${req.body.terrainId});`
-                    db.query(sql, (err, result) => {
+                    let insertQuery = `INSERT INTO terrains_data (data, type, year, terrain_id) VALUES`;
+
+                    data.forEach((item) => {
+                        insertQuery += ` (${item.data}, '${item.type}', ${item.year}, ${req.body.terrainId}),`;
+                    });
+
+                    insertQuery = insertQuery.slice(0, -1);
+
+                    db.query(insertQuery, (err, result) => {
                         if (err) {
                             if (err.code === 'ER_DUP_ENTRY') {
                                 res.status(409).send(['Data already exists for this terrain and year.']);
@@ -66,16 +71,16 @@ exports.initTerrainDataController = (db) => {
                             res.status(200).send(['Successfully add Data.']);
                         }
                     });
-                }
-                else {
-                    let msg = `Access denied.`
+                } else {
+                    let msg = 'Access denied.';
                     console.log(msg);
                     res.status(403).send([msg]);
                     return;
                 }
             }
-        })
+        });
     };
+
 
     controller.editDataForTR = (req, res, next) => {
 

@@ -7,7 +7,6 @@ exports.initTerrainController = (db) => {
     let userController = uC.initUserController(db)
 
     controller.createTerrain = (req, res, next) => {
-
         const now = new Date();
         const year = now.getFullYear();
         const month = ('0' + (now.getMonth() + 1)).slice(-2);
@@ -25,20 +24,62 @@ exports.initTerrainController = (db) => {
             type: req.body.type,
             last_change_time: datetime,
             last_change_id: req.userId
-        }
+        };
 
-        let sql = 'INSERT INTO terrains SET ?'
-        db.query(sql, terrain, (err, result) => {
+        let insertQuery = 'INSERT INTO terrains SET ?';
+        let selectQuery = 'SELECT * FROM terrains WHERE id = LAST_INSERT_ID() AND creator_id = ?';
+
+        db.query(insertQuery, terrain, (err, result) => {
             if (err) {
-                next(res.status(500).send([err.message]))
+                next(res.status(500).send([err.message]));
                 throw err;
-            }
-            else {
-                res.status(200).send(['Successfully add terrain.'])
-            }
-        })
-    }
+            } else {
+                db.query(selectQuery, terrain.creator_id, (err, rows) => {
+                    if (err) {
+                        next(res.status(500).send([err.message]));
+                        throw err;
+                    } else {
+                        const insertedRow = rows[0];
+                        const terrainId = insertedRow.id;
 
+                        // Call the addData function to add the data
+                        addData(terrainId, req.body.data)
+                            .then(() => {
+                                res.status(200).send(['Successfully']);
+                            })
+                            .catch((err) => {
+                                next(res.status(500).send([err.message]));
+                                throw err;
+                            });
+                    }
+                });
+            }
+        });
+    };
+
+    function addData(terrainId, data) {
+        return new Promise((resolve, reject) => {
+            let insertQuery = `INSERT INTO terrains_data (data, type, year, terrain_id) VALUES`;
+
+            data.forEach((item) => {
+                insertQuery += ` (${item.data}, '${item.type}', ${item.year}, ${terrainId}),`;
+            });
+
+            insertQuery = insertQuery.slice(0, -1);
+
+            db.query(insertQuery, (err, result) => {
+                if (err) {
+                    if (err.code === 'ER_DUP_ENTRY') {
+                        reject(new Error('Data already exists for this terrain and year.'));
+                    } else {
+                        reject(err);
+                    }
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
 
     controller.editTerrain = (req, res, next) => {
 
@@ -166,7 +207,7 @@ exports.initTerrainController = (db) => {
                  console.error(error);
              });*/
         let sql = `SELECT * FROM terrains WHERE creator_id = ${req.query.id}`;
-        db.query(sql,(err, results) => {
+        db.query(sql, (err, results) => {
             if (err) {
                 console.error(err);
                 res.status(500).send('500');

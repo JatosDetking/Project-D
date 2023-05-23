@@ -23,4 +23,9 @@ export class TerrainDataService {
             return res
         }))
     }
+    deleteTerrainData(terrainId: number, id1: number, id2: number) {
+        return this.terrainDataApi.deleteTerrainData(terrainId, id1, id2).pipe(map((res) => {
+            return res
+        }))
+    }
 }
