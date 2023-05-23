@@ -42,8 +42,6 @@ export class TerrainDataEditComponent implements OnInit {
         this.dataValue2.addValidators(Validators.pattern(/^\d+\.*\d*$/));
       }
     }
-
-
   }
 
   updateTerrainData() {
@@ -87,15 +85,9 @@ export class TerrainDataEditComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result == true) {
-          if (this.data.hasOwnProperty('terrainData2')) {
-            this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, this.data.terrainData2.id).subscribe(res => {
+            this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.year).subscribe(res => {
               this.dialogRef.close();
-            });
-          } else {
-            this.sharedService.TerrainDataService?.deleteTerrainData(this.data.terrainId, this.data.terrainData.id, -1).subscribe(res => {
-              this.dialogRef.close();
-            });
-          }
+            });  
         }
       });
     }

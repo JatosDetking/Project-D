@@ -233,24 +233,15 @@ exports.initTerrainDataController = (db) => {
             } else {
                 if (req.userId == terrain[0].creator_id) {
 
-                    let deleteData = '';
-
-                    if (req.query.data2Id != undefined) {
-                        deleteData = `DELETE FROM terrains_data
-                        WHERE id IN (${req.query.data1Id}, ${req.query.data2Id});
-                        `
-                    } else {
-                        deleteData = `DELETE FROM terrains_data
-                        WHERE id = ${req.query.data1Id};
-                        `
-                    }
+                    let deleteData = `DELETE FROM terrains_data
+                    WHERE terrain_id  = ${req.query.terrainId} AND year = ${req.query.year};`;
 
                     db.query(deleteData, (err, results) => {
                         if (err) {
                             res.status(500).send(['Something went wrong with delete.'])
                             throw err
                         } else {
-                            let msg = `Data is deleted.`
+                            let msg = `Data is deleted.` 
                             console.log(msg);
                             res.status(200).send([msg]);
                             return;

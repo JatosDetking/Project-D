@@ -85,9 +85,9 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit, AfterV
     }
   }
 
-  openDialogChangeTerrainDataEdit(row: TerrainData, i: number): void {
+  openDialogChangeTerrainDataEdit(row: TerrainData): void {
     const dialogConfig = new MatDialogConfig();
-    console.log(i)
+    let i = this.dataSource.data.findIndex(data => data.type === 'temperature' && data.year === row.year);
     let i2 = -1;
     if (this.mode != '') {
       if (row.type == 'temperature') {
@@ -144,18 +144,7 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit, AfterV
             }
             row.data = result.data[0];
           } else if (result.action == 'delete') {
-            if (i2 != -1) {
-              if (i2 > i) {
-                this.terrainData!.splice(i2, 1);
-                this.terrainData!.splice(i, 1);
-              } else {
-                this.terrainData!.splice(i, 1);
-                this.terrainData!.splice(i2, 1);
-              }
-            } else {
-              this.terrainData!.splice(i, 1);
-            }
-
+            this.terrainData!.splice(i, 4);
           }
           this.updeteList()
         }
