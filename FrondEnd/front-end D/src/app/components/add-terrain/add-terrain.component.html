@@ -79,16 +79,19 @@
                                 <mat-form-field class="example-full-width">
                                     <input matInput type="text" [formControl]="year">
                                 </mat-form-field>
+                                <mat-error *ngIf="duplicate">
+                                    Data already entered for this year!
+                                </mat-error>
                             </div>
                             <div class="info-field">
                                 <button mat-raised-button color="primary" (click)="addData()">Add Data</button>
                             </div>
                         </div>
                         <div class="info-field2">
-                            <app-list-of-terrain-data  #dataTable [mode]="'add'" [(terrainData)]="terrainData"
+                            <app-list-of-terrain-data #dataTable [mode]="'add'" [(terrainData)]="terrainData"
                                 [inEdit]="true">
                             </app-list-of-terrain-data>
-                            <div class="info-field"  style="margin-top: 30px;">
+                            <div class="info-field" style="margin-top: 30px;">
                                 <button mat-raised-button color="primary" matStepperPrevious>Back</button>
                                 <button mat-raised-button color="primary" matStepperNext>Next</button>
                             </div>
@@ -99,11 +102,18 @@
         </form>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+        <ng-template matStepLabel>Completion</ng-template>
+        <div class="info-container">
+            <mat-card class="info-card3">
+                <mat-card-content style="margin-top: 16px;">
+                    <p>Are you sure you want to finish adding the terrain!</p>
+                    <div class="info-field">
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" (click)="complete()">Complete</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
         </div>
+       
     </mat-step>
 </mat-stepper>
