@@ -1,3 +1,70 @@
+.manu {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    // width: 99vh;
+    //  height: 90vh;
+}
+
+.clickable {
+    background-color: #00796B;
+}
+
+.custom-grid-list {
+    margin: 10px;
+    /* Променете големината на разстоянието според вашите желания */
+}
+
+.clickable:hover {
+    cursor: pointer;
+    background-color: #009688;
+    /* Променете цвета според вашите предпочитания */
+    //font-size: 80px;
+    font-size: 62px;
+}
+
+.wordart {
+    transform: scaleY(1.25);
+}
+
+.wordart .preview {
+    font-family: Impact, sans-serif;
+    color: transparent;
+    background: radial-gradient(ellipse at center, #ffffff, #acacac);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 60px;
+}
+
+/* .wordart:hover {
+    
+    
+} */
+
+.wordart .preview::before {
+    z-index: -1;
+    text-shadow: 0.094em 0.063em #cdcdcd;
+}
 
 
 
+/*.wordart {
+    transform: scaleX(0.85) translateZ(0);
+  }
+  
+  .wordart .preview {
+    font-weight: 900;
+    color: transparent;
+    background: linear-gradient(#adadad, #fff);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    letter-spacing: 0.25rem;
+    font-size: 32px;
+  }
+  
+  .wordart .preview::before {
+    z-index: -1;
+    text-shadow: 0.125em 0.125em #717171;
+  }*/

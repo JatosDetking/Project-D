@@ -2,7 +2,7 @@
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
 </mat-form-field>
-
+<button *ngIf="isCreator" mat-raised-button class="addbuton" color="primary" (click)="openDialogAddTerrainData()" >Add Terrain Data</button>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -31,6 +31,5 @@
             <td class="mat-cell" colspan="3">No data matching the filter "{{input.value}}"</td>
         </tr>
     </table>
-
     <mat-paginator [pageSizeOptions]="listSize" aria-label="Select page of users"></mat-paginator>
 </div>

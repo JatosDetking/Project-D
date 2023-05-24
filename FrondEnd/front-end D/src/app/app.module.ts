@@ -54,6 +54,7 @@ import { ConfirmationsComponent } from './dialogs/confirmations/confirmations.co
 import { AddTerrainComponent } from './components/add-terrain/add-terrain.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddTerrainDataComponent } from './dialogs/add-terrain-data/add-terrain-data.component';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: TokenIInterceptor, multi: true },
@@ -99,7 +100,8 @@ export const httpInterceptorProviders = [
     InstallationComponent,
     AddInstalationComponent,
     ConfirmationsComponent,
-    AddTerrainComponent
+    AddTerrainComponent,
+    AddTerrainDataComponent
   ],
 
   /*  imports: [

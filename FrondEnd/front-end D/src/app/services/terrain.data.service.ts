@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { TerrainDataApiService } from "../api/terrain.data-api.service";
+import { TerrainData } from "../interfaces/terrain";
 import { SharedService } from "./shared.service";
 
 @Injectable({
@@ -20,6 +21,11 @@ export class TerrainDataService {
     }
     updateTerrainData(terrainId: number, data: number, id: number) {
         return this.terrainDataApi.updateTerrainData(terrainId, data, id).pipe(map((res) => {
+            return res
+        }))
+    }
+    addTerrainData(terrainId: number, data: TerrainData[]) {
+        return this.terrainDataApi.addTerrainData(terrainId,data).pipe(map((res) => {
             return res
         }))
     }

@@ -1,11 +1,14 @@
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile 
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"     
+<div class="manu">
+  <mat-grid-list cols="6" rowHeight="200px"  gutterSize="16" class="custom-grid-list">
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
+       (click)="tile.func()" class="clickable">
+      <div class="wordart">
+        <span class="preview">{{tile.text}}</span>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
 
-      style="background-image: url('{{tile.url}}');"
-      (click)="tile.func()">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>
+
+<!--  [ngStyle]="{ 'background-color': tile.bgColor }" -->
+<!--  style="background-image: url('{{tile.url}}');" -->

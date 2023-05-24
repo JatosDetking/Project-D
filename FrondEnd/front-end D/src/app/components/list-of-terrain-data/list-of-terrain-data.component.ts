@@ -6,6 +6,7 @@ import { TerrainData } from 'src/app/interfaces/terrain';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TerrainDataEditComponent } from 'src/app/dialogs/terrain-data-edit/terrain-data-edit.component';
+import { AddTerrainDataComponent } from 'src/app/dialogs/add-terrain-data/add-terrain-data.component';
 
 @Component({
   selector: 'app-list-of-terrain-data',
@@ -63,7 +64,7 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit, AfterV
   ngOnInit(): void {
     if (this.mode == 'add') {
       this.dataSource.data = this.terrainData!;
-      this.listSize = [5];
+      this.listSize = [4];
 
     } else {
       this.fillList()
@@ -151,6 +152,23 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit, AfterV
       } else {
         this.fillList()
       }
+    });
+  }
+  openDialogAddTerrainData() {
+    const dialogConfig = new MatDialogConfig();
+
+
+    dialogConfig.width = '350px';
+    dialogConfig.height = '560px';
+
+    dialogConfig.data = {
+      terrainId: this.data,
+      year: this.dataSource.data.map(item => item.year)
+    };
+    const dialogRef = this.dialog.open(AddTerrainDataComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.fillList()
     });
   }
 }
