@@ -17,19 +17,22 @@ export class SharedLogicService {
   ) { sharedService.shareSelf("SharedLogicService", this) }
 
   formatDateTime(dateString: string): string {
-    const date = new Date(dateString);
+    if (dateString) {
+      const date = new Date(dateString);
 
-    const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const formattedTime = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+      const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      const formattedTime = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    return `${formattedTime} ${formattedDate}`;
+      return `${formattedTime} ${formattedDate}`;
+    }
+    return '';
   }
 
   goToAccount(user: User) {
-    if(user.id == +localStorage.getItem('id')!){
+    if (user.id == +localStorage.getItem('id')!) {
       this.router.navigate(['myaccount']);
-    }else{
+    } else {
       this.router.navigate(['account'], { queryParams: { user: JSON.stringify(user) } });
-    }   
+    }
   }
 }

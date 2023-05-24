@@ -1,3 +1,7 @@
+table {
+    width: 100%;
+}
+
 .mat-stepper-horizontal {
     margin-top: 8px;
 }
@@ -25,6 +29,7 @@
     max-width: 1700px;
     margin: 0 25px;
 }
+
 .info-card3 {
     width: 100%;
     height: 100%;
@@ -44,10 +49,11 @@
     display: inline-block;
     margin-top: 10px;
 }
+
 .info-field2 {
     width: 50%;
     display: inline-block;
-   
+
 }
 
 .comment-field {
@@ -128,3 +134,43 @@ input[type=number] {
 button {
     margin: 0 10px;
 }
+.filter {
+    margin-top: 15px;
+    margin-left: 25px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td,
+  th {
+    width: 25%;
+  }
+  
+   .table-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .heading {
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #000000;
+  }
+  .mat-row .mat-cell{
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-row:hover .mat-cell {
+    border-color: #000000;
+  } 
+  
