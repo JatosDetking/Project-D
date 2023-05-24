@@ -1,0 +1,36 @@
+<mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" state="phone">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Selection of terrains</ng-template>
+
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" state="phone">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Choosing a solar installation</ng-template>
+
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" state="phone">
+        <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Selecting air turbines</ng-template>
+
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup" state="phone">
+        <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel>Selection of water turbines</ng-template>
+
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="fifthFormGroup" state="phone">
+        <form [formGroup]="fifthFormGroup">
+            <ng-template matStepLabel> Selecting a calculation method</ng-template>
+
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Results</ng-template>
+
+    </mat-step>
+</mat-stepper>

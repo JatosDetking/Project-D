@@ -43,7 +43,7 @@ export class HomeComponent {
     this.router.navigate(['addinstallation'])
   }
   gotoCalculatin() {
-    this.router.navigate(['home'])
+    this.router.navigate(['calculation'])
   }
 
   gotoAllTerrainsPage() {

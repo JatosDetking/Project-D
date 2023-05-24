@@ -16,6 +16,7 @@ import { ListOfInstallationsComponent } from './components/list-of-installations
 import { InstallationComponent } from './components/installation/installation.component';
 import { AddInstalationComponent } from './components/add-instalation/add-instalation.component';
 import { AddTerrainComponent } from './components/add-terrain/add-terrain.component';
+import { CalculationComponent } from './components/calculation/calculation.component';
 
 const routes: Routes = [
   { path: '', component: InformationPageComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'listofinstallations', component: ListOfInstallationsComponent ,canActivate:[LoggedInGuard]},
   { path: 'installation', component: InstallationComponent ,canActivate:[LoggedInGuard]},
   { path: 'addinstallation', component: AddInstalationComponent ,canActivate:[LoggedInGuard]},
-  { path: 'addterrain', component: AddTerrainComponent ,canActivate:[LoggedInGuard]}
+  { path: 'addterrain', component: AddTerrainComponent ,canActivate:[LoggedInGuard]},
+  { path: 'calculation', component: CalculationComponent ,canActivate:[LoggedInGuard]},
 ];
 
 @NgModule({
