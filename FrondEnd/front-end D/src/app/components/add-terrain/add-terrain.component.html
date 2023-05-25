@@ -84,7 +84,7 @@
                                 </mat-error>
                             </div>
                             <div class="info-field">
-                                <button mat-raised-button color="primary" (click)="addData()">Add Data</button>
+                                <button mat-raised-button color="primary" (click)="addData()" [disabled]="temp.invalid || wind.invalid || water.invalid || year.invalid">Add Data</button>
                             </div>
                         </div>
                         <div class="info-field2">

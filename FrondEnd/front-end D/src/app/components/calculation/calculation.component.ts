@@ -17,8 +17,10 @@ import { Installation } from 'src/app/interfaces/installation';
 })
 export class CalculationComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) paginatorTerrains!: MatPaginator;
-  @ViewChild(MatSort) sortTerrains!: MatSort;
+  @ViewChild('installationTerrains') paginatorTerrains!: MatPaginator;
+  @ViewChild('TerrainsMatSort') sortTerrains!: MatSort;
+  @ViewChild('installationPaginators') paginatorInstallations!: MatPaginator;
+  @ViewChild('InstallationsMatSort') sortInstallations!: MatSort;
 
 
   constructor(private _formBuilder: FormBuilder,
@@ -39,8 +41,8 @@ export class CalculationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSourceTerrains.paginator = this.paginatorTerrains;
     this.dataSourceTerrains.sort = this.sortTerrains;
-  /*  this.dataSourceInstallations.paginator = this.paginator;
-    this.dataSourceInstallations.sort = this.sort;*/
+    this.dataSourceInstallations.paginator = this.paginatorInstallations;
+    this.dataSourceInstallations.sort = this.sortInstallations;
   }
 
   isAllSelectedTerrains() {
@@ -116,6 +118,10 @@ export class CalculationComponent implements OnInit, AfterViewInit {
     ready: [true, Validators.requiredTrue]
   });
 
+  thirdFormGroup = this._formBuilder.group({
+    selectedMethod: ['', Validators.required]
+  });
+
   fillListTerrains() {
     this.sharedService.TerrainService?.getAllTerrains().subscribe((res: any) => {
       const terrainArray: Terrain[] = [];
@@ -154,6 +160,18 @@ export class CalculationComponent implements OnInit, AfterViewInit {
     };
     this.dataSourceInstallations.filter = selectedTypes.join(',');
   }
+  onRowMiddleClickTerrains(row: Terrain) {
 
+    const queryParams = { terrain: JSON.stringify(row) };
+    const urlTree = this.router.createUrlTree(['terrain'], { queryParams });
+    const url = 'http://localhost:4200/#' + urlTree.toString();
+    window.open(url, '_blank');
+  }
+  onRowMiddleClickInstallations(row: Installation) {
+    const queryParams = { installation: JSON.stringify(row) };
+    const urlTree = this.router.createUrlTree(['installation'], { queryParams });
+    const url = 'http://localhost:4200/#' + urlTree.toString();
+    window.open(url, '_blank');
+  }
 }
 

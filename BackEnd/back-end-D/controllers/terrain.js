@@ -136,26 +136,22 @@ exports.initTerrainController = (db) => {
     }
 
     controller.getAllTerrains = (req, res, next) => {
+       
+        let userId = req.userId;
 
-        let sql = `SELECT * FROM terrains;`;
-        db.query(sql, (err, results) => {
+        let sql = `SELECT * FROM terrains WHERE creator_id = ? OR type != 'private';`;
+        db.query(sql, [userId], (err, results) => {
             if (err) {
-                res.status(500).send(['500'])
-                throw err
+                res.status(500).send('500');
+                throw err;
             } else {
-                let newResults = [];
-                for (const key in results) {
-                    if (results[key].creator_id == res.userId || results[key].type != "private") {
-                        newResults.push(results[key]);
-                    }
-                }
-                let msg = `Аll terrains for taken.`
+                let msg = 'All terrains taken.';
                 console.log(msg);
-                res.status(200).send({ ...newResults });
+                res.status(200).send(results);
                 return;
             }
         });
-    }
+    };
 
     controller.getTerrain = (req, res, next) => {
 
@@ -229,7 +225,6 @@ exports.initTerrainController = (db) => {
     }
 
     controller.getMyTerrains = (req, res, next) => {
-
         let sql = `SELECT * FROM terrains WHERE creator_id = ${req.userId}`;
         db.query(sql, (err, results) => {
             if (err) {

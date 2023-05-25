@@ -9,7 +9,7 @@
                     </mat-card-header>
                     <mat-divider class=" line"></mat-divider>
                     <div class="mat-elevation-z8 table-container">
-                        <table mat-table [dataSource]="dataSourceTerrains" matSort>
+                        <table mat-table [dataSource]="dataSourceTerrains" matSort #TerrainsMatSort="matSort">
                             <ng-container matColumnDef="select">
                                 <th mat-header-cell *matHeaderCellDef>
                                     <mat-checkbox (change)="$event ? toggleAllRowsTerrains() : null"
@@ -37,16 +37,17 @@
 
                             <tr mat-header-row *matHeaderRowDef="displayedColumnsTerrains"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumnsTerrains;"
-                                (click)="selectionTerrains.toggle(row)">
+                                (click)="selectionTerrains.toggle(row);"
+                                (mousedown)="$event.which == 2 ?  onRowMiddleClickTerrains(row) : null">
                             </tr>
 
                         </table>
-                        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users">
-                      </mat-paginator>
+                        <mat-paginator #installationTerrains [pageSizeOptions]="[10, 25, 100]"
+                            aria-label="Select page of users">
+                        </mat-paginator>
 
                     </div>
                     <div class="button-conteiner">
-                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
                         <button mat-raised-button color="primary" matStepperNext>Next</button>
                     </div>
                 </mat-card>
@@ -75,7 +76,7 @@
                     </div>
                     <div class="mat-elevation-z8 table-container">
 
-                        <table mat-table [dataSource]="dataSourceInstallations" matSort>
+                        <table mat-table [dataSource]="dataSourceInstallations" matSort #InstallationsMatSort="matSort">
                             <ng-container matColumnDef="select">
                                 <th mat-header-cell *matHeaderCellDef>
                                     <mat-checkbox (change)="$event ? toggleAllRowsInstallations() : null"
@@ -109,11 +110,49 @@
 
                             <tr mat-header-row *matHeaderRowDef="displayedColumnsInstallations"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumnsInstallations;"
-                                (click)="selectionInstallations.toggle(row)">
+                                (click)="selectionInstallations.toggle(row)"
+                                (mousedown)="$event.which == 2 ?  onRowMiddleClickInstallations(row) : null">
                             </tr>
 
                         </table>
-                        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                        <mat-paginator #installationPaginators [pageSizeOptions]="[10, 25, 100]"
+                            aria-label="Select page of users">
+                        </mat-paginator>
+                    </div>
+                    <div class="button-conteiner">
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" matStepperNext>Next</button>
+                    </div>
+                </mat-card>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Method selection</ng-template>
+            <div class="info-container">
+                <mat-card class="info-card3">
+                    <mat-card-header>
+                        <mat-card-title>Choose a calculation method
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider class=" line"></mat-divider>
+                    <div class="info-field table-container">
+                        <mat-form-field class="example-full-width">
+                            <mat-select formControlName="selectedMethod" required>
+                                <mat-option value="MaximumExpectedEfficiency">Maximum Expected Efficiency</mat-option>
+                                <mat-option value="MaximumEfficiencyUnderMostProbableCondition">
+                                    Maximum Efficiency Under Most Probable Condition</mat-option>
+                                <mat-option value="MaximumGuaranteedEfficiency">Maximum Guaranteed Efficiency
+                                </mat-option>
+                                <mat-option value="MinimumAverageForegoneBenefits">Minimum Average Foregone Benefits
+                                </mat-option>
+                                <mat-option value="MinimumMissedBenefitUnderMostProbableCondition">
+                                    Minimum Missed Benefit Under Most Probable Condition</mat-option>
+                                <mat-option value="MinimumGuaranteedBenefitForegone">Minimum Guaranteed Benefit Foregone
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     <div class="button-conteiner">
                         <button mat-raised-button color="primary" matStepperPrevious>Back</button>
@@ -125,6 +164,6 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Results</ng-template>
-
     </mat-step>
 </mat-stepper>
+<!--   -->
