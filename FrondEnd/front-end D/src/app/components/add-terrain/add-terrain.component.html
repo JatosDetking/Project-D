@@ -1,5 +1,5 @@
 <mat-stepper linear #stepper>
-    <mat-step [stepControl]="firstFormGroup" state="phone">
+    <mat-step [stepControl]="firstFormGroup" >
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Enter the terrain information</ng-template>
             <div class="info-container">
@@ -39,7 +39,7 @@
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="phone">
+    <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Enter terrain data</ng-template>
             <div class="info-container">

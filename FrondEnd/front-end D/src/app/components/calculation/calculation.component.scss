@@ -20,7 +20,8 @@ table {
 
 .info-card {
     width: 100%;
-    max-width: 600px;
+    max-width: 1000px;
+    margin-top: 25px;
     margin-bottom: 25px;
 }
 
@@ -65,12 +66,6 @@ table {
     margin-bottom: 70px;
 }
 
-.edit-button-container {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
-
 .line {
     margin-top: 10px;
 }
@@ -111,11 +106,6 @@ textarea {
     min-height: 80px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
 
 input[type=number] {
     -moz-appearance: textfield;
@@ -134,43 +124,49 @@ input[type=number] {
 button {
     margin: 0 10px;
 }
+
+.button-conteiner {
+
+    margin-left: 25px;
+
+}
+
 .filter {
     margin-top: 15px;
     margin-left: 25px;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
-  }
-  
-  .mat-mdc-form-field {
+}
+
+.mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
-  }
-  
-  td,
-  th {
+}
+
+td,
+th {
     width: 25%;
-  }
-  
-   .table-container {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .heading {
+}
+
+.table-container {
+    margin: 30px;
+}
+
+.heading {
     font-weight: bold;
     margin-top: 20px;
     text-align: center;
     color: #000000;
-  }
-  .mat-row .mat-cell{
+}
+
+.mat-row .mat-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
     cursor: pointer;
-  }
-  
-  .mat-row:hover .mat-cell {
+}
+
+.mat-row:hover .mat-cell {
     border-color: #000000;
-  } 
-  
+}
