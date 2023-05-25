@@ -17,8 +17,9 @@ import { Installation } from 'src/app/interfaces/installation';
 })
 export class CalculationComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginatorTerrains!: MatPaginator;
+  @ViewChild(MatSort) sortTerrains!: MatSort;
+
 
   constructor(private _formBuilder: FormBuilder,
     private ref: ChangeDetectorRef,
@@ -34,11 +35,12 @@ export class CalculationComponent implements OnInit, AfterViewInit {
   displayedColumnsInstallations: string[] = ['select', 'name', 'type', 'price'];
   selectionInstallations = new SelectionModel<Installation>(true, []);
 
+
   ngAfterViewInit() {
-    this.dataSourceTerrains.paginator = this.paginator;
-    this.dataSourceTerrains.sort = this.sort;
-    this.dataSourceInstallations.paginator = this.paginator;
-    this.dataSourceInstallations.sort = this.sort;
+    this.dataSourceTerrains.paginator = this.paginatorTerrains;
+    this.dataSourceTerrains.sort = this.sortTerrains;
+  /*  this.dataSourceInstallations.paginator = this.paginator;
+    this.dataSourceInstallations.sort = this.sort;*/
   }
 
   isAllSelectedTerrains() {
@@ -46,13 +48,28 @@ export class CalculationComponent implements OnInit, AfterViewInit {
     const numRows = this.dataSourceTerrains.data.length;
     return numSelected === numRows;
   }
+  isHaveSelectedTerrains() {
+    const numSelected = this.selectionTerrains.selected.length;
+    const numRows = this.dataSourceTerrains.data.length;
+    if (numSelected > 0 && numSelected < numRows) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
 
   toggleAllRowsTerrains() {
     if (this.isAllSelectedTerrains()) {
       this.selectionTerrains.clear();
-      return;
+    } else {
+      const selectedRows = this.selectionTerrains.selected.length;
+      if (selectedRows === 0) {
+        this.selectionTerrains.select(...this.dataSourceTerrains.data);
+      } else {
+        this.selectionTerrains.clear();
+      }
     }
-    this.selectionTerrains.select(...this.dataSourceTerrains.data);
   }
 
   isAllSelectedInstallations() {
@@ -61,48 +78,46 @@ export class CalculationComponent implements OnInit, AfterViewInit {
     return numSelected === numRows;
   }
 
-  toggleAllRowsInstallations() {
-    if (this.isAllSelectedTerrains()) {
-      this.selectionInstallations.clear();
-      return;
+  isHaveSelectedInstallations() {
+    const numSelected = this.selectionInstallations.selected.length;
+    const numRows = this.dataSourceInstallations.data.length;
+    if (numSelected > 0 && numSelected < numRows) {
+      return true
     }
-    this.selectionInstallations.select(...this.dataSourceInstallations.data);
+    else {
+      return false
+    }
   }
 
-  /*checkboxLabelTerrains(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelectedTerrains() ? 'deselect' : 'select'} all`;
+  toggleAllRowsInstallations() {
+    if (this.isAllSelectedInstallations()) {
+      this.selectionInstallations.clear();
+    } else {
+      const selectedRows = this.selectionInstallations.selected.length;
+      if (selectedRows === 0) {
+        this.selectionInstallations.select(...this.dataSourceInstallations.data);
+      } else {
+        this.selectionInstallations.clear();
+      }
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }*/
+  }
 
   ngOnInit(): void {
     this.fillListTerrains();
     this.fillListInstalations();
+
+
   }
   firstFormGroup = this._formBuilder.group({
     ready: [true, Validators.requiredTrue]
   });
 
   secondFormGroup = this._formBuilder.group({
-    ready: [false, Validators.requiredTrue]
+    ready: [true, Validators.requiredTrue]
   });
-
-  thirdFormGroup = this._formBuilder.group({
-    ready: [false, Validators.requiredTrue]
-  });
-
-  fourthFormGroup = this._formBuilder.group({
-    ready: [false, Validators.requiredTrue]
-  });
-
-  fifthFormGroup = this._formBuilder.group({
-    ready: [false, Validators.requiredTrue]
-  });
-
 
   fillListTerrains() {
-    this.sharedService.TerrainService?.getMyTerrainsList().subscribe((res: any) => {
+    this.sharedService.TerrainService?.getAllTerrains().subscribe((res: any) => {
       const terrainArray: Terrain[] = [];
       for (const key in res) {
         const terrainData = res[key];
@@ -117,8 +132,8 @@ export class CalculationComponent implements OnInit, AfterViewInit {
         };
         terrainArray.push(terrain);
       }
+      console.log(terrainArray.length)
       this.dataSourceTerrains.data = terrainArray;
-      // this.listSize = [10, 25, 50, 100];
     });
   }
   fillListInstalations() {
@@ -132,5 +147,13 @@ export class CalculationComponent implements OnInit, AfterViewInit {
       this.dataSourceInstallations.data = installationArray;
     });
   }
+  filterInstallationsByType(selectedTypes: string[]): void {
+    this.dataSourceInstallations.filterPredicate = (data: Installation, filter: string) => {
+      const filters = filter.split(',');
+      return filters.includes(data.type);
+    };
+    this.dataSourceInstallations.filter = selectedTypes.join(',');
+  }
+
 }
 
