@@ -1,4 +1,5 @@
 
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
@@ -8,7 +9,13 @@ import { ListOfTerrainDataComponent } from '../list-of-terrain-data/list-of-terr
 @Component({
   selector: 'app-add-terrain',
   templateUrl: './add-terrain.component.html',
-  styleUrls: ['./add-terrain.component.scss']
+  styleUrls: ['./add-terrain.component.scss'],
+   providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
+  ],
 })
 export class AddTerrainComponent implements OnInit {
 

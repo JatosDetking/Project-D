@@ -1,27 +1,35 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Terrain } from 'src/app/interfaces/terrain';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Installation } from 'src/app/interfaces/installation';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-calculation',
   templateUrl: './calculation.component.html',
-  styleUrls: ['./calculation.component.scss']
+  styleUrls: ['./calculation.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
+  ],
 })
-export class CalculationComponent implements OnInit, AfterViewInit {
+export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
-  @ViewChild('installationTerrains') paginatorTerrains!: MatPaginator;
-  @ViewChild('TerrainsMatSort') sortTerrains!: MatSort;
+  @ViewChild('paginatorTerrains') paginatorTerrains!: MatPaginator;
+  @ViewChild('terrainsMatSort') sortTerrains!: MatSort;
   @ViewChild('installationPaginators') paginatorInstallations!: MatPaginator;
-  @ViewChild('InstallationsMatSort') sortInstallations!: MatSort;
-
+  @ViewChild('installationsMatSort') sortInstallations!: MatSort;
+  @ViewChild('resultPaginators') paginatorResult!: MatPaginator;
+  @ViewChild('resultMatSort') sortResult!: MatSort;
 
   constructor(private _formBuilder: FormBuilder,
     private ref: ChangeDetectorRef,
@@ -37,12 +45,27 @@ export class CalculationComponent implements OnInit, AfterViewInit {
   displayedColumnsInstallations: string[] = ['select', 'name', 'type', 'price'];
   selectionInstallations = new SelectionModel<Installation>(true, []);
 
+  dataSourceResult = new MatTableDataSource<any>([]);
+  displayedColumnsResult: string[] = ['name', 'price', 'result'];
+
+  err1 = false;
+  err2 = false;
+  err3 = false;
+
+  resultMethodName = '';
+
+
+  ngAfterViewChecked(): void {
+    this.ref.detectChanges();
+  }
 
   ngAfterViewInit() {
     this.dataSourceTerrains.paginator = this.paginatorTerrains;
     this.dataSourceTerrains.sort = this.sortTerrains;
     this.dataSourceInstallations.paginator = this.paginatorInstallations;
     this.dataSourceInstallations.sort = this.sortInstallations;
+    this.dataSourceResult.paginator = this.paginatorResult;
+    this.dataSourceResult.sort = this.sortResult;
   }
 
   isAllSelectedTerrains() {
@@ -60,7 +83,6 @@ export class CalculationComponent implements OnInit, AfterViewInit {
       return false
     }
   }
-
   toggleAllRowsTerrains() {
     if (this.isAllSelectedTerrains()) {
       this.selectionTerrains.clear();
@@ -73,13 +95,11 @@ export class CalculationComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
   isAllSelectedInstallations() {
     const numSelected = this.selectionInstallations.selected.length;
     const numRows = this.dataSourceInstallations.data.length;
     return numSelected === numRows;
   }
-
   isHaveSelectedInstallations() {
     const numSelected = this.selectionInstallations.selected.length;
     const numRows = this.dataSourceInstallations.data.length;
@@ -90,7 +110,6 @@ export class CalculationComponent implements OnInit, AfterViewInit {
       return false
     }
   }
-
   toggleAllRowsInstallations() {
     if (this.isAllSelectedInstallations()) {
       this.selectionInstallations.clear();
@@ -111,11 +130,11 @@ export class CalculationComponent implements OnInit, AfterViewInit {
 
   }
   firstFormGroup = this._formBuilder.group({
-    ready: [true, Validators.requiredTrue]
+    ready: [false, Validators.requiredTrue]
   });
 
   secondFormGroup = this._formBuilder.group({
-    ready: [true, Validators.requiredTrue]
+    ready: [false, Validators.requiredTrue]
   });
 
   thirdFormGroup = this._formBuilder.group({
@@ -138,7 +157,7 @@ export class CalculationComponent implements OnInit, AfterViewInit {
         };
         terrainArray.push(terrain);
       }
-      console.log(terrainArray.length)
+      // console.log(terrainArray.length)
       this.dataSourceTerrains.data = terrainArray;
     });
   }
@@ -161,17 +180,69 @@ export class CalculationComponent implements OnInit, AfterViewInit {
     this.dataSourceInstallations.filter = selectedTypes.join(',');
   }
   onRowMiddleClickTerrains(row: Terrain) {
-
-    const queryParams = { terrain: JSON.stringify(row) };
-    const urlTree = this.router.createUrlTree(['terrain'], { queryParams });
-    const url = 'http://localhost:4200/#' + urlTree.toString();
-    window.open(url, '_blank');
+    console.log(this.selectionTerrains);
+    console.log(this.selectionTerrains.selected.length);
+    /*  const queryParams = { terrain: JSON.stringify(row) };
+      const urlTree = this.router.createUrlTree(['terrain'], { queryParams });
+      const url = 'http://localhost:4200/#' + urlTree.toString();
+      window.open(url, '_blank');*/
   }
   onRowMiddleClickInstallations(row: Installation) {
     const queryParams = { installation: JSON.stringify(row) };
     const urlTree = this.router.createUrlTree(['installation'], { queryParams });
     const url = 'http://localhost:4200/#' + urlTree.toString();
     window.open(url, '_blank');
+  }
+  checkReady1() {
+    if (this.selectionTerrains.selected.length > 0) {
+      this.firstFormGroup.setValue({
+        ready: true
+      });
+    } else {
+      this.firstFormGroup.setValue({
+        ready: false
+      });
+    }
+  }
+  isReady1ControlInvalid() {
+    if (this.firstFormGroup.get('ready')?.invalid) {
+      this.err1 = true;
+    } else {
+      this.err1 = false;
+    }
+  }
+  checkReady2() {
+
+    if (this.selectionInstallations.selected.length <= 3) {
+      const uniqueTypes = new Set(this.selectionInstallations.selected.map(item => item.type));
+
+      if (uniqueTypes.size === 3) {
+        this.secondFormGroup.setValue({
+          ready: true
+        });
+      } else {
+        this.secondFormGroup.setValue({
+          ready: false
+        });
+      }
+    }
+  }
+  isReady2ControlInvalid() {
+    if (this.secondFormGroup.get('ready')?.invalid) {
+      this.err2 = true;
+    } else {
+      this.err2 = false;
+    }
+  }
+  isReady3ControlInvalid() {
+    if (this.thirdFormGroup.get('selectedMethod')?.invalid) {
+      this.err3 = true;
+    } else {
+      this.err3 = false;
+    }
+  }
+  calculation(){
+    this.resultMethodName = this.thirdFormGroup.get('selectedMethod')!.value;
   }
 }
 

@@ -132,9 +132,6 @@ exports.initInstallationController = (db) => {
 
                     });
 
-                // takenInstallation = new Installation(results[0].type,intervals,performanceFactors,results[0].price,)
-                // console.log(takenInstallation);
-
             }
         });
     }

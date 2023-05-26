@@ -6,6 +6,7 @@ const terrainDataRoutre = require('./routers/terrainDataRouters');
 const terrainVoteRoutre = require('./routers/terrainVoteRouters');
 const terrainCommentRoutre = require('./routers/terrainCommentRouters');
 const installationRoutre = require('./routers/installationRouters');
+const calculationRoutre = require('./routers/calculationRoutre');
 //const suggestionsRoutes = require('./routers/suggestions');
 const sqlDB = require('./database/mysql');
 
@@ -164,6 +165,7 @@ app.use('/terrain/data', terrainDataRoutre.initTerrainDataRouter(db));
 app.use('/terrain/vote', terrainVoteRoutre.initTerrainVoteRouter(db));
 app.use('/terrain/comment', terrainCommentRoutre.initTerrainCommentRouter(db));
 app.use('/installation', installationRoutre.initInstallationRouter(db));
+app.use('/calculation', calculationRoutre.initCalculationRouter(db));
 
 
 app.use(errorController.get404);

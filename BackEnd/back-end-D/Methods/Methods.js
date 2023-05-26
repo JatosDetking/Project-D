@@ -320,7 +320,7 @@ function MinimumAverageForegoneBenefits(arrB, arrP) {
     console.log(indexV[0]);
 }
 
-function MinimumMissedBenefitUnderMostLikelyCondition(arrB, arrP) {
+function MinimumMissedBenefitUnderMostProbableCondition(arrB, arrP) {
 
     const index = [0];
     const maxP = [0];
