@@ -1,34 +1,62 @@
-
-const Installation = require('./../classes/Terrain');
-
 exports.initCalculationController = (db) => {
     let controller = {}
     controller.calculation = (req, res, next) => {
-        const userId = req.userId;
-        const terrainIds = req.query.terrainsIds.split(",");
-
-        const sql = `SELECT * FROM terrains WHERE id IN (?);`;
-        db.query(sql, [terrainIds], (err, results) => {
-            if (err) {
-                console.error(err);
-                res.status(500).send('500');
-                return;
-            }
-            for (const key in results) {
-                getData(results[key].id)
-                    .then((result) => {
-                        console.log(result);
-                        
-                    })
-                    .catch((err) => {
-                        next(res.status(500).send([err.message]));
-                        throw err;
-                    });
-            }     
-            res.status(200).send(results);
+        getTerrains(req.query.terrainsIds)
+        .then(results => {
+            console.log(results);
+        })
+        .catch(error => {
+            console.error(error);
         });
     };
 
+    function getTerrains(terrainsIds){
+        return new Promise((resolve, reject) => {
+            const terrainIds = terrainsIds.split(",");
+    
+            const sql = `SELECT * FROM terrains WHERE id IN (?);`;
+            db.query(sql, [terrainIds], (err, results) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                    return;
+                }
+                Promise.all(results.map(result => getData(result.id)))
+                    .then(dataResults => {
+                        dataResults.forEach((result, index) => {
+                            let temp = [];
+                            let rad = [];
+                            let wind = [];
+                            let water = [];
+                            result.sort((a, b) => {
+                                return a.year - b.year;
+                            });
+                            for (const key in result) {
+                                if (result[key].type == 'temperature') {
+                                    temp.push(result[key].data)
+                                } else if (result[key].type == 'solar radiation') {
+                                    rad.push(result[key].data)
+                                } else if (result[key].type == 'wind speed') {
+                                    wind.push(result[key].data)
+                                } else if (result[key].type == 'water level') {
+                                    water.push(result[key].data)
+                                }
+                            }
+                            results[index]['temp'] = temp;
+                            results[index]['rad'] = rad;
+                            results[index]['wind'] = wind;
+                            results[index]['water'] = water;
+                        });
+                        resolve(results);
+                    })
+                    .catch((err) => {
+                        next(res.status(500).send([err.message]));
+                        reject(err);
+                    });
+            });
+        });
+    };
+    
     function getData(terrainId) {
         return new Promise((resolve, reject) => {
 
