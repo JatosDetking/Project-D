@@ -100,12 +100,12 @@ class Methods {
         }
         return gravityArray;
     }
-    
+
     static matrixMultiplication(a, b) {
         let result = 0;
         if (Array.isArray(a[0])) {
             result = new Array(a.length).fill(0);
-    
+
             for (let i = 0; i < a.length; i++) {
                 for (let j = 0; j < a[0].length; j++) {
                     result[i] += a[i][j] * b[j];
@@ -118,12 +118,12 @@ class Methods {
         }
         return result;
     }
-    
+
     static knapSack(capital, cost, efficienc, index) {
         let terrainCount = efficienc.length;
         const effic = [...efficienc];
         const efficiency = new Array(efficienc.length);
-    
+
         for (let f = 0; f < efficienc.length; f++) {
             let prop = effic[f];
             effic[f] = prop * 100000;
@@ -131,22 +131,22 @@ class Methods {
                 effic[f] = 0;
             }
         }
-    
+
         for (let f = 0; f < efficienc.length; f++) {
             efficiency[f] = Math.floor(effic[f]);
         }
-    
+
         const n = efficiency.length;
-    
+
         for (let p = 0; p < terrainCount; p++) {
             index[p] = 0;
         }
-    
+
         const K = new Array(n + 1);
         for (let i = 0; i <= n; i++) {
             K[i] = new Array(capital + 1).fill(0);
         }
-    
+
         for (let i = 0; i <= n; i++) {
             for (let w = 0; w <= capital; w++) {
                 if (i === 0 || w === 0) {
@@ -158,10 +158,10 @@ class Methods {
                 }
             }
         }
-    
+
         let res = K[n][capital];
         let w = capital;
-    
+
         for (let i = n; i > 0 && res > 0; i--) {
             if (res === K[i - 1][w]) {
                 continue;
@@ -172,11 +172,11 @@ class Methods {
             }
         }
     }
-    
+
     static sumResult(cost, index, efficiency) {
         let maxEfficiency = 0;
         let sumCost = 0;
-    
+
         for (let i = 0; i < cost.length; i++) {
             if (index[i] === 1) {
                 let p = i + 1;
@@ -186,49 +186,49 @@ class Methods {
                 maxEfficiency += efficiency[i];
             }
         }
-    
+
         return { efficiency: maxEfficiency, cost: sumCost };
     }
-    
+
     static calculateMean(numbers) {
         const sum = numbers.reduce((total, num) => total + num, 0);
         const mean = sum / numbers.length;
         return mean;
     }
-    
+
     static calculateVariance(numbers) {
         const mean = this.calculateMean(numbers);
         const squaredDifferences = numbers.map(num => Math.pow(num - mean, 2));
         const variance = this.calculateMean(squaredDifferences);
         return variance;
     }
-    
+
     static calculateStandardDeviation(numbers) {
         const variance = this.calculateVariance(numbers);
         const standardDeviation = Math.sqrt(variance);
         return standardDeviation;
     }
-    
-    
+
+
     static BenefitArr(arrA) {
         const arrMax = [0, 0, 0];
         const index = [0, 0, 0];
         const benefitArr = [[], [], []];
-    
+
         this.maxArrValue2d(arrA, arrMax, index);
-    
+
         for (let i = 0; i < arrA[0].length; i++) {
             for (let j = 0; j < arrA.length; j++) {
                 benefitArr[j][i] = arrMax[i] - arrA[j][i];
             }
         }
-    
+
         console.log(benefitArr[0]);
         console.log(benefitArr[1]);
         console.log(benefitArr[2]);
         return benefitArr;
     }
-    
+
     static minArrValue2d(arr, arrMin, index) {
         for (let i = 0; i < arr.length; i++) {
             let min = arr[i][0];
@@ -243,9 +243,9 @@ class Methods {
             index[i] = indexV;
         }
     }
-    
+
     static maxArrValue2d(arr, arrMax) {
-    
+
         for (let i = 0; i < arr[0].length; i++) {
             let max = arr[0][i];
             for (let j = 0; j < arr.length; j++) {
@@ -256,7 +256,7 @@ class Methods {
             arrMax[i] = max;
         }
     }
-    
+
     static maxArrValue2d2(arr, arrMax, index) {
         for (let i = 0; i < arr.length; i++) {
             let max = arr[i][0];
@@ -271,7 +271,7 @@ class Methods {
             index[i] = indexV;
         }
     }
-    
+
     static maxArrValue(arr, max, index, indexV) {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
@@ -285,7 +285,7 @@ class Methods {
             }
         }
     }
-    
+
     static minArrValue(arr, min, index) {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
@@ -297,7 +297,7 @@ class Methods {
             }
         }
     }
-    
+
     static maxArrValue2(arr, max, index) {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
@@ -309,7 +309,7 @@ class Methods {
             }
         }
     }
-    
+
     static maxArrValue3(arr, max, indexV, index) {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
@@ -332,35 +332,36 @@ class Methods {
             }
         }
     }
-    
+
     static probability(arr) {
-        let mean =  this.calculateMean(arr);
-        let standardDeviation =  this.calculateStandardDeviation(arr);
-        let n1=0;
-        let n2=0;
-        let n3=0;
+        let mean = this.calculateMean(arr);
+        let standardDeviation = this.calculateStandardDeviation(arr);
+        let n1 = 0;
+        let n2 = 0;
+        let n3 = 0;
         let arrLength = arr.length;
         let lowerBound = mean - standardDeviation;
         let upperBound = mean + standardDeviation;
         for (const element of arr) {
-            if (element < lowerBound){
+            if (element < lowerBound) {
                 n1++;
-            }else if(lowerBound <= element && element <= upperBound){
+            } else if (lowerBound <= element && element <= upperBound) {
                 n2++;
-            }else if(element > upperBound){
+            } else if (element > upperBound) {
                 n3++;
-            }        
-      }
-            return [n1/arrLength,n2/arrLength,3/arrLength]
+            }
+        }
+        return [n1 / arrLength, n2 / arrLength, 3 / arrLength]
     }
 
-    static MaximumExpectedEfficiency(terrain) {
+    static MaximumExpectedEfficiency(terrain){
         const arrAxP = this.matrixMultiplication(terrain.efficiencyArrey, terrain.probabilityArray);
         const max = [0];
         const indexV = [0];
 
         this.maxArrValue2(arrAxP, max, indexV);
 
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = max[0];
         terrain['optimalIndex'] = indexV[0];
     }
@@ -370,10 +371,11 @@ class Methods {
         const maxP = [0];
         const indexV = [0, 0];
         const max = [0];
-        this.maxArrValue2(terrain.probabilityArray, maxP, index);
 
+        this.maxArrValue2(terrain.probabilityArray, maxP, index);
         this.maxArrValue3(terrain.efficiencyArrey, max, indexV, index);
 
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = max[0];
         terrain['optimalIndex'] = indexV[0];
     }
@@ -383,9 +385,11 @@ class Methods {
         const index = [0, 0, 0];
         const max = [0];
         const indexV = [0];
+
         this.minArrValue2d(terrain.probabilityArray, arrMin, index);
         this.maxArrValue(arrMin, max, index, indexV);
 
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = max[0];
         terrain['optimalIndex'] = indexV[0];
     }
@@ -401,7 +405,7 @@ class Methods {
         const maxValues = arrB.map(subArray => Math.max(...subArray));
         const maxValue = Math.max(...maxValues);
 
-
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = maxValue - min[0];
         terrain['optimalIndex'] = indexV[0];
     }
@@ -418,7 +422,8 @@ class Methods {
 
         const maxValues = arrB.map(subArray => Math.max(...subArray));
         const maxValue = Math.max(...maxValues);
-        
+
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = maxValue - min[0];
         terrain['optimalIndex'] = indexV[0];
     }
@@ -428,13 +433,15 @@ class Methods {
         const arrMax = [0, 0, 0];
         const index = [0, 0, 0];
         const min = [0];
+
         const indexV = [0];
         this.maxArrValue2d2(arrB, arrMax, index);
         this.minArrValue(arrMax, min, indexV);
 
         const maxValues = arrB.map(subArray => Math.max(...subArray));
         const maxValue = Math.max(...maxValues);
-        
+
+        terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = maxValue - min[0];
         terrain['optimalIndex'] = indexV[0];
     }

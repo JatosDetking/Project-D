@@ -126,7 +126,7 @@
                         </mat-paginator>
                     </div>
                     <div class="button-conteiner">
-                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" (click)="resetReady1()" matStepperPrevious>Back</button>
                         <button mat-raised-button color="primary" (click)="isReady2ControlInvalid()"
                             matStepperNext>Next</button>
                         <mat-error class="info-field2" *ngIf="err2">You must select one installation of each type!
@@ -164,7 +164,7 @@
                         </mat-form-field>
                     </div>
                     <div class="button-conteiner">
-                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" (click)="resetReady2();" matStepperPrevious>Back</button>
                         <button mat-raised-button color="primary" (click)="isReady3ControlInvalid();  calculation()"
                             matStepperNext>Next</button>
                         <mat-error class="info-field2" *ngIf="err3">You need to select the method!</mat-error>
@@ -196,7 +196,7 @@
 
                                     <ng-container matColumnDef="price">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                                        <td mat-cell *matCellDef="let element"> {{element.optimalPrice}} </td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="result">

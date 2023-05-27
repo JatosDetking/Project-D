@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { VotesService } from './votes.service';
 import { InstallationService } from './installation.service';
 import { AuthService } from './auth.service';
+import { CalculationService } from './calculation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class SharedService {
   VotesService?:VotesService
   InstallationService?:InstallationService
   AuthService?:AuthService
+  CalculationService?:CalculationService
   constructor(
     
   ) { }

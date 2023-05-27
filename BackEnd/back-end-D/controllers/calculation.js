@@ -10,32 +10,30 @@ exports.initCalculationController = (db) => {
             .then(([terrainResults, installationResults]) => {
                 /*console.log("Terrain Results:", terrainResults);
                 console.log("Installation Results:", installationResults);*/
-                for (const terrain of terrainResults) {
-                    Methods.effTR(terrain, installationResults);
-                }
+
+                let result
                 switch (req.query.method) {
                     case "Maximum Expected Efficiency":
-                      // Действия при "Maximum Expected Efficiency"
-                      break;
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MaximumExpectedEfficiency.bind(Methods))
+                        break;
                     case "Maximum Efficiency Under Most Probable Condition":
-                      // Действия при "Maximum Efficiency Under Most Probable Condition"
-                      break;
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MaximumEfficiencyUnderMostProbableCondition.bind(Methods))
+                        break;
                     case "Maximum Guaranteed Efficiency":
-                      // Действия при "Maximum Guaranteed Efficiency"
-                      break;
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MaximumGuaranteedEfficiency.bind(Methods))
+                        break;
                     case "Minimum Average Foregone Benefits":
-                      // Действия при "Minimum Average Foregone Benefits"
-                      break;
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MinimumAverageForegoneBenefits.bind(Methods))
+                        break;
                     case "Minimum Missed Benefit Under Most Probable Condition":
-                      // Действия при "Minimum Missed Benefit Under Most Probable Condition"
-                      break;
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MinimumMissedBenefitUnderMostProbableCondition.bind(Methods))
+                        break;
                     case "Minimum Guaranteed Benefit Foregone":
-                      // Действия при "Minimum Guaranteed Benefit Foregone"
-                      break;
-                  }
+                        result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MinimumGuaranteedBenefitForegone.bind(Methods))
+                        break;
+                }
                 res.status(200).send({
-                    terrains: terrainResults,
-                    installations: installationResults
+                    result
                 });
             })
             .catch(error => {
@@ -43,7 +41,7 @@ exports.initCalculationController = (db) => {
                 next(res.status(500).send(error));
             });
     };
-    
+
 
     function getTerrains(terrainsIds) {
         return new Promise((resolve, reject) => {
@@ -77,7 +75,7 @@ exports.initCalculationController = (db) => {
                                     water.push(result[key].data)
                                 }
                             }
-                           // results[index]['data'] = result
+                            // results[index]['data'] = result
                             delete results[index].name;
                             delete results[index].creator_id;
                             delete results[index].type;
@@ -125,22 +123,43 @@ exports.initCalculationController = (db) => {
                         delete res.name;
                         delete res.creator_id;
                         let performanceFactors = res.performance_factors.split("-").map(str => parseFloat(str));
-                        let intervals = res.intervals.split("-").map(str => parseFloat(str)); 
+                        let intervals = res.intervals.split("-").map(str => parseFloat(str));
                         delete res.performance_factors;
                         delete res.intervals;
-                        res['performanceFactors'] =performanceFactors;   
-                        res['intervals'] =intervals;            
-                       // res.performance_factors = res.performance_factors.split("-").map(str => parseFloat(str));
-                       // res.intervals = res.intervals.split("-").map(str => parseFloat(str));                
+                        res['performanceFactors'] = performanceFactors;
+                        res['intervals'] = intervals;
+                        // res.performance_factors = res.performance_factors.split("-").map(str => parseFloat(str));
+                        // res.intervals = res.intervals.split("-").map(str => parseFloat(str));                
                     })
                     result.sort((a, b) => {
                         return a.type.localeCompare(b.type);
-                      });
+                    });
                     resolve(result);
                 }
             });
         });
     }
-
+    function calculationByMethod(terrainResults, installationResults, balance, method) {
+        let sumResult = {};
+        let costs = [];
+        let indexs = [];
+        let efficiency = [];
+        for (const terrain of terrainResults) {
+            Methods.effTR(terrain, installationResults);
+            method(terrain);
+            costs.push(terrain.optimalPrice);
+            efficiency.push(terrain.optimalValue);
+            delete terrain.price;
+            delete terrain.temp;
+            delete terrain.rad;
+            delete terrain.water;
+            delete terrain.wind;
+            delete terrain.efficiencyArrey;
+            delete terrain.probabilityArray;
+        }
+        Methods.knapSack(balance, costs, efficiency, indexs);
+        sumResult = Methods.sumResult(costs, indexs, efficiency);
+        return {...sumResult, terrains : terrainResults.filter((element, index) => indexs[index] === 1)};
+    }
     return controller
 }

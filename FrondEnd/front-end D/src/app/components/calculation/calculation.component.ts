@@ -195,6 +195,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   }
   checkReady1() {
     if (this.selectionTerrains.selected.length > 0) {
+      console.log(this.selectionTerrains.selected.length);
       this.firstFormGroup.setValue({
         ready: true
       });
@@ -211,20 +212,25 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       this.err1 = false;
     }
   }
+  resetReady1() {
+    this.firstFormGroup.setValue({
+      ready: false
+    });
+  }
   checkReady2() {
-
-    if (this.selectionInstallations.selected.length <= 3) {
+    console.log(this.selectionInstallations.selected.length)
+    if (this.selectionInstallations.selected.length == 3) {
       const uniqueTypes = new Set(this.selectionInstallations.selected.map(item => item.type));
-
       if (uniqueTypes.size === 3) {
         this.secondFormGroup.setValue({
           ready: true
         });
-      } else {
-        this.secondFormGroup.setValue({
-          ready: false
-        });
       }
+    }
+    else {
+      this.secondFormGroup.setValue({
+        ready: false
+      });
     }
   }
   isReady2ControlInvalid() {
@@ -234,6 +240,11 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       this.err2 = false;
     }
   }
+  resetReady2() {
+    this.secondFormGroup.setValue({
+      ready: false
+    });
+  }
   isReady3ControlInvalid() {
     if (this.thirdFormGroup.get('selectedMethod')?.invalid) {
       this.err3 = true;
@@ -241,8 +252,23 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       this.err3 = false;
     }
   }
-  calculation(){
+  calculation() {
+    let a = '50,51';
+    let b = '10,11,12';
+    let c = 'Maximum Expected Efficiency';
+    let d = 20018;
     this.resultMethodName = this.thirdFormGroup.get('selectedMethod')!.value;
+    if (!this.thirdFormGroup.get('selectedMethod')?.invalid) {
+      this.sharedService.CalculationService?.getCalculation(a, b, c, d).subscribe((res: any) => {
+        let temp = this.dataSourceTerrains.data.filter(a => res.result.terrains.some((b: any) => b.id === a.id));
+        temp.forEach(a => {
+          const matchingItem = res.result.terrains.find((b: any) => b.id === a.id);
+          Object.assign(a, matchingItem);
+        });
+        this.dataSourceResult.data = temp
+      });
+    }
+
   }
 }
 
