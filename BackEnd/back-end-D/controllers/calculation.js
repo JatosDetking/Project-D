@@ -8,10 +8,10 @@ exports.initCalculationController = (db) => {
             getInstallation(req.query.instalationsIds)
         ])
             .then(([terrainResults, installationResults]) => {
-                console.log("Terrain Results:", terrainResults);
-                console.log("Installation Results:", installationResults);
+                /*console.log("Terrain Results:", terrainResults);
+                console.log("Installation Results:", installationResults);*/
                 for (const terrain of terrainResults) {
-                    Methods.effTR(terrain);
+                    Methods.effTR(terrain, installationResults);
                 }
                 switch (req.query.method) {
                     case "Maximum Expected Efficiency":
@@ -124,8 +124,14 @@ exports.initCalculationController = (db) => {
                     result.map(res => {
                         delete res.name;
                         delete res.creator_id;
-                        res.performance_factors = res.performance_factors.split("-");
-                        res.intervals = res.intervals.split("-");                
+                        let performanceFactors = res.performance_factors.split("-").map(str => parseFloat(str));
+                        let intervals = res.intervals.split("-").map(str => parseFloat(str)); 
+                        delete res.performance_factors;
+                        delete res.intervals;
+                        res['performanceFactors'] =performanceFactors;   
+                        res['intervals'] =intervals;            
+                       // res.performance_factors = res.performance_factors.split("-").map(str => parseFloat(str));
+                       // res.intervals = res.intervals.split("-").map(str => parseFloat(str));                
                     })
                     result.sort((a, b) => {
                         return a.type.localeCompare(b.type);

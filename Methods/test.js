@@ -348,7 +348,7 @@ function MinimumGuaranteedBenefitForegone(arrB, arrP) {
 
 //////////////////////////////////////////////////
 
-/*const testA = [
+const testA = [
     [2.1, 1.6, 4.2],
     [1.2, -1.1, 5.1],
     [2.8, 2.4, 3.1]
@@ -370,6 +370,6 @@ console.log("MinimumMissedBenefitUnderMostLikelyCondition");
 MinimumMissedBenefitUnderMostLikelyCondition(testB, testP);
 console.log("MinimumGuaranteedBenefitForegone");
 MinimumGuaranteedBenefitForegone(testB, testP);
-*/
+
 
 
