@@ -10,6 +10,9 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Installation } from 'src/app/interfaces/installation';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { ChartService } from 'src/app/services/chart.service';
+
+
 
 @Component({
   selector: 'app-calculation',
@@ -34,6 +37,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   constructor(private _formBuilder: FormBuilder,
     private ref: ChangeDetectorRef,
     private sharedService: SharedService,
+    private chart: ChartService,
     private router: Router
   ) { }
 
@@ -53,7 +57,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   err3 = false;
 
   resultMethodName = '';
-  sumCost:number = 0;
+  sumCost: number = 0;
 
   ngAfterViewChecked(): void {
     this.ref.detectChanges();
@@ -265,10 +269,70 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
           const matchingItem = res.result.terrains.find((b: any) => b.id === a.id);
           Object.assign(a, matchingItem);
         });
-        this.dataSourceResult.data = temp
+        this.dataSourceResult.data = temp;
+        this.fillChart();
       });
     }
 
   }
-}
+  fillChart() {
+    let canvasContainer = document.getElementById('single-chart') as HTMLDivElement;
+    canvasContainer.childNodes.forEach((child) => {
+      canvasContainer.removeChild(child)
+    })
+    let newCanvasElement = document.createElement('canvas');
+    canvasContainer.appendChild(newCanvasElement);
+    let ctx = newCanvasElement.getContext('2d');
+    let data: {
+      "group_name": string,
+      "group_id": number,
+      "product_name": string,
+      "place": string,
+      "should_track": boolean,
+      "tags": string[],
+      "price": number,
+      "date": number,
+      "date-txt-place"?: string,
+      "id"?: number
+    }[] = this.dataSourceResult.data;
 
+    let labels = this.dataSourceResult.data.map(res=> res.name)
+    let values = this.dataSourceResult.data.map(res=> res.optimalValue)
+    this.chart.getNewChart(ctx!, {
+      type: 'doughnut',
+      data: {
+        labels,
+        datasets: [{
+          fill: 'start',
+          label: 'Price',
+          //@ts-ignore
+          data: values,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+      }
+    })
+  }
+
+
+}

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { of, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthAPIService } from '../api/auth-api.service';
@@ -11,7 +12,8 @@ export class AuthService {
 
   constructor(
     private authAPI:AuthAPIService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private router: Router,
     ) { sharedService.shareSelf("AuthService", this) }
 
   balanceSubject = new Subject();
@@ -96,6 +98,7 @@ export class AuthService {
   }
 
   logout(){
+    this.router.navigate(['login']);
     localStorage.removeItem("token")
     localStorage.removeItem("email")
     localStorage.removeItem("username")

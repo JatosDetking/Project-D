@@ -187,9 +187,10 @@
                 <mat-card-content style="margin-top: 16px;">
                     <div class="info-field2">
                         <div class="info-field">
-                            <mat-label style=" font-size: 18px;">The total value of the terrains is: {{sumCost}}</mat-label>
+                            <mat-label style=" font-size: 18px;">The total value of the terrains is: {{sumCost}}
+                            </mat-label>
                             <div class="mat-elevation-z8 table-container">
-                              
+
                                 <table mat-table [dataSource]="dataSourceResult" matSort #resultMatSort="matSort">
 
                                     <ng-container matColumnDef="name">
@@ -212,10 +213,15 @@
                                     aria-label="Select page of users">
                                 </mat-paginator>
                             </div>
-                        </div>
+                        </div>         
+                    </div>
+                    <div class="info-field2">
+                        <div id="single-chart" ></div>                                  
                     </div>
                 </mat-card-content>
             </mat-card>
         </div>
+       
     </mat-step>
+    
 </mat-stepper>
