@@ -9,7 +9,7 @@ const installationRoutre = require('./routers/installationRouters');
 const calculationRoutre = require('./routers/calculationRoutre');
 //const suggestionsRoutes = require('./routers/suggestions');
 const sqlDB = require('./database/mysql');
-
+  
 
 //const { initGroupsController } = require('./controllers/groups');
 //const { initGroupsRouter } = require('./routers/groups');

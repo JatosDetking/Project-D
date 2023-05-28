@@ -1,5 +1,3 @@
-
-const Installation = require('./../classes/Installation');
 const uC = require('./../controllers/user')
 
 

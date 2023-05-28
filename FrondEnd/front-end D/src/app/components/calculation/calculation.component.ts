@@ -46,14 +46,14 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   selectionInstallations = new SelectionModel<Installation>(true, []);
 
   dataSourceResult = new MatTableDataSource<any>([]);
-  displayedColumnsResult: string[] = ['name', 'price', 'result'];
+  displayedColumnsResult: string[] = ['name', 'price'];
 
   err1 = false;
   err2 = false;
   err3 = false;
 
   resultMethodName = '';
-
+  sumCost:number = 0;
 
   ngAfterViewChecked(): void {
     this.ref.detectChanges();
@@ -180,12 +180,11 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     this.dataSourceInstallations.filter = selectedTypes.join(',');
   }
   onRowMiddleClickTerrains(row: Terrain) {
-    console.log(this.selectionTerrains);
-    console.log(this.selectionTerrains.selected.length);
-    /*  const queryParams = { terrain: JSON.stringify(row) };
-      const urlTree = this.router.createUrlTree(['terrain'], { queryParams });
-      const url = 'http://localhost:4200/#' + urlTree.toString();
-      window.open(url, '_blank');*/
+
+    const queryParams = { terrain: JSON.stringify(row) };
+    const urlTree = this.router.createUrlTree(['terrain'], { queryParams });
+    const url = 'http://localhost:4200/#' + urlTree.toString();
+    window.open(url, '_blank');
   }
   onRowMiddleClickInstallations(row: Installation) {
     const queryParams = { installation: JSON.stringify(row) };
@@ -260,6 +259,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     this.resultMethodName = this.thirdFormGroup.get('selectedMethod')!.value;
     if (!this.thirdFormGroup.get('selectedMethod')?.invalid) {
       this.sharedService.CalculationService?.getCalculation(a, b, c, d).subscribe((res: any) => {
+        this.sumCost = res.result.cost;
         let temp = this.dataSourceTerrains.data.filter(a => res.result.terrains.some((b: any) => b.id === a.id));
         temp.forEach(a => {
           const matchingItem = res.result.terrains.find((b: any) => b.id === a.id);

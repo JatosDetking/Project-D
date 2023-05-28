@@ -59,7 +59,7 @@ exports.initCalculationController = (db) => {
                         dataResults.forEach((result, index) => {
                             let temp = [];
                             let rad = [];
-                            let wind = [];
+                            let wind = []; 
                             let water = [];
                             result.sort((a, b) => {
                                 return a.year - b.year;
