@@ -192,7 +192,7 @@ exports.initTerrainDataController = (db) => {
                 res.status(500).send([err.message])
                 return;
             } else {
-                if (terrain[0].type != "private") {
+                if (terrain[0].type != "private" || terrain[0].creator_id == req.userId) {
                     let sql = `SELECT * FROM terrains_data WHERE terrain_id = ${req.query.terrainId}`;
 
                     db.query(sql, (err, results) => {

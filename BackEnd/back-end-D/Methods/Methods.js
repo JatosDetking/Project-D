@@ -92,18 +92,6 @@ class Methods {
         return result;
     }
 
-    static gravity(count) {
-        let sum = 0;
-        const gravityArray = new Array(count);
-        for (let i = 1; i <= count; i++) {
-            sum += i;
-        }
-        for (let i = 1; i <= count; i++) {
-            gravityArray[i - 1] = i / sum;
-        }
-        return gravityArray;
-    }
-
     static matrixMultiplication(a, b) {
         let result = 0;
         if (Array.isArray(a[0])) {
@@ -134,11 +122,9 @@ class Methods {
                 effic[f] = 0;
             }
         }
-
         for (let f = 0; f < efficienc.length; f++) {
             efficiency[f] = Math.floor(effic[f]);
         }
-
         const n = efficiency.length;
 
         for (let p = 0; p < terrainCount; p++) {
@@ -146,10 +132,10 @@ class Methods {
         }
 
         const K = new Array(n + 1);
+        
         for (let i = 0; i <= n; i++) {
             K[i] = new Array(capital + 1).fill(0);
         }
-
         for (let i = 0; i <= n; i++) {
             for (let w = 0; w <= capital; w++) {
                 if (i === 0 || w === 0) {
@@ -225,10 +211,6 @@ class Methods {
                 benefitArr[j][i] = arrMax[i] - arrA[j][i];
             }
         }
-
-  /*       console.log(benefitArr[0]);
-        console.log(benefitArr[1]);
-        console.log(benefitArr[2]); */
         return benefitArr;
     }
 
@@ -250,7 +232,6 @@ class Methods {
     }
 
     static maxArrValue2d(arr, arrMax) {
-
         for (let i = 0; i < arr[0].length; i++) {
             let max = arr[0][i];
             for (let j = 0; j < arr.length; j++) {
@@ -281,12 +262,10 @@ class Methods {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
                 max[0] = arr[i];
-                indexV[0] = i;
-                
+                indexV[0] = i;         
             } else if (max[0] <= arr[i]) {
                 max[0] = arr[i];
-                indexV[0] = i;
-             
+                indexV[0] = i;        
             }
         }
     }

@@ -161,7 +161,7 @@ exports.initTerrainController = (db) => {
                 res.status(500).send(['500'])
                 throw err
             } else {
-                if (results[0].creator_id == res.userId || results[0].type != "private") {
+                if (results[0].creator_id == req.userId || results[0].type != "private") {
                     let msg = `Terrain taken.`
                     console.log(msg);
                     res.status(200).send({ ...results[0] });

@@ -13,7 +13,7 @@ exports.initTerrainDataRouter = (db) => {
     terrainDataRouter.post('/adddata', authorization.getToken, authorization.verifyToken,authorization.getId, terrainDataController.addData);
     terrainDataRouter.put('/edittrdata', authorization.getToken, authorization.verifyToken,authorization.getId, terrainDataController.editDataForTR);
     terrainDataRouter.put('/editdata', authorization.getToken, authorization.verifyToken,authorization.getId, terrainDataController.editData);
-    terrainDataRouter.get('/getdata', authorization.getToken, authorization.verifyToken, terrainDataController.getDataFromTerrain);
+    terrainDataRouter.get('/getdata', authorization.getToken, authorization.verifyToken,authorization.getId, terrainDataController.getDataFromTerrain);
     terrainDataRouter.delete('/deletedata', authorization.getToken, authorization.verifyToken,authorization.getId, terrainDataController.deleteTerrainData);
     
     return terrainDataRouter

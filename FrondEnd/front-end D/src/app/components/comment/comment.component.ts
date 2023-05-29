@@ -37,7 +37,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data) {
-      this.user = this.userService.getUser(this.data.user_id)
+      this.user = this.data.user;
     }
   }
 

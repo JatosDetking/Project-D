@@ -1,6 +1,8 @@
+const uC = require('./../controllers/user')
+
 exports.initTerrainCommentController = (db) => {
     let controller = {}
-
+    let userController = uC.initUserController(db)
     controller.addComment = (req, res, next) => {
 
         const now = new Date();
@@ -115,37 +117,69 @@ exports.initTerrainCommentController = (db) => {
     controller.getTerrainComments = (req, res, next) => {
 
         let sql = `SELECT * FROM comments WHERE terrain_id = ${req.query.terrainId}`;
-        //let sql2 = `SELECT * FROM subcomments WHERE terrain_id = ${req.query.terrainId}`;
 
         let comments = [];
-        db.query(sql, (err, results) => {
+        db.query(sql, async (err, results) => {
             if (err) {
                 res.status(500).send(['500']);
                 throw err;
             } else {
-                for (const element of results) {
-                    if (element.parent_id == null) {
-                        delete element.parent_id;
-                        element['subComment'] = [];
-                        comments.push(element);
+                try {
+                    for (const element of results) {
+                        if (element.parent_id == null) {
+                            delete element.parent_id;
+                            element['subComment'] = [];
+                            comments.push(element);
+                        }        
                     }
-                }
-
-                for (const comment of comments) {
-                    for (const subComment of results) {
-                        if (comment.id == subComment.parent_id) {
-                            delete subComment.terrain_id;
-                            delete subComment.parent_id;
-                            comment.subComment.push(subComment);
+                    const commentPromises = comments.map(comment => {
+                        return userController.getUserById(db, comment.user_id)
+                          .then(user => {
+                            comment.user = user;
+                            delete comment.user_id;
+                            const subComments = results.filter(subComment => comment.id == subComment.parent_id);
+                            const subCommentPromises = subComments.map(subComment => {
+                              return userController.getUserById(db, subComment.user_id)
+                                .then(user => {
+                                  subComment.user = user;
+                                  delete subComment.terrain_id;
+                                  delete subComment.parent_id;
+                                  delete subComment.user_id;
+                                });
+                            });
+                            return Promise.all(subCommentPromises)
+                              .then(() => {
+                                comment.subComment = subComments;
+                                delete comment.terrain_id;
+                                return comment;
+                              });
+                          });
+                      });
+                      
+                      Promise.all(commentPromises)
+                        .then(updatedComments => {
+                            let msg = `Comments taken.`;
+                            console.log(msg);
+                            res.status(200).send({ ...comments });
+                        });
+                /*     for (const comment of comments) {
+                        for (const subComment of results) {
+                            comment.user = await userController.getUserById(db, comment.user_id);
+                            if (comment.id == subComment.parent_id) {
+                                subComment.user = await userController.getUserById(db, subComment.user_id);
+                                delete subComment.terrain_id;
+                                delete subComment.parent_id;
+                                comment.subComment.push(subComment);
+                            }
                         }
-                    }
-                    delete comment.terrain_id;
+                        delete comment.terrain_id;
+                    }                   */
+                
                 }
-
-                let msg = `Comments taken.`;
-                console.log(msg);
-                res.status(200).send({ ...comments });
-                return;
+                catch (error) {
+                    console.error('Error getting user information:', error);
+                    res.status(500).send('Error getting user information');
+                }
             }
         });
     };
