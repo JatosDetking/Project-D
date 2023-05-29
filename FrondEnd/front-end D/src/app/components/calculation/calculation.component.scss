@@ -29,6 +29,7 @@ table {
     width: 100%;
     max-width: 1700px;
     margin: 0 25px;
+    margin-top: -25px;
 }
 
 .info-card3 {
@@ -49,22 +50,19 @@ table {
 .info-field {
     width: 80%;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .info-field2 {
     width: 50%;
     display: inline-block;
+    margin-top: 20px;
 
 }
 
 .comment-field {
     width: 50%;
     display: inline-block;
-}
-
-.info-vote {
-    margin-bottom: 70px;
 }
 
 .line {

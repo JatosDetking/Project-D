@@ -49,7 +49,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   selectionInstallations = new SelectionModel<Installation>(true, []);
 
   dataSourceResult = new MatTableDataSource<any>([]);
-  displayedColumnsResult: string[] = ['name', 'price'];
+  displayedColumnsResult: string[] = ['name','typeRES', 'price'];
 
   err1 = false;
   err2 = false;
@@ -274,6 +274,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
         });
         this.dataSourceResult.data = temp;
         this.fillChart();
+        console.log(temp)
       });
     }
   }
@@ -285,18 +286,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     let newCanvasElement = document.createElement('canvas');
     canvasContainer.appendChild(newCanvasElement);
     let ctx = newCanvasElement.getContext('2d');
-    let data: {
-      "group_name": string,
-      "group_id": number,
-      "product_name": string,
-      "place": string,
-      "should_track": boolean,
-      "tags": string[],
-      "price": number,
-      "date": number,
-      "date-txt-place"?: string,
-      "id"?: number
-    }[] = this.dataSourceResult.data;
 
     let labels = this.dataSourceResult.data.map(res => res.name);
     let values = this.dataSourceResult.data.map(res => res.optimalValue);
@@ -305,8 +294,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       data: {
         labels,
         datasets: [{
-          fill: 'start',
-          label: 'Price',
           //@ts-ignore
           data: values,
           backgroundColor: [
@@ -379,7 +366,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       options: {
         responsive: true,
         maintainAspectRatio: false,
-
       }
     })
   }

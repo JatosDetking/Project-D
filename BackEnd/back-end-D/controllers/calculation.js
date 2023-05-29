@@ -8,9 +8,9 @@ exports.initCalculationController = (db) => {
             getInstallation(req.query.instalationsIds)
         ])
             .then(([terrainResults, installationResults]) => {
-        /*         console.log("Terrain Results:", terrainResults);
-                console.log("Installation Results:", installationResults);
- */
+                /*         console.log("Terrain Results:", terrainResults);
+                        console.log("Installation Results:", installationResults);
+         */
                 let result
                 switch (req.query.method) {
                     case "Maximum Expected Efficiency":
@@ -60,7 +60,7 @@ exports.initCalculationController = (db) => {
                         dataResults.forEach((result, index) => {
                             let temp = [];
                             let rad = [];
-                            let wind = []; 
+                            let wind = [];
                             let water = [];
                             result.sort((a, b) => {
                                 return a.year - b.year;
@@ -157,10 +157,18 @@ exports.initCalculationController = (db) => {
             delete terrain.wind;
             delete terrain.efficiencyArrey;
             delete terrain.probabilityArray;
+            if (terrain.optimalIndex == 0) {
+                terrain['typeRES'] = 'solar installation';
+            } else if (terrain.optimalIndex == 1) {
+                terrain['typeRES'] = 'hydroelectric power plant';
+            } else if (terrain.optimalIndex == 2) {
+                terrain['typeRES'] = 'air turbines';
+            }
+            delete terrain.optimalIndex;
         }
         Methods.knapSack(balance, costs, efficiency, indexs);
         sumResult = Methods.sumResult(costs, indexs, efficiency);
-        return {...sumResult, terrains : terrainResults.filter((element, index) => indexs[index] === 1)};
+        return { ...sumResult, terrains: terrainResults.filter((element, index) => indexs[index] === 1) };
     }
     return controller
 }

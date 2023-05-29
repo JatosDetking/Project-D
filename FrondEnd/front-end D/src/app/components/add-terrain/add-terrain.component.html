@@ -8,17 +8,26 @@
                         <mat-card-title>Terrain information</mat-card-title>
                     </mat-card-header>
                     <mat-divider class=" line"></mat-divider>
-                    <mat-card-content style="margin-top: 16px;">
+                    <mat-card-content style="margin-top: 30px;">
                         <div class="info-field">
-                            <mat-card-subtitle>Name</mat-card-subtitle>
                             <mat-form-field class="example-full-width">
+                                <mat-label>Name</mat-label>
                                 <input matInput type="text" formControlName="name" required>
+                                <mat-error *ngIf="firstFormGroup.get('name')?.invalid && (firstFormGroup.get('name')?.dirty || firstFormGroup.get('name')?.touched)">
+                                    <div *ngIf="firstFormGroup.get('name')?.errors?.required">Please enter a name.</div>
+                                    <div *ngIf="firstFormGroup.get('name')?.errors?.maxLength">Name must be 45 characters or less.</div>
+                                  </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="info-field">
-                            <mat-card-subtitle>Price</mat-card-subtitle>
                             <mat-form-field class="example-full-width">
+                                <mat-label>Price in €</mat-label>
                                 <input matInput type="number" formControlName="price" required>
+                                <mat-error *ngIf="firstFormGroup.get('price')?.invalid && (firstFormGroup.get('price')?.dirty || firstFormGroup.get('price')?.touched)">
+                                    <div *ngIf="firstFormGroup.get('price')?.errors?.required">Please enter a price.</div>
+                                    <div *ngIf="firstFormGroup.get('price')?.errors?.pattern">Price must be a valid number.</div>
+                                    <div *ngIf="firstFormGroup.get('price')?.errors?.maxLength">Price must be 50 characters or less.</div>
+                                  </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="info-field ">
@@ -51,37 +60,63 @@
                     <mat-card-content style="margin-top: 16px;">
                         <div class="info-field2">
                             <div class="info-field">
-                                <mat-card-subtitle>Temperature</mat-card-subtitle>
+                               
                                 <mat-form-field class="example-full-width">
+                                    <mat-label>Temperature</mat-label>
                                     <input matInput type="text" [formControl]="temp">
+                                    <mat-error *ngIf="temp.invalid && (temp.dirty || temp.touched)">
+                                        <div *ngIf="temp.errors?.required">Please enter a temperature.</div>
+                                        <div *ngIf="temp.errors?.maxLength">Temperature must be 10 characters or less.</div>
+                                        <div *ngIf="temp.errors?.pattern">Temperature must be a valid number.</div>
+                                      </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="info-field">
-                                <mat-card-subtitle>Solar radiation</mat-card-subtitle>
                                 <mat-form-field class="example-full-width">
+                                    <mat-label>Solar radiation</mat-label>
                                     <input matInput type="text" [formControl]="rad">
+                                    <mat-error *ngIf="rad.invalid && (rad.dirty || rad.touched)">
+                                        <div *ngIf="rad.errors?.required">Please enter a value for solar radiation.</div>
+                                        <div *ngIf="rad.errors?.maxLength">Solar radiation must be 10 characters or less.</div>
+                                        <div *ngIf="rad.errors?.pattern">Solar radiation must be a valid number.</div>
+                                      </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="info-field">
-                                <mat-card-subtitle>Wind speed</mat-card-subtitle>
+                            <div class="info-field">                               
                                 <mat-form-field class="example-full-width">
+                                    <mat-label>Wind speed</mat-label>
                                     <input matInput type="text" [formControl]="wind">
+                                    <mat-error *ngIf="wind.invalid && (wind.dirty || wind.touched)">
+                                        <div *ngIf="wind.errors?.required">Please enter a value for wind speed.</div>
+                                        <div *ngIf="wind.errors?.maxLength">Wind speed must be 10 characters or less.</div>
+                                        <div *ngIf="wind.errors?.pattern">Wind speed must be a valid number.</div>
+                                      </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="info-field">
-                                <mat-card-subtitle>Water level</mat-card-subtitle>
                                 <mat-form-field class="example-full-width">
+                                    <mat-label>Water level</mat-label>
                                     <input matInput type="text" [formControl]="water">
+                                    <mat-error *ngIf="water.invalid && (water.dirty || water.touched)">
+                                        <div *ngIf="water.errors?.required">Please enter a value for water level.</div>
+                                        <div *ngIf="water.errors?.maxLength">Water level must be 10 characters or less.</div>
+                                        <div *ngIf="water.errors?.pattern">Water level must be a valid number.</div>
+                                      </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="info-field">
-                                <mat-card-subtitle>Year</mat-card-subtitle>
                                 <mat-form-field class="example-full-width">
+                                    <mat-label>Year</mat-label>
                                     <input matInput type="text" [formControl]="year">
+                                    <mat-error *ngIf="year.invalid && (year.dirty || year.touched)">
+                                        <div *ngIf="year.errors?.required">Please enter a year.</div>
+                                        <div *ngIf="year.errors?.maxLength">Year must be 10 characters or less.</div>
+                                        <div *ngIf="year.errors?.pattern">Year must be a valid number.</div>
+                                      </mat-error>
+                                      <mat-error *ngIf="duplicate">
+                                        Data already entered for this year!
+                                      </mat-error>
                                 </mat-form-field>
-                                <mat-error *ngIf="duplicate">
-                                    Data already entered for this year!
-                                </mat-error>
                             </div>
                             <div class="info-field">
                                 <button mat-raised-button color="primary" (click)="addData()" [disabled]="temp.invalid || wind.invalid || water.invalid || year.invalid">Add Data</button>

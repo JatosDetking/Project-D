@@ -1,5 +1,8 @@
 <div class="manu">
-  <mat-grid-list cols="6" rowHeight="200px"  gutterSize="16" class="custom-grid-list">
+  <div >
+    <img src="/assets/manu2.png"  width=100% height=100%>
+  </div>
+  <mat-grid-list cols="6" rowHeight="140px"  gutterSize="16" class="custom-grid-list">
     <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
        (click)="tile.func()" class="clickable">
       <div class="wordart">

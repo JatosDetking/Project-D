@@ -9,20 +9,34 @@
                 </button>
             </div>
         </mat-card-header>
-
+        <!--   <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Balance</mat-label>
+    <input type="number" matInput [formControl]="balance">
+    <mat-error *ngIf="balance.hasError('pattern')|| balance.invalid">
+      Invalid character!
+    </mat-error>
+    <mat-error *ngIf="balance.hasError('maxLength')|| balance.invalid">
+      Too big value?
+    </mat-error>
+  </mat-form-field> -->
         <mat-divider class=" line"></mat-divider>
-        <mat-card-content style="margin-top: 16px;">
-
+        <mat-card-content style="margin-top: 30px;">
             <div class="info-field2">
-                <mat-card-subtitle>Name</mat-card-subtitle>
                 <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
                     <input matInput type="text" [formControl]="name">
+                    <mat-error *ngIf="name.invalid">
+                        The entered name is invalid!
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="info-field2">
-                <mat-card-subtitle>Price</mat-card-subtitle>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" >
+                    <mat-label>Price in €</mat-label>
                     <input matInput type="number" [formControl]="price">
+                    <mat-error *ngIf="name.invalid">
+                        The entered price is invalid!
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="info-field2">
@@ -51,14 +65,14 @@
                             <label style="margin: 0; padding: 0;">)</label>
                         </td>
                         <td>
-                            <label style="margin: 0; padding: 0;">( </label>
+                            <label style="margin: 0; padding: 0;">[ </label>
                             <input #inputInterval2 matInput type="number" [value]="inter1.value"
                                 (input)="inter1.setValue(inputInterval2.value)" style="border: 1px solid #ccc;">
                             <label style="margin: 0; padding: 0;">; </label>
                             <input #inputInterval3 matInput type="number" style="margin: 0; padding: 0;"
                                 [value]="inter2.value" (input)="inter2.setValue(inputInterval3.value)"
                                 style="border: 1px solid #ccc;">
-                            <label style="margin: 0; padding: 0;">)</label>
+                            <label style="margin: 0; padding: 0;">]</label>
                         </td>
                         <td>
                             <label style="margin: 0; padding: 0;">( </label>
@@ -83,35 +97,30 @@
             <div class="info-field2">
                 <mat-card-subtitle>Efficiency</mat-card-subtitle>
                 <div>
-                    <label class="info-field4">Efficiency in the first interval: </label>
-                    <mat-form-field>
-                        <input class="info-field4" matInput type="number" [formControl]='performance1'>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Efficiency in the first interval: </mat-label>
+                        <input matInput type="number" [formControl]='performance1'>
+                        <mat-error *ngIf="performance1.invalid">The entered value must be a positive number no longer than 10 characters!
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <mat-error *ngIf="performance1.hasError('maxlength')">You must enter at least 1 or at most 10
-                    characters.
-                </mat-error>
                 <div>
-                    <label class="info-field4">Efficiency in the second interval: </label>
-                    <mat-form-field>
-                        <input class="info-field4" matInput type="number" [formControl]='performance2'>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Efficiency in the second interval: </mat-label>
+                        <input matInput type="number" [formControl]='performance2'>
+                        <mat-error *ngIf="performance2.invalid">The entered value must be a positive number no longer than 10 characters!
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <mat-error *ngIf="performance2.hasError('maxlength')">You must enter at least 1 or at most 10
-                    characters.
-                </mat-error>
                 <div>
-                    <label class="info-field4">Efficiency in the third interval: </label>
-                    <mat-form-field>
-                        <input class="info-field4" matInput type="number" [formControl]='performance3'>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Efficiency in the third interval: </mat-label>
+                        <input matInput type="number" [formControl]='performance3'>
+                        <mat-error *ngIf="performance3.invalid">The entered value must be a positive number no longer than 10 characters!
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <mat-error *ngIf="performance3.hasError('maxlength')">You must enter at least 1 or at most 10
-                    characters.
-                </mat-error>
             </div>
-            <mat-divider class="lineEdit"></mat-divider>
-
         </div>
     </mat-card>
 </div>
