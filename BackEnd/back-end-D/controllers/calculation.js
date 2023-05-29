@@ -8,9 +8,9 @@ exports.initCalculationController = (db) => {
             getInstallation(req.query.instalationsIds)
         ])
             .then(([terrainResults, installationResults]) => {
-                /*console.log("Terrain Results:", terrainResults);
-                console.log("Installation Results:", installationResults);*/
-
+        /*         console.log("Terrain Results:", terrainResults);
+                console.log("Installation Results:", installationResults);
+ */
                 let result
                 switch (req.query.method) {
                     case "Maximum Expected Efficiency":
@@ -32,6 +32,7 @@ exports.initCalculationController = (db) => {
                         result = calculationByMethod(terrainResults, installationResults, req.query.balance, Methods.MinimumGuaranteedBenefitForegone.bind(Methods))
                         break;
                 }
+                console.log('Ready!')
                 res.status(200).send({
                     result
                 });

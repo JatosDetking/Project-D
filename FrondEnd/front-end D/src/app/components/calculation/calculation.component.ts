@@ -2,16 +2,15 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit, AfterVi
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
-import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
 import { Terrain } from 'src/app/interfaces/terrain';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Installation } from 'src/app/interfaces/installation';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChartService } from 'src/app/services/chart.service';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -58,6 +57,7 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
 
   resultMethodName = '';
   sumCost: number = 0;
+  resultReady = false
 
   ngAfterViewChecked(): void {
     this.ref.detectChanges();
@@ -198,7 +198,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
   }
   checkReady1() {
     if (this.selectionTerrains.selected.length > 0) {
-      console.log(this.selectionTerrains.selected.length);
       this.firstFormGroup.setValue({
         ready: true
       });
@@ -221,7 +220,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     });
   }
   checkReady2() {
-    console.log(this.selectionInstallations.selected.length)
     if (this.selectionInstallations.selected.length == 3) {
       const uniqueTypes = new Set(this.selectionInstallations.selected.map(item => item.type));
       if (uniqueTypes.size === 3) {
@@ -256,24 +254,28 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     }
   }
   calculation() {
-    let a = '50,51';
-    let b = '10,11,12';
-    let c = 'Maximum Expected Efficiency';
-    let d = 20018;
+    let terrainIds = this.selectionTerrains.selected.map(res => res.id).join(',');
+    let installationIds = this.selectionInstallations.selected.map(res => res.id).join(',');
+    let balance = +localStorage.getItem('balance')!;
+
     this.resultMethodName = this.thirdFormGroup.get('selectedMethod')!.value;
+    console.log(terrainIds);
+    console.log(installationIds);
+    console.log(this.resultMethodName);
+    console.log(balance);
     if (!this.thirdFormGroup.get('selectedMethod')?.invalid) {
-      this.sharedService.CalculationService?.getCalculation(a, b, c, d).subscribe((res: any) => {
+      this.sharedService.CalculationService?.getCalculation(terrainIds, installationIds, this.resultMethodName, balance).subscribe((res: any) => {
         this.sumCost = res.result.cost;
         let temp = this.dataSourceTerrains.data.filter(a => res.result.terrains.some((b: any) => b.id === a.id));
         temp.forEach(a => {
           const matchingItem = res.result.terrains.find((b: any) => b.id === a.id);
           Object.assign(a, matchingItem);
+          this.resultReady = true;
         });
         this.dataSourceResult.data = temp;
         this.fillChart();
       });
     }
-
   }
   fillChart() {
     let canvasContainer = document.getElementById('single-chart') as HTMLDivElement;
@@ -296,8 +298,8 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
       "id"?: number
     }[] = this.dataSourceResult.data;
 
-    let labels = this.dataSourceResult.data.map(res=> res.name)
-    let values = this.dataSourceResult.data.map(res=> res.optimalValue)
+    let labels = this.dataSourceResult.data.map(res => res.name);
+    let values = this.dataSourceResult.data.map(res => res.optimalValue);
     this.chart.getNewChart(ctx!, {
       type: 'doughnut',
       data: {
@@ -313,7 +315,31 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(0, 0, 0, 0.2)',
+            'rgba(255, 0, 0, 0.2)',
+            'rgba(0, 255, 0, 0.2)',
+            'rgba(0, 0, 255, 0.2)',
+            'rgba(128, 128, 128, 0.2)',
+            'rgba(255, 255, 255, 0.2)',
+            'rgba(128, 0, 0, 0.2)',
+            'rgba(0, 128, 0, 0.2)',
+            'rgba(0, 0, 128, 0.2)',
+            'rgba(192, 192, 192, 0.2)',
+            'rgba(255, 255, 0, 0.2)',
+            'rgba(255, 0, 255, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(128, 128, 0, 0.2)',
+            'rgba(128, 0, 128, 0.2)',
+            'rgba(0, 128, 128, 0.2)',
+            'rgba(255, 128, 0, 0.2)',
+            'rgba(0, 255, 128, 0.2)',
+            'rgba(128, 0, 255, 0.2)',
+            'rgba(255, 128, 128, 0.2)',
+            'rgba(128, 255, 128, 0.2)',
+            'rgba(128, 128, 255, 0.2)',
+            'rgba(255, 0, 128, 0.2)',
+            'rgba(0, 128, 255, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -321,7 +347,31 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(0, 0, 0, 1)',
+            'rgba(255, 0, 0, 1)',
+            'rgba(0, 255, 0, 1)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(128, 128, 128, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(128, 0, 0, 1)',
+            'rgba(0, 128, 0, 1)',
+            'rgba(0, 0, 128, 1)',
+            'rgba(192, 192, 192, 1)',
+            'rgba(255, 255, 0, 1)',
+            'rgba(255, 0, 255, 1)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(128, 128, 0, 1)',
+            'rgba(128, 0, 128, 1)',
+            'rgba(0, 128, 128, 1)',
+            'rgba(255, 128, 0, 1)',
+            'rgba(0, 255, 128, 1)',
+            'rgba(128, 0, 255, 1)',
+            'rgba(255, 128, 128, 1)',
+            'rgba(128, 255, 128, 1)',
+            'rgba(128, 128, 255, 1)',
+            'rgba(255, 0, 128, 1)',
+            'rgba(0, 128, 255, 1)'
           ],
           borderWidth: 1
         }]

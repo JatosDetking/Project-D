@@ -178,7 +178,11 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Result</ng-template>
-        <div class="info-container">
+        <div *ngIf="!resultReady" class="info-container">
+            <mat-spinner  color="primary" [diameter]="300"></mat-spinner>
+        </div>
+
+        <div [ngStyle]="{'display':resultReady?'block':'none'}" class="info-container">
             <mat-card class="info-card2">
                 <mat-card-header>
                     <mat-card-title>Result by method: {{resultMethodName}}</mat-card-title>
@@ -213,15 +217,15 @@
                                     aria-label="Select page of users">
                                 </mat-paginator>
                             </div>
-                        </div>         
+                        </div>
                     </div>
                     <div class="info-field2">
-                        <div id="single-chart" ></div>                                  
+                        <div id="single-chart"></div>
                     </div>
                 </mat-card-content>
             </mat-card>
         </div>
-       
+
     </mat-step>
-    
+
 </mat-stepper>

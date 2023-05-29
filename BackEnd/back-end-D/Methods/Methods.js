@@ -21,6 +21,7 @@ class Methods {
         efficiencyArrey[2][0] = windE - windE * probabilityArray[0]
         efficiencyArrey[2][1] = windE
         efficiencyArrey[2][2] = windE + windE * probabilityArray[2]
+
         this.intervalCheck(installations[2].intervals, efficiencyArrey[0], installations[2].performanceFactors);
         this.intervalCheck(installations[1].intervals, efficiencyArrey[1], installations[1].performanceFactors);
         this.intervalCheck(installations[0].intervals, efficiencyArrey[2], installations[0].performanceFactors);
@@ -28,7 +29,9 @@ class Methods {
         terrain.price = [terrain.price + installations[2].price, terrain.price + installations[1].price, terrain.price + installations[0].price]
         terrain['efficiencyArrey'] = efficiencyArrey;
         terrain['probabilityArray'] = probabilityArray;
-    }
+        
+
+    } 
 
     static calculateAverageArray(arr1, arr2, arr3, arr4) {
         const length = Math.max(arr1.length, arr2.length, arr3.length, arr4.length);
@@ -223,13 +226,14 @@ class Methods {
             }
         }
 
-        console.log(benefitArr[0]);
+  /*       console.log(benefitArr[0]);
         console.log(benefitArr[1]);
-        console.log(benefitArr[2]);
+        console.log(benefitArr[2]); */
         return benefitArr;
     }
 
     static minArrValue2d(arr, arrMin, index) {
+        console.log( arr);
         for (let i = 0; i < arr.length; i++) {
             let min = arr[i][0];
             let indexV = 0;
@@ -241,6 +245,7 @@ class Methods {
             }
             arrMin[i] = min;
             index[i] = indexV;
+           
         }
     }
 
@@ -272,16 +277,16 @@ class Methods {
         }
     }
 
-    static maxArrValue(arr, max, index, indexV) {
+    static maxArrValue(arr, max, indexV) {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
                 max[0] = arr[i];
                 indexV[0] = i;
-                // indexV[1] = index[i];
+                
             } else if (max[0] <= arr[i]) {
                 max[0] = arr[i];
                 indexV[0] = i;
-                //  indexV[1] = index[i];
+             
             }
         }
     }
@@ -351,7 +356,7 @@ class Methods {
                 n3++;
             }
         }
-        return [n1 / arrLength, n2 / arrLength, 3 / arrLength]
+        return [n1 / arrLength, n2 / arrLength, n3 / arrLength]
     }
 
     static MaximumExpectedEfficiency(terrain){
@@ -386,8 +391,8 @@ class Methods {
         const max = [0];
         const indexV = [0];
 
-        this.minArrValue2d(terrain.probabilityArray, arrMin, index);
-        this.maxArrValue(arrMin, max, index, indexV);
+        this.minArrValue2d(terrain.efficiencyArrey, arrMin, index);
+        this.maxArrValue(arrMin, max, indexV);
 
         terrain['optimalPrice'] = terrain.price[indexV[0]];
         terrain['optimalValue'] = max[0];
@@ -395,7 +400,7 @@ class Methods {
     }
 
     static MinimumAverageForegoneBenefits(terrain) {
-        let arrB = this.BenefitArr(terrain.probabilityArray);
+        let arrB = this.BenefitArr(terrain.efficiencyArrey);
         const arrAxP = this.matrixMultiplication(arrB, terrain.probabilityArray);
         const min = [0];
         const indexV = [0];
@@ -411,7 +416,7 @@ class Methods {
     }
 
     static MinimumMissedBenefitUnderMostProbableCondition(terrain) {
-        let arrB = this.BenefitArr(terrain.probabilityArray);
+        let arrB = this.BenefitArr(terrain.efficiencyArrey);
         const index = [0];
         const maxP = [0];
         const indexV = [0];
@@ -429,7 +434,7 @@ class Methods {
     }
 
     static MinimumGuaranteedBenefitForegone(terrain) {
-        let arrB = this.BenefitArr(terrain.probabilityArray);
+        let arrB = this.BenefitArr(terrain.efficiencyArrey);
         const arrMax = [0, 0, 0];
         const index = [0, 0, 0];
         const min = [0];
