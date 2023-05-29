@@ -7,7 +7,8 @@
                     <button mat-mini-fab color="primary" (click)="goToEditMode()">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button *ngIf="isCreator" mat-mini-fab color="primary" style="margin-left: 5px;" (click)="deleteInstallation()">
+                    <button *ngIf="isCreator" mat-mini-fab color="primary" style="margin-left: 5px;"
+                        (click)="deleteInstallation()">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -62,15 +63,25 @@
             <mat-card-content style="margin-top: 16px;">
                 <div>
                     <div class="info-field3">
-                        <mat-card-subtitle>Name</mat-card-subtitle>
                         <mat-form-field class="example-full-width">
+                            <mat-label>Name</mat-label>
                             <input matInput type="text" [formControl]="name">
+                            <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                                <div *ngIf="name.errors?.required">Please enter a name.</div>
+                                <div *ngIf="name.errors?.maxlength">Name must be no more than 45 characters long.</div>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="info-field3">
-                        <mat-card-subtitle>Price</mat-card-subtitle>
                         <mat-form-field class="example-full-width">
+                            <mat-label>Price</mat-label>
                             <input matInput type="number" [formControl]="price">
+                            <mat-error *ngIf="price.invalid && (price.dirty || price.touched)">
+                                <div *ngIf="price.errors?.pattern">Please enter a valid integer for the price.</div>
+                                <div *ngIf="price.errors?.required">Please enter a price.</div>
+                                <div *ngIf="price.errors?.maxlength">Price must be no more than 50 characters long.
+                                </div>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -107,10 +118,10 @@
                                 <label style="margin: 0; padding: 0;"> ∞)</label>
                             </td>
                         </tr>
-                        <mat-error *ngIf="inter1.hasError('maxlength')">You must enter at least 1 or at most 10
+                        <mat-error *ngIf="inter1.invalid"> You must enter at least 1 or at most 10
                             characters.
                         </mat-error>
-                        <mat-error *ngIf="inter2.hasError('maxlength')">You must enter at least 1 or at most 10
+                        <mat-error *ngIf="inter2.invalid">You must enter at least 1 or at most 10
                             characters.
                         </mat-error>
                     </table>
@@ -121,31 +132,31 @@
                 <div class="info-field2">
                     <mat-card-subtitle>Efficiency</mat-card-subtitle>
                     <div>
-                        <label class="info-field4">Efficiency in the first interval: </label>
                         <mat-form-field>
+                            <mat-label>Efficiency ratio in the first interval: </mat-label>
                             <input class="info-field4" matInput type="number" [formControl]='performance1'>
                         </mat-form-field>
                     </div>
-                    <mat-error *ngIf="performance1.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
+                    <mat-error *ngIf="performance1.hasError('maxlength')">The entered value must be a positive number no
+                        longer than 10 characters!
                     </mat-error>
                     <div>
-                        <label class="info-field4">Efficiency in the second interval: </label>
+                        <label class="info-field4">Efficiency ratio in the second interval: </label>
                         <mat-form-field>
                             <input class="info-field4" matInput type="number" [formControl]='performance2'>
                         </mat-form-field>
                     </div>
-                    <mat-error *ngIf="performance2.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
+                    <mat-error *ngIf="performance2.hasError('maxlength')">The entered value must be a positive number no
+                        longer than 10 characters!
                     </mat-error>
                     <div>
-                        <label class="info-field4">Efficiency in the third interval: </label>
+                        <label class="info-field4">Efficiency ratio in the third interval: </label>
                         <mat-form-field>
                             <input class="info-field4" matInput type="number" [formControl]='performance3'>
                         </mat-form-field>
                     </div>
-                    <mat-error *ngIf="performance3.hasError('maxlength')">You must enter at least 1 or at most 10
-                        characters.
+                    <mat-error *ngIf="performance3.hasError('maxlength')">The entered value must be a positive number no
+                        longer than 10 characters!
                     </mat-error>
                 </div>
                 <mat-divider class="lineEdit"></mat-divider>

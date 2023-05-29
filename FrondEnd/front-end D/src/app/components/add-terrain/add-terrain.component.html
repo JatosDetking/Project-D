@@ -21,7 +21,7 @@
                         </div>
                         <div class="info-field">
                             <mat-form-field class="example-full-width">
-                                <mat-label>Price in €</mat-label>
+                                <mat-label>Price (€)</mat-label>
                                 <input matInput type="number" formControlName="price" required>
                                 <mat-error *ngIf="firstFormGroup.get('price')?.invalid && (firstFormGroup.get('price')?.dirty || firstFormGroup.get('price')?.touched)">
                                     <div *ngIf="firstFormGroup.get('price')?.errors?.required">Please enter a price.</div>
@@ -62,7 +62,7 @@
                             <div class="info-field">
                                
                                 <mat-form-field class="example-full-width">
-                                    <mat-label>Temperature</mat-label>
+                                    <mat-label>Average annual temperature (°C)</mat-label>
                                     <input matInput type="text" [formControl]="temp">
                                     <mat-error *ngIf="temp.invalid && (temp.dirty || temp.touched)">
                                         <div *ngIf="temp.errors?.required">Please enter a temperature.</div>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="info-field">
                                 <mat-form-field class="example-full-width">
-                                    <mat-label>Solar radiation</mat-label>
+                                    <mat-label>Average annual solar radiation (W/m2)</mat-label>
                                     <input matInput type="text" [formControl]="rad">
                                     <mat-error *ngIf="rad.invalid && (rad.dirty || rad.touched)">
                                         <div *ngIf="rad.errors?.required">Please enter a value for solar radiation.</div>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="info-field">                               
                                 <mat-form-field class="example-full-width">
-                                    <mat-label>Wind speed</mat-label>
+                                    <mat-label>Average annual wind speed (m/s)</mat-label>
                                     <input matInput type="text" [formControl]="wind">
                                     <mat-error *ngIf="wind.invalid && (wind.dirty || wind.touched)">
                                         <div *ngIf="wind.errors?.required">Please enter a value for wind speed.</div>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="info-field">
                                 <mat-form-field class="example-full-width">
-                                    <mat-label>Water level</mat-label>
+                                    <mat-label>Average annual flow rate (m3/s)</mat-label>
                                     <input matInput type="text" [formControl]="water">
                                     <mat-error *ngIf="water.invalid && (water.dirty || water.touched)">
                                         <div *ngIf="water.errors?.required">Please enter a value for water level.</div>

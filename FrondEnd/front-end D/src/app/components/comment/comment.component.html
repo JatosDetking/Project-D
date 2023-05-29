@@ -23,6 +23,10 @@
         <mat-form-field *ngIf="inEdit" style="min-width: 400px;">
             <mat-label>Edit a comment</mat-label>
             <textarea matInput placeholder="Comment..." [formControl]="contentFromUpdate"></textarea>
+            <mat-error *ngIf="content.invalid && (content.dirty || content.touched)">
+                <div *ngIf="content.errors?.required">Please enter a comment.</div>
+                <div *ngIf="content.errors?.maxlength">Comment must be no more than 250 characters long.</div>
+              </mat-error>
         </mat-form-field>
         <div class="edit-date">{{data.edit_date}}</div>
     </mat-card-content>
@@ -36,6 +40,10 @@
             <mat-form-field style="min-width: 400px;">
                 <mat-label>Leave a comment</mat-label>
                 <textarea matInput placeholder="Comment..." [formControl]="content"></textarea>
+                <mat-error *ngIf="contentFromUpdate.invalid && (contentFromUpdate.dirty || contentFromUpdate.touched)">
+                    <div *ngIf="contentFromUpdate.errors?.required">Please enter an updated comment.</div>
+                    <div *ngIf="contentFromUpdate.errors?.maxlength">Updated comment must be no more than 250 characters long.</div>
+                  </mat-error>
             </mat-form-field>
         </div>
         <div class="comment-field">

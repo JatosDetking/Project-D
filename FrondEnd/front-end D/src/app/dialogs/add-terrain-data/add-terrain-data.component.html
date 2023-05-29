@@ -4,37 +4,45 @@
     <div class="input-conteiner">
         <div mat-dialog-content>
             <mat-form-field class="register-full-width" appearance="fill">
-              <mat-label>Temperature</mat-label>
+              <mat-label>Average annual temperature (°C)</mat-label>
               <input type="number" matInput [formControl]="temp">
-              <mat-error *ngIf="temp.hasError('pattern')|| temp.invalid">
-                Invalid character!
+              <mat-error *ngIf="temp.invalid && (temp.dirty || temp.touched)">
+                <div *ngIf="temp.errors?.required">Please enter a temperature.</div>
+                <div *ngIf="temp.errors?.maxLength">Temperature must be 10 characters or less.</div>
+                <div *ngIf="temp.errors?.pattern">Temperature must be a valid number.</div>
               </mat-error>
             </mat-form-field>
           </div>
           <div mat-dialog-content>
             <mat-form-field class="register-full-width" appearance="fill">
-              <mat-label>Solar radiation</mat-label>
+              <mat-label>Average annual solar radiation (W/m2)</mat-label>
               <input type="number" matInput [formControl]="rad">
-              <mat-error *ngIf="rad.hasError('pattern')|| rad.invalid">
-                Invalid character!
+              <mat-error *ngIf="rad.invalid && (rad.dirty || rad.touched)">
+                <div *ngIf="rad.errors?.required">Please enter a value for solar radiation.</div>
+                <div *ngIf="rad.errors?.maxLength">Solar radiation must be 10 characters or less.</div>
+                <div *ngIf="rad.errors?.pattern">Solar radiation must be a valid number.</div>
               </mat-error>
             </mat-form-field>
           </div>
           <div mat-dialog-content>
             <mat-form-field class="register-full-width" appearance="fill">
-              <mat-label>Wind speed</mat-label>
+              <mat-label>Average annual wind speed (m/s)</mat-label>
               <input type="number" matInput [formControl]="wind">
-              <mat-error *ngIf="wind.hasError('pattern')|| wind.invalid">
-                Invalid character!
+              <mat-error *ngIf="wind.invalid && (wind.dirty || wind.touched)">
+                <div *ngIf="wind.errors?.required">Please enter a value for wind speed.</div>
+                <div *ngIf="wind.errors?.maxLength">Wind speed must be 10 characters or less.</div>
+                <div *ngIf="wind.errors?.pattern">Wind speed must be a valid number.</div>
               </mat-error>
             </mat-form-field>
           </div>
           <div mat-dialog-content>
             <mat-form-field class="register-full-width" appearance="fill">
-              <mat-label>Water level</mat-label>
+              <mat-label>Average annual flow rate (m3/s)</mat-label>
               <input type="number" matInput [formControl]="water">
-              <mat-error *ngIf="water.hasError('pattern')|| water.invalid">
-                Invalid character!
+              <mat-error *ngIf="water.invalid && (water.dirty || water.touched)">
+                <div *ngIf="water.errors?.required">Please enter a value for water level.</div>
+                <div *ngIf="water.errors?.maxLength">Water level must be 10 characters or less.</div>
+                <div *ngIf="water.errors?.pattern">Water level must be a valid number.</div>
               </mat-error>
             </mat-form-field>
           </div>
@@ -42,8 +50,10 @@
             <mat-form-field class="register-full-width" appearance="fill">
               <mat-label>Year</mat-label>
               <input type="number" matInput [formControl]="year">
-              <mat-error *ngIf="year.hasError('pattern')|| year.invalid">
-                Invalid character!
+              <mat-error *ngIf="year.invalid && (year.dirty || year.touched)">
+                <div *ngIf="year.errors?.required">Please enter a year.</div>
+                <div *ngIf="year.errors?.maxLength">Year must be 10 characters or less.</div>
+                <div *ngIf="year.errors?.pattern">Year must be a valid number.</div>
               </mat-error>
             </mat-form-field>
           </div>

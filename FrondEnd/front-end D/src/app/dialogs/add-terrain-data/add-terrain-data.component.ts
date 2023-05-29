@@ -39,12 +39,11 @@ export class AddTerrainDataComponent implements OnInit {
       this.tempArr.push({ data: this.temp.value, type: 'temperature', year: this.year.value })
       this.tempArr.push({ data: this.rad.value, type: 'solar radiation', year: this.year.value })
       this.tempArr.push({ data: this.wind.value, type: 'wind speed', year: this.year.value })
-      this.tempArr.push({ data: this.water.value, type: 'water level', year: this.year.value })
+      this.tempArr.push({ data: this.water.value, type: 'flow rate', year: this.year.value })
   
       this.sharedService.TerrainDataService?.addTerrainData(this.terrainId,this.tempArr).subscribe(res => { 
         this.dialogRef.close();
       });
     }
-   
   }
 }

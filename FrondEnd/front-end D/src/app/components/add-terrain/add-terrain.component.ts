@@ -71,7 +71,7 @@ export class AddTerrainComponent implements OnInit {
       this.terrainData.push({ data: this.temp.value, type: 'temperature', year: this.year.value })
       this.terrainData.push({ data: this.rad.value, type: 'solar radiation', year: this.year.value })
       this.terrainData.push({ data: this.wind.value, type: 'wind speed', year: this.year.value })
-      this.terrainData.push({ data: this.water.value, type: 'water level', year: this.year.value })
+      this.terrainData.push({ data: this.water.value, type: 'flow rate', year: this.year.value })
       this.checkReady()
       this.ref.detectChanges();
       this.dataTable?.updeteList();

@@ -72,7 +72,7 @@ exports.initCalculationController = (db) => {
                                     rad.push(result[key].data)
                                 } else if (result[key].type == 'wind speed') {
                                     wind.push(result[key].data)
-                                } else if (result[key].type == 'water level') {
+                                } else if (result[key].type == 'flow rate') {
                                     water.push(result[key].data)
                                 }
                             }
