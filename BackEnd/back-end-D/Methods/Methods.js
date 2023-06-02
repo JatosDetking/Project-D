@@ -114,7 +114,6 @@ class Methods {
 
         let averageArrayProb = [];
         for (let i = 0; i < terrain1.probabilityArray.length; i++) {
-            let row = [];
             let sum = terrain1.probabilityArray[i] + terrain2.probabilityArray[i] + terrain3.probabilityArray[i] + terrain4.probabilityArray[i];
             let average = sum / 4;
             averageArrayProb.push(average);
