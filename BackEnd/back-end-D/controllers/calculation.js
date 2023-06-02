@@ -33,9 +33,7 @@ exports.initCalculationController = (db) => {
                         break;
                 }
                 console.log('Ready!')
-                res.status(200).send({
-                    result
-                });
+                res.status(200).send({result});
             })
             .catch(error => {
                 console.error(error);

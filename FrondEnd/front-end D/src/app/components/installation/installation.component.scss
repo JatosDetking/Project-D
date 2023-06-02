@@ -8,10 +8,14 @@
   
   .info-card {
     width: 100%;
+    max-width: 800px;
+    margin-bottom: 25px;
+  }
+  .info-card2 {
+    width: 100%;
     max-width: 600px;
     margin-bottom: 25px;
   }
-  
   
   .action-buttons {
     display: flex;
@@ -20,7 +24,7 @@
   }
   
   .info-field {
-    width: 33%;
+    width: 25%;
     display: inline-block;
     margin-top: 10px;
   }

@@ -35,7 +35,7 @@ class Methods {
 
     static calculateAverageArray(arr1, arr2, arr3, arr4) {
         const length = Math.max(arr1.length, arr2.length, arr3.length, arr4.length);
-        const result = [];
+        let result = [];
         if (arr3.every(value => value === 0) && arr4.every(value => value === 0) && !arr2.every(value => value === 0)) {
             for (let i = 0; i < arr1.length; i++) {
                 const average = (arr1[i] + arr2[i]) / 2;

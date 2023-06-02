@@ -271,10 +271,13 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
           const matchingItem = res.result.terrains.find((b: any) => b.id === a.id);
           Object.assign(a, matchingItem);
           this.resultReady = true;
-        });
+        });    
         this.dataSourceResult.data = temp;
+        this.dataSourceResult.data.sort((a, b) => {
+          return b.optimalValue - a.optimalValue;
+      });
         this.fillChart();
-        console.log(temp)
+       // console.log(temp)
       });
     }
   }

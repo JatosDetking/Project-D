@@ -22,7 +22,7 @@
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle>Price</mat-card-subtitle>
-                        <p>{{terrain.price}}</p>
+                        <p>{{terrain.price}} €</p>
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle class="info-vote">Votes</mat-card-subtitle>
@@ -120,14 +120,14 @@
             <mat-card-content style="margin-top: 16px;">
                 <div>
                     <div class="info-field">
-                        <mat-card-subtitle>Name</mat-card-subtitle>
                         <mat-form-field class="example-full-width">
+                            <mat-label>Name</mat-label>
                             <input matInput type="text" [formControl]="name">
                         </mat-form-field>
                     </div>
                     <div class="info-field">
-                        <mat-card-subtitle>Price</mat-card-subtitle>
                         <mat-form-field class="example-full-width">
+                            <mat-label>Price (€)</mat-label>
                             <input matInput type="number" [formControl]="price">
                         </mat-form-field>
                     </div>

@@ -378,3 +378,35 @@ testP.sort((a, b) => {
 });
 
 console.log(gravity(10));
+
+
+function maxArrValue2(arr, max, index) {
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            max[0] = arr[i];
+            index[0] = i;
+        } else if (max[0] <= arr[i]) {
+            max[0] = arr[i];
+            index[0] = i;
+        }
+    }
+}
+
+function MaximumExpectedEfficiency(arrA, arrP) {
+    const arrAxP = matrixMultiplication(arrA, arrP);
+
+    let max;
+    let indexV ;
+
+    for (let i = 0; i < arrAxP.length; i++) {
+        if (i === 0) {
+            max = arrAxP[i];
+            indexV = i;
+        } else if (max[0] <= arrAxP[i]) {
+            max = arrAxP[i];
+            indexV = i;
+        }
+    }
+
+return {max:max , index: indexV}
+}

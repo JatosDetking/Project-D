@@ -23,12 +23,17 @@
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle>Price</mat-card-subtitle>
-                        <p>{{installation.price}}</p>
+                        <p>{{installation.price}} €</p>
                     </div>
                     <div class="info-field">
                         <mat-card-subtitle>Creator</mat-card-subtitle>
                         <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(creator)">
                             {{creator.username}}</p>
+                    </div>
+                    <div class="info-field">
+                        <mat-card-subtitle>Type</mat-card-subtitle>
+                        <p class="clickable" (click)="sharedService.SharedLogicService?.goToAccount(creator)">
+                            {{installation.type}}</p>
                     </div>
                 </div>
                 <mat-divider class="line"></mat-divider>
@@ -48,7 +53,7 @@
 </div>
 <div [ngStyle]="{'display':inEdit?'block':'none'}">
     <div class="info-container">
-        <mat-card class="info-card">
+        <mat-card class="info-card2">
             <mat-card-header>
                 <mat-card-title>Installation Edit</mat-card-title>
                 <div class="edit-button-container">
@@ -74,7 +79,7 @@
                     </div>
                     <div class="info-field3">
                         <mat-form-field class="example-full-width">
-                            <mat-label>Price</mat-label>
+                            <mat-label>Price (€)</mat-label>
                             <input matInput type="number" [formControl]="price">
                             <mat-error *ngIf="price.invalid && (price.dirty || price.touched)">
                                 <div *ngIf="price.errors?.pattern">Please enter a valid integer for the price.</div>
@@ -141,8 +146,8 @@
                         longer than 10 characters!
                     </mat-error>
                     <div>
-                        <label class="info-field4">Efficiency ratio in the second interval: </label>
                         <mat-form-field>
+                            <mat-label>Efficiency ratio in the second interval: </mat-label>
                             <input class="info-field4" matInput type="number" [formControl]='performance2'>
                         </mat-form-field>
                     </div>
@@ -150,8 +155,9 @@
                         longer than 10 characters!
                     </mat-error>
                     <div>
-                        <label class="info-field4">Efficiency ratio in the third interval: </label>
+
                         <mat-form-field>
+                            <mat-label>Efficiency ratio in the third interval: </mat-label>
                             <input class="info-field4" matInput type="number" [formControl]='performance3'>
                         </mat-form-field>
                     </div>

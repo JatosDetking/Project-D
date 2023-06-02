@@ -17,7 +17,7 @@
   </mat-form-field>
   <mat-form-field class="register-full-width" appearance="fill">
     <mat-label>Email</mat-label>
-    <input type="text" matInput [formControl]="emailControl" placeholder="Username...">
+    <input type="text" matInput [formControl]="emailControl" placeholder="Email...">
     <mat-error
       *ngIf="(emailControl.hasError('minlength')||emailControl.hasError('maxlength')) && !emailControl.hasError('required')">
       Your email should be no less than 4 and no more than 20 symbols long!
@@ -28,7 +28,7 @@
   </mat-form-field>
   <mat-form-field class="register-full-width" appearance="fill">
     <mat-label>Name</mat-label>
-    <input type="text" matInput [formControl]="nameControl" placeholder="Username...">
+    <input type="text" matInput [formControl]="nameControl" placeholder="Name...">
     <mat-error
       *ngIf="(nameControl.hasError('minlength')||nameControl.hasError('maxlength')) && !nameControl.hasError('required')">
       Your name should be no less than 4 and no more than 20 symbols long!
