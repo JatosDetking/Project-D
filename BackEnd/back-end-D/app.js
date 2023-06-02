@@ -8,7 +8,7 @@ const terrainCommentRoutre = require('./routers/terrainCommentRouters');
 const installationRoutre = require('./routers/installationRouters');
 const calculationRoutre = require('./routers/calculationRoutre');
 const sqlDB = require('./database/mysql');
-  
+
 const db = sqlDB.initDB()
 const prod = sqlDB.prod
 const app = express();
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-}) 
+})
 
 // creade db 
 /* app.get('/createdb', (req, res) => {
@@ -69,7 +69,7 @@ function createTableInstallations() {
         type VARCHAR(50) NOT NULL,
         price INT(50) NOT NULL,
         creator_id INT NOT NULL,
-        FOREIGN KEY (creator_id) REFERENCES users(id)
+        FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE
     );`;
     db.query(sql, (err, result) => {
         if (err) throw err;
@@ -94,7 +94,7 @@ function createTableTerrains() {
     })
 }
 function createTableTerrainsData() {
-       let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
+    let sql = `CREATE TABLE IF NOT EXISTS terrains_data (
         id INT PRIMARY KEY AUTO_INCREMENT,
         data DECIMAL(12,2) NOT NULL,
         type VARCHAR(50) NOT NULL,
@@ -102,7 +102,7 @@ function createTableTerrainsData() {
         terrain_id INT NOT NULL,
         UNIQUE KEY (year, type, terrain_id),
         FOREIGN KEY (terrain_id) REFERENCES terrains(id) ON DELETE CASCADE
-      );`; 
+      );`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      
@@ -147,7 +147,10 @@ function createTableVotes() {
 
 function updateTable() {
     let sql = `ALTER TABLE installations
-    ADD COLUMN name VARCHAR(255) NOT NULL DEFAULT 'No name';`;
+    DROP FOREIGN KEY fk_creator_id,
+    ADD CONSTRAINT fk_creator_id
+        FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE;
+`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         //console.log(result);      
@@ -171,12 +174,12 @@ if (prod) {
     app.listen(`${port}`, () => {
         console.log(`Server listening on port ${port}`);
        // updateTable();
-       createTableUsers();
-        createTableToken();
-        createTableTerrains();
-        createTableTerrainsData();
-        createTableComments();
-        createTableVotes();
-        createTableInstallations();
+         createTableUsers();
+         createTableToken();
+         createTableTerrains();
+         createTableTerrainsData();
+         createTableComments();
+         createTableVotes();
+         createTableInstallations();
     })
-}
+}  

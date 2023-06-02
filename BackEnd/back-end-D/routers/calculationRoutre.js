@@ -9,7 +9,7 @@ exports.initCalculationRouter = (db) => {
     let calculationController = iC.initCalculationController(db)
     let authorization = authorizationC.Authorization(db)
 
-    calculationRouter.get('/', authorization.getToken, authorization.verifyToken, calculationController.calculation);
+    calculationRouter.get('/', authorization.getToken, authorization.verifyToken, authorization.getId, calculationController.calculation);
 
     return calculationRouter
 }

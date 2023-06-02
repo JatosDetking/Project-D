@@ -13,8 +13,8 @@ exports.initTerrainRouter = (db) => {
     terrainRouter.post('/add', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.createTerrain);
     terrainRouter.put('/editterrain', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.editTerrain);
     terrainRouter.get('/getallterrains', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.getAllTerrains);
-    terrainRouter.get('/getterrain', authorization.getToken, authorization.verifyToken, terrainController.getTerrain);
-    terrainRouter.get('/getuserterrain', authorization.getToken, authorization.verifyToken, terrainController.getUserTerrains);
+    terrainRouter.get('/getterrain', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.getTerrain);
+    terrainRouter.get('/getuserterrain', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.getUserTerrains);
     terrainRouter.get('/getmyterrain', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.getMyTerrains);
     terrainRouter.delete('/deleteterrain', authorization.getToken, authorization.verifyToken, authorization.getId, terrainController.deleteTerrain);
 

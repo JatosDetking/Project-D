@@ -18,7 +18,7 @@ export class AddInstalationComponent implements OnInit, AfterViewInit, AfterView
   selectedType = 'solar installation';
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
-  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
+  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(8)]);
   inter1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
   inter2 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);
   performance1 = new FormControl('', [Validators.pattern(/^\d+\.*\d*$/), Validators.required, Validators.maxLength(10)]);

@@ -17,7 +17,7 @@ export class ChangeBalanceComponent implements OnInit, AfterViewInit {
   balance: FormControl = new FormControl(localStorage.getItem('balance'), [
     Validators.pattern(/^\d+$/), 
     Validators.required,
-    Validators.maxLength(50)
+    Validators.maxLength(8)
   ]);
 
   setBalance(){

@@ -13,13 +13,14 @@ export class AddTerrainDataComponent implements OnInit {
   tempArr: any[] = [];
   terrainId = -1;
   years: number[] = [];
-  duplicate= false;
+  duplicate = false;
+  invalidS = false;
 
   temp = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\-*\d+\.*\d*$/)]);
   rad = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+\.*\d*$/)]);
   wind = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+\.*\d*$/)]);
   water = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+\.*\d*$/)]);
-  year = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+$/)]);
+  year = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+(\.\d{0,1})?$/)]);
 
 
   constructor(private sharedService: SharedService,
@@ -34,16 +35,21 @@ export class AddTerrainDataComponent implements OnInit {
   }
 
   addTerrainData() {
-    this.duplicate = this.years.includes( this.year.value);
-    if (!this.duplicate) {
-      this.tempArr.push({ data: this.temp.value, type: 'temperature', year: this.year.value })
-      this.tempArr.push({ data: this.rad.value, type: 'solar radiation', year: this.year.value })
-      this.tempArr.push({ data: this.wind.value, type: 'wind speed', year: this.year.value })
-      this.tempArr.push({ data: this.water.value, type: 'flow rate', year: this.year.value })
-  
-      this.sharedService.TerrainDataService?.addTerrainData(this.terrainId,this.tempArr).subscribe(res => { 
-        this.dialogRef.close();
-      });
+    if (this.year.value % 1 <= 0.4) {
+      this.invalidS = false;
+      this.duplicate = this.years.includes(this.year.value);
+      if (!this.duplicate) {
+        this.tempArr.push({ data: this.temp.value, type: 'temperature', year: this.year.value })
+        this.tempArr.push({ data: this.rad.value, type: 'solar radiation', year: this.year.value })
+        this.tempArr.push({ data: this.wind.value, type: 'wind speed', year: this.year.value })
+        this.tempArr.push({ data: this.water.value, type: 'flow rate', year: this.year.value })
+
+        this.sharedService.TerrainDataService?.addTerrainData(this.terrainId, this.tempArr).subscribe(res => {
+          this.dialogRef.close();
+        });
+      }
+    }else{
+      this.invalidS = true;
     }
   }
 }

@@ -12,11 +12,11 @@ exports.initInstallationRouter = (db) => {
    // installationRouter.get('/', terrainController.createTerrain);
    installationRouter.post('/add', authorization.getToken, authorization.verifyToken,authorization.getId, installationController.createInstallation);
    installationRouter.put('/edit', authorization.getToken, authorization.verifyToken,authorization.getId, installationController.editInstallation);
-   installationRouter.get('/get', authorization.getToken, authorization.verifyToken, installationController.getInstallation);
-   installationRouter.get('/getall', authorization.getToken, authorization.verifyToken, installationController.getAllInstallation);
-   installationRouter.get('/getalloftype', authorization.getToken, authorization.verifyToken, installationController.getAllInstallationOfType);
-   installationRouter.get('/getallofuser', authorization.getToken, authorization.verifyToken, installationController.getAllUserInstallation);
-    installationRouter.delete('/delete', authorization.getToken, authorization.verifyToken,authorization.getId, installationController.deleteInstallation);
+   installationRouter.get('/get', authorization.getToken, authorization.verifyToken, authorization.getId, installationController.getInstallation);
+   installationRouter.get('/getall', authorization.getToken, authorization.verifyToken, authorization.getId, installationController.getAllInstallation);
+   installationRouter.get('/getalloftype', authorization.getToken, authorization.verifyToken, authorization.getId, installationController.getAllInstallationOfType);
+   installationRouter.get('/getallofuser', authorization.getToken, authorization.verifyToken, authorization.getId, installationController.getAllUserInstallation);
+   installationRouter.delete('/delete', authorization.getToken, authorization.verifyToken,authorization.getId, installationController.deleteInstallation);
 
     return installationRouter
 }

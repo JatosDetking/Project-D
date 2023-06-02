@@ -159,7 +159,7 @@ export class ListOfTerrainDataComponent implements OnInit, AfterViewInit, AfterV
 
 
     dialogConfig.width = '350px';
-    dialogConfig.height = '560px';
+    dialogConfig.height = '620px';
 
     dialogConfig.data = {
       terrainId: this.data,

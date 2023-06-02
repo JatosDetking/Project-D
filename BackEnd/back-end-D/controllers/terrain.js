@@ -89,12 +89,15 @@ exports.initTerrainController = (db) => {
                 res.status(500).send([err.message])
                 return;
             } else {
+                console.log(11111111111111);
+                console.log(req.userId);
+                console.log(terrain[0].creator_id);    
+                console.log(11111111111111);
                 if (req.userId == terrain[0].creator_id || terrain[0].type == "editable") {
                     if (!req.body.price || !req.body.type || !req.body.name) {
                         res.status(400).send(['Incorrect data.'])
                         return
                     }
-                    console.log(req);
 
                     const now = new Date();
                     const year = now.getFullYear();

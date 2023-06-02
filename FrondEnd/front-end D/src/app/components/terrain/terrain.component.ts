@@ -33,7 +33,7 @@ export class TerrainComponent implements OnInit {
   myId: number = +(localStorage.getItem("id") || 0);
 
   name = new FormControl('', [Validators.required, Validators.maxLength(45)]);
-  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(50)]);
+  price = new FormControl('', [Validators.pattern(/^\d+$/), Validators.required, Validators.maxLength(8)]);
   content = new FormControl('', [Validators.required, Validators.maxLength(250)]);
 
   votes: any;

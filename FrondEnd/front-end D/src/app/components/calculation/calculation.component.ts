@@ -259,10 +259,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
     let balance = +localStorage.getItem('balance')!;
 
     this.resultMethodName = this.thirdFormGroup.get('selectedMethod')!.value;
-    console.log(terrainIds);
-    console.log(installationIds);
-    console.log(this.resultMethodName);
-    console.log(balance);
     if (!this.thirdFormGroup.get('selectedMethod')?.invalid) {
       this.sharedService.CalculationService?.getCalculation(terrainIds, installationIds, this.resultMethodName, balance).subscribe((res: any) => {
         this.sumCost = res.result.cost;
@@ -277,7 +273,6 @@ export class CalculationComponent implements OnInit, AfterViewInit, AfterViewChe
           return b.optimalValue - a.optimalValue;
       });
         this.fillChart();
-       // console.log(temp)
       });
     }
   }

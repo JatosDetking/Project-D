@@ -8,7 +8,7 @@ exports.initTerrainVoteRouter = (db) => {
     let authorization = authorizationC.Authorization(db)
 
     terrainVoteRouter.post('/', authorization.getToken, authorization.verifyToken,authorization.getId, terrainVoteController.vote);
-    terrainVoteRouter.get('/getterrainvotes', authorization.getToken, authorization.verifyToken, terrainVoteController.getTerrainVotes);
+    terrainVoteRouter.get('/getterrainvotes', authorization.getToken, authorization.verifyToken, authorization.getId, terrainVoteController.getTerrainVotes);
     terrainVoteRouter.get('/getmyvote', authorization.getToken, authorization.verifyToken,authorization.getId, terrainVoteController.getMyVote);
     terrainVoteRouter.delete('/deletemyvote', authorization.getToken, authorization.verifyToken,authorization.getId, terrainVoteController.deleteTerrainVote);
 

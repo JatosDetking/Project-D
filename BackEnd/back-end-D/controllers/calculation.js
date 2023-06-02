@@ -3,14 +3,15 @@ exports.initCalculationController = (db) => {
     let controller = {}
 
     controller.calculation = (req, res, next) => {
+
         Promise.all([
             getTerrains(req.query.terrainsIds),
             getInstallation(req.query.instalationsIds)
         ])
             .then(([terrainResults, installationResults]) => {
-                /*         console.log("Terrain Results:", terrainResults);
-                        console.log("Installation Results:", installationResults);
-         */
+                /*                          console.log("Terrain Results:", terrainResults);
+                                         console.log("Installation Results:", installationResults); */
+
                 let result
                 switch (req.query.method) {
                     case "Maximum Expected Efficiency":
@@ -33,7 +34,7 @@ exports.initCalculationController = (db) => {
                         break;
                 }
                 console.log('Ready!')
-                res.status(200).send({result});
+                res.status(200).send({ result });
             })
             .catch(error => {
                 console.error(error);
@@ -60,9 +61,11 @@ exports.initCalculationController = (db) => {
                             let rad = [];
                             let wind = [];
                             let water = [];
-                            result.sort((a, b) => {
+                            let years = [];
+                            result.sort((a, b) => { 
                                 return a.year - b.year;
                             });
+                           
                             for (const key in result) {
                                 if (result[key].type == 'temperature') {
                                     temp.push(result[key].data)
@@ -73,6 +76,7 @@ exports.initCalculationController = (db) => {
                                 } else if (result[key].type == 'flow rate') {
                                     water.push(result[key].data)
                                 }
+                                 years.push(result[key].year)
                             }
                             // results[index]['data'] = result
                             delete results[index].name;
@@ -84,6 +88,7 @@ exports.initCalculationController = (db) => {
                             results[index]['rad'] = rad;
                             results[index]['wind'] = wind;
                             results[index]['water'] = water;
+                            results[index]['years'] = years;
                         });
                         resolve(results);
                     })
@@ -144,7 +149,11 @@ exports.initCalculationController = (db) => {
         let indexs = [];
         let efficiency = [];
         for (const terrain of terrainResults) {
-            Methods.effTR(terrain, installationResults);
+            if (terrain.years.every(function(number) { return number % 1 !== 0; }) && terrain.temp.length % 4 == 0) {
+                Methods.effTRS(terrain, installationResults);
+            } else {
+                Methods.effTR(terrain, installationResults);
+            }
             method(terrain);
             costs.push(terrain.optimalPrice);
             efficiency.push(terrain.optimalValue);
@@ -155,6 +164,7 @@ exports.initCalculationController = (db) => {
             delete terrain.wind;
             delete terrain.efficiencyArrey;
             delete terrain.probabilityArray;
+            delete terrain.years;
             if (terrain.optimalIndex == 0) {
                 terrain['typeRES'] = 'solar installation';
             } else if (terrain.optimalIndex == 1) {

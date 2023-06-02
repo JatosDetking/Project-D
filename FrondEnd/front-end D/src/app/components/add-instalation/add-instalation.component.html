@@ -38,7 +38,7 @@
                     <mat-error *ngIf="price.invalid && (price.dirty || price.touched)">
                         <div *ngIf="price.errors?.pattern">Please enter a valid integer for the price.</div>
                         <div *ngIf="price.errors?.required">Please enter a price.</div>
-                        <div *ngIf="price.errors?.maxlength">Price must be no more than 50 characters long.</div>
+                        <div *ngIf="price.errors?.maxlength">Price must be no more than 8 characters long.</div>
                       </mat-error>
                 </mat-form-field>
             </div>

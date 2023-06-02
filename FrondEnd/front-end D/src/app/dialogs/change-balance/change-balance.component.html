@@ -6,7 +6,7 @@
     <mat-error *ngIf="balance.invalid && (balance.dirty || balance.touched)">
       <div *ngIf="balance.errors?.pattern">Please enter a valid integer for the balance.</div>
       <div *ngIf="balance.errors?.required">Please enter a balance.</div>
-      <div *ngIf="balance.errors?.maxlength">Balance must be no more than 50 characters long.</div>
+      <div *ngIf="balance.errors?.maxlength">Balance must be no more than 8 characters long.</div>
     </mat-error>
   </mat-form-field>
 </div>

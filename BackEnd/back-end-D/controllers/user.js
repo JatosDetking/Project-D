@@ -67,7 +67,6 @@ exports.initUserController = (db) => {
                 return;
             }
             req.body.password = hashedPassword;
-            //console.log('Hashed password:', hashedPassword);
 
             let user = {
                 email: req.body.email,

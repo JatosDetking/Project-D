@@ -7,6 +7,7 @@ class Methods {
         let tempRadE = (tempE + radE) / 2;
         let waterE = this.matrixMultiplication(terrain.water, gravityArray);
         let windE = this.matrixMultiplication(terrain.wind, gravityArray);
+       
         let tRWWAverageArray = this.calculateAverageArray(terrain.temp, terrain.rad, terrain.water, terrain.wind);
         let probabilityArray = this.probability(tRWWAverageArray);
 
@@ -25,12 +26,103 @@ class Methods {
         this.intervalCheck(installations[1].intervals, efficiencyArrey[0], installations[1].performanceFactors);
         this.intervalCheck(installations[0].intervals, efficiencyArrey[1], installations[0].performanceFactors);
         this.intervalCheck(installations[2].intervals, efficiencyArrey[2], installations[2].performanceFactors);
-
+ 
         terrain.price = [terrain.price + installations[1].price, terrain.price + installations[0].price, terrain.price + installations[2].price]
         terrain['efficiencyArrey'] = efficiencyArrey;
         terrain['probabilityArray'] = probabilityArray;
+    }
 
+    static effTRS(terrain, installations) {
 
+        let temp1 = [];
+        let rad1 = [];
+        let water1 = [];
+        let wind1 = [];
+        let temp2 = [];
+        let rad2 = [];
+        let water2 = [];
+        let wind2 = [];
+        let temp3 = [];
+        let rad3 = [];
+        let water3 = [];
+        let wind3 = [];
+        let temp4 = [];
+        let rad4 = [];
+        let water4 = [];
+        let wind4 = [];
+
+        for (let index = 0; index < terrain.temp.length; index += 4) {
+            temp1.push(terrain.temp[index])
+            temp2.push(terrain.temp[index + 1])
+            temp3.push(terrain.temp[index + 2])
+            temp4.push(terrain.temp[index + 3])
+
+            rad1.push(terrain.rad[index])
+            rad2.push(terrain.rad[index + 1])
+            rad3.push(terrain.rad[index + 2])
+            rad4.push(terrain.rad[index + 3])
+
+            water1.push(terrain.water[index])
+            water2.push(terrain.water[index + 1])
+            water3.push(terrain.water[index + 2])
+            water4.push(terrain.water[index + 3])
+
+            wind1.push(terrain.wind[index])
+            wind2.push(terrain.wind[index + 1])
+            wind3.push(terrain.wind[index + 2])
+            wind4.push(terrain.wind[index + 3])
+        }
+       let stingT = JSON.stringify(terrain);
+        let terrain1 = JSON.parse(stingT);
+        terrain1.temp = temp1;
+        terrain1.rad = rad1;
+        terrain1.water = water1;
+        terrain1.wind = wind1;
+        this.effTR(terrain1, installations);
+
+        let terrain2 = JSON.parse(stingT);
+        terrain2.temp = temp2;
+        terrain2.rad = rad2;
+        terrain2.water = water2;
+        terrain2.wind = wind2;
+        this.effTR(terrain2, installations);
+
+        let terrain3 = JSON.parse(stingT);
+        terrain3.temp = temp3;
+        terrain3.rad = rad3;
+        terrain3.water = water3;
+        terrain3.wind = wind3;
+        this.effTR(terrain3, installations);
+
+        let terrain4 = JSON.parse(stingT);
+        terrain4.temp = temp4;
+        terrain4.rad = rad4;
+        terrain4.water = water4;
+        terrain4.wind = wind4;
+        this.effTR(terrain4, installations);
+
+        let averageArrayEff = [];
+        for (let i = 0; i < terrain1.efficiencyArrey.length; i++) {
+            let row = [];
+            for (let j = 0; j < terrain1.efficiencyArrey.length; j++) {
+                let sum = terrain1.efficiencyArrey[i][j] + terrain2.efficiencyArrey[i][j] + terrain3.efficiencyArrey[i][j] + terrain4.efficiencyArrey[i][j];
+                let average = sum / 4;
+                row.push(average);
+            }
+            averageArrayEff.push(row);
+        }
+
+        let averageArrayProb = [];
+        for (let i = 0; i < terrain1.probabilityArray.length; i++) {
+            let row = [];
+            let sum = terrain1.probabilityArray[i] + terrain2.probabilityArray[i] + terrain3.probabilityArray[i] + terrain4.probabilityArray[i];
+            let average = sum / 4;
+            averageArrayProb.push(average);
+        }
+
+        terrain.price = terrain1.price;
+        terrain['efficiencyArrey'] = averageArrayEff;
+        terrain['probabilityArray'] = averageArrayProb;
     }
 
     static calculateAverageArray(arr1, arr2, arr3, arr4) {
@@ -239,7 +331,6 @@ class Methods {
     }
 
     static minArrValue2d(arr, arrMin, index) {
-        console.log(arr);
         for (let i = 0; i < arr.length; i++) {
             let min = arr[i][0];
             let indexV = 0;

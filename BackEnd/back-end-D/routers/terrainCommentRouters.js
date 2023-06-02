@@ -2,8 +2,6 @@ const express = require('express');
 const tCC = require('./../controllers/terrainComment')
 const authorizationC = require('../controllers/authorization')
 
-
-
 exports.initTerrainCommentRouter = (db) => {
     const terrainCommentRouter = express.Router();
     let terrainnCommentController = tCC.initTerrainCommentController(db)
@@ -12,9 +10,8 @@ exports.initTerrainCommentRouter = (db) => {
     terrainCommentRouter.post('/comment', authorization.getToken, authorization.verifyToken,authorization.getId, terrainnCommentController.addComment);
     terrainCommentRouter.put('/editcomment', authorization.getToken, authorization.verifyToken,authorization.getId, terrainnCommentController.editComment);
     terrainCommentRouter.delete('/deletecomment', authorization.getToken, authorization.verifyToken,authorization.getId, terrainnCommentController.deleteTerrainComment);
-    terrainCommentRouter.get('/getterraincomments', authorization.getToken, authorization.verifyToken, terrainnCommentController.getTerrainComments);
-    terrainCommentRouter.get('/getterrainsubcomments', authorization.getToken, authorization.verifyToken, terrainnCommentController.getTerrainSubComment);
-    // terrainVoteRouter.get('/getmyvote', authorization.getToken, authorization.verifyToken,authorization.getId, terrainVoteController.getMyVote);
+    terrainCommentRouter.get('/getterraincomments', authorization.getToken, authorization.verifyToken, authorization.getId, terrainnCommentController.getTerrainComments);
+    terrainCommentRouter.get('/getterrainsubcomments', authorization.getToken, authorization.verifyToken, authorization.getId, terrainnCommentController.getTerrainSubComment);
 
     return terrainCommentRouter
 }
