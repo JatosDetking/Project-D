@@ -4,7 +4,6 @@ import { HomeComponent } from './components/home/home.component';
 import { InformationPageComponent } from './components/information-page/information-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { StatsComponent } from './components/stats/stats.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
 import { ListOfTerrainsComponent } from './components/list-of-terrains/list-of-terrains.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent ,canActivate:[LoggedOutGuard]},
   { path: 'register', component: RegisterComponent ,canActivate:[LoggedOutGuard]},
   { path: 'home', component: HomeComponent ,canActivate:[LoggedInGuard]},
-  { path: 'stats', component: StatsComponent ,canActivate:[LoggedInGuard]},
   { path: 'myaccount', component: MyAccountComponent ,canActivate:[LoggedInGuard]},
   { path: 'terrain', component: TerrainComponent ,canActivate:[LoggedInGuard]},
   { path: 'account', component: AccountComponent ,canActivate:[LoggedInGuard]},

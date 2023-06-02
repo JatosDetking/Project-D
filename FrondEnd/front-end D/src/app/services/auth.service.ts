@@ -11,7 +11,7 @@ import { SharedService } from './shared.service';
 export class AuthService {
 
   constructor(
-    private authAPI:AuthAPIService,
+    private authAPI:AuthAPIService, 
     private sharedService:SharedService,
     private router: Router,
     ) { sharedService.shareSelf("AuthService", this) }

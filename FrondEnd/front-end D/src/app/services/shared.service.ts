@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GroupService } from './group.service';
 import { TerrainService } from './terrain.service';
 import { TerrainDataService } from './terrain.data.service';
 import { CommentService } from './comment.service';
@@ -15,7 +14,6 @@ import { CalculationService } from './calculation.service';
 })
 export class SharedService {
 
-  GroupService?:GroupService
   TerrainService?:TerrainService
   TerrainDataService?:TerrainDataService
   CommentService?:CommentService

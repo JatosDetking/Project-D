@@ -2,7 +2,6 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { Router } from '@angular/router';
 import { AuthAPIService } from 'src/app/api/auth-api.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-menubar',
@@ -14,7 +13,6 @@ export class MenubarComponent implements AfterViewInit {
  balance: any;
 
   constructor(
-    private menuService:MenuService,
     public authService:AuthService,
     private authApiService:AuthAPIService,
     private router:Router,
@@ -24,7 +22,6 @@ export class MenubarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.toggle = this.menuService.toggle;
     this.authService.balanceSubject.subscribe(balance=>{
       if(balance == 'null'){
         this.balance=0;

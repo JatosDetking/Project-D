@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { GroupService } from './services/group.service';
 import { SharedService } from './services/shared.service';
 import { TerrainService } from './services/terrain.service';
 import { TerrainDataService } from './services/terrain.data.service';
 import { CommentService } from './services/comment.service'; 
 import { SharedLogicService } from './services/shared.logic.service';
-import { UserService } from './services/user.service';
+import { UserService } from './services/user.service'; 
 import { VotesService } from './services/votes.service';
 import { InstallationService } from './services/installation.service';
 import { CalculationService } from './services/calculation.service';
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit{
   title = 'frontend D';
   constructor(
     private shared:SharedService,
-    private group:GroupService,
     private _adapter: DateAdapter<any>,
     private terrainService: TerrainService,
     private terrainDataService:TerrainDataService,

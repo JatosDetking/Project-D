@@ -61,7 +61,6 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
   ngOnInit(): void {
     this.installation = JSON.parse(this.route.snapshot.queryParams['installation']);
     this.creator = this.installation.creator;
-    //this.formater();
 
     this.name.setValue(this.installation.name);
     this.price.setValue(this.installation.price);
