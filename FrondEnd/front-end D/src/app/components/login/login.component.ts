@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
        /*  this.registerServerRegistrationMessage = 'Successfully logged in.You will be redirected in 2 seconds.'
         setTimeout(()=>{ */
           if(this.router.url.endsWith('login')){
-            this.router.navigate([''])
+            this.router.navigate(['home'])
           }
         //},2000)
       }else{

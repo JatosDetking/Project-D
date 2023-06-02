@@ -7,14 +7,8 @@ const terrainVoteRoutre = require('./routers/terrainVoteRouters');
 const terrainCommentRoutre = require('./routers/terrainCommentRouters');
 const installationRoutre = require('./routers/installationRouters');
 const calculationRoutre = require('./routers/calculationRoutre');
-//const suggestionsRoutes = require('./routers/suggestions');
 const sqlDB = require('./database/mysql');
   
-
-//const { initGroupsController } = require('./controllers/groups');
-//const { initGroupsRouter } = require('./routers/groups');
-
-
 const db = sqlDB.initDB()
 const prod = sqlDB.prod
 const app = express();
@@ -24,10 +18,10 @@ app.use(express.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, PUT');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-})
+}) 
 
 // creade db 
 /* app.get('/createdb', (req, res) => {
@@ -182,7 +176,6 @@ if (prod) {
         createTableTerrains();
         createTableTerrainsData();
         createTableComments();
-
         createTableVotes();
         createTableInstallations();
     })

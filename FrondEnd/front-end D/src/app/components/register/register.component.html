@@ -59,8 +59,8 @@
     <mat-label>Repeat password</mat-label>
     <input type="password" matInput [formControl]="passwordRepeatControl" placeholder="Password...">
     <mat-error
-      *ngIf="(passwordRepeatControl.hasError('minlength')||passwordRepeatControl.hasError('maxlength')) && !passwordRepeatControl.hasError('required')">
-      Your password should be no less than 4 and no more than 20 symbols long!
+      *ngIf="(passwordRepeatControl.hasError('maxlength')) && !passwordRepeatControl.hasError('required')">
+      Your password should be no less than 1 and no more than 20 symbols long!
     </mat-error>
     <mat-error *ngIf="passwordRepeatControl.hasError('required')">
       Password is <strong>required</strong>
@@ -73,7 +73,7 @@
       Passwords should match!
     </mat-error>
   </mat-form-field>
-  <button class="register-btn" mat-raised-button color="accent" (click)="register()" [disabled]="
+  <button class="register-btn" mat-raised-button color="primary" (click)="register()" [disabled]="
       !passmatch||
       usernameControl.invalid||
       passwordRepeatControl.invalid||

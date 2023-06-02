@@ -16,10 +16,6 @@ exports.initInstallationRouter = (db) => {
    installationRouter.get('/getall', authorization.getToken, authorization.verifyToken, installationController.getAllInstallation);
    installationRouter.get('/getalloftype', authorization.getToken, authorization.verifyToken, installationController.getAllInstallationOfType);
    installationRouter.get('/getallofuser', authorization.getToken, authorization.verifyToken, installationController.getAllUserInstallation);
-    //terrainRouter.get('/getallterrains', authorization.getToken, authorization.verifyToken, terrainController.getAllTerrains);
-    //terrainRouter.get('/getterrain', authorization.getToken, authorization.verifyToken, terrainController.getTerrain);
-    //terrainRouter.get('/getuserterrain', authorization.getToken, authorization.verifyToken, terrainController.getUserTerrains);
-    //terrainRouter.get('/getmyterrain', authorization.getToken, authorization.verifyToken,authorization.getId, terrainController.getMyTerrains);
     installationRouter.delete('/delete', authorization.getToken, authorization.verifyToken,authorization.getId, installationController.deleteInstallation);
 
     return installationRouter

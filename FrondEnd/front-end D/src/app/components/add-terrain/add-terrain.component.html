@@ -63,7 +63,7 @@
                                
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Average annual temperature (°C)</mat-label>
-                                    <input matInput type="text" [formControl]="temp">
+                                    <input matInput type="number" [formControl]="temp">
                                     <mat-error *ngIf="temp.invalid && (temp.dirty || temp.touched)">
                                         <div *ngIf="temp.errors?.required">Please enter a temperature.</div>
                                         <div *ngIf="temp.errors?.maxLength">Temperature must be 10 characters or less.</div>
@@ -74,7 +74,7 @@
                             <div class="info-field">
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Average annual solar radiation (W/m2)</mat-label>
-                                    <input matInput type="text" [formControl]="rad">
+                                    <input matInput type="number" [formControl]="rad">
                                     <mat-error *ngIf="rad.invalid && (rad.dirty || rad.touched)">
                                         <div *ngIf="rad.errors?.required">Please enter a value for solar radiation.</div>
                                         <div *ngIf="rad.errors?.maxLength">Solar radiation must be 10 characters or less.</div>
@@ -85,7 +85,7 @@
                             <div class="info-field">                               
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Average annual wind speed (m/s)</mat-label>
-                                    <input matInput type="text" [formControl]="wind">
+                                    <input matInput type="number" [formControl]="wind">
                                     <mat-error *ngIf="wind.invalid && (wind.dirty || wind.touched)">
                                         <div *ngIf="wind.errors?.required">Please enter a value for wind speed.</div>
                                         <div *ngIf="wind.errors?.maxLength">Wind speed must be 10 characters or less.</div>
@@ -96,7 +96,7 @@
                             <div class="info-field">
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Average annual flow rate (m3/s)</mat-label>
-                                    <input matInput type="text" [formControl]="water">
+                                    <input matInput type="number" [formControl]="water">
                                     <mat-error *ngIf="water.invalid && (water.dirty || water.touched)">
                                         <div *ngIf="water.errors?.required">Please enter a value for water level.</div>
                                         <div *ngIf="water.errors?.maxLength">Water level must be 10 characters or less.</div>
@@ -107,20 +107,21 @@
                             <div class="info-field">
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Year</mat-label>
-                                    <input matInput type="text" [formControl]="year">
+                                    <input matInput type="number" [formControl]="year">
                                     <mat-error *ngIf="year.invalid && (year.dirty || year.touched)">
                                         <div *ngIf="year.errors?.required">Please enter a year.</div>
                                         <div *ngIf="year.errors?.maxLength">Year must be 10 characters or less.</div>
                                         <div *ngIf="year.errors?.pattern">Year must be a valid number.</div>
                                       </mat-error>
-                                      <mat-error *ngIf="duplicate">
-                                        Data already entered for this year!
-                                      </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="info-field">
                                 <button mat-raised-button color="primary" (click)="addData()" [disabled]="temp.invalid || wind.invalid || water.invalid || year.invalid">Add Data</button>
+                                <mat-error class="info-field" *ngIf="duplicate">
+                                    Data already entered for this year!
+                                  </mat-error>
                             </div>
+                           
                         </div>
                         <div class="info-field2">
                             <app-list-of-terrain-data #dataTable [mode]="'add'" [(terrainData)]="terrainData"

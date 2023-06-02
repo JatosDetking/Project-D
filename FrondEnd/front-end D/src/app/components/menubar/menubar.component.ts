@@ -26,7 +26,12 @@ export class MenubarComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.toggle = this.menuService.toggle;
     this.authService.balanceSubject.subscribe(balance=>{
-      this.balance=balance;
+      if(balance == 'null'){
+        this.balance=0;
+      }else{
+        this.balance=balance;
+      }
+    
       this.ref.detectChanges();
     })
     this.authService.balanceSubject.next(localStorage.getItem("balance"));

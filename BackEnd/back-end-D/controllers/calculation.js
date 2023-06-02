@@ -162,7 +162,7 @@ exports.initCalculationController = (db) => {
             } else if (terrain.optimalIndex == 1) {
                 terrain['typeRES'] = 'hydroelectric power plant';
             } else if (terrain.optimalIndex == 2) {
-                terrain['typeRES'] = 'air turbines';
+                terrain['typeRES'] = 'wind turbine';
             }
             delete terrain.optimalIndex;
         }

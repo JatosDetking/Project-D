@@ -22,31 +22,55 @@ class Methods {
         efficiencyArrey[2][1] = windE
         efficiencyArrey[2][2] = windE + windE * probabilityArray[2]
 
-        this.intervalCheck(installations[2].intervals, efficiencyArrey[0], installations[2].performanceFactors);
-        this.intervalCheck(installations[1].intervals, efficiencyArrey[1], installations[1].performanceFactors);
-        this.intervalCheck(installations[0].intervals, efficiencyArrey[2], installations[0].performanceFactors);
+        this.intervalCheck(installations[1].intervals, efficiencyArrey[0], installations[1].performanceFactors);
+        this.intervalCheck(installations[0].intervals, efficiencyArrey[1], installations[0].performanceFactors);
+        this.intervalCheck(installations[2].intervals, efficiencyArrey[2], installations[2].performanceFactors);
 
-        terrain.price = [terrain.price + installations[2].price, terrain.price + installations[1].price, terrain.price + installations[0].price]
+        terrain.price = [terrain.price + installations[1].price, terrain.price + installations[0].price, terrain.price + installations[2].price]
         terrain['efficiencyArrey'] = efficiencyArrey;
         terrain['probabilityArray'] = probabilityArray;
-        
 
-    } 
+
+    }
 
     static calculateAverageArray(arr1, arr2, arr3, arr4) {
         const length = Math.max(arr1.length, arr2.length, arr3.length, arr4.length);
         const result = [];
-
-        for (let i = 0; i < length; i++) {
-            const values = [arr1[i], arr2[i], arr3[i], arr4[i]].filter(value => typeof value === 'number');
-            if (values.length > 0) {
-                const average = values.reduce((total, value) => total + value, 0) / values.length;
+        if (arr3.every(value => value === 0) && arr4.every(value => value === 0) && !arr2.every(value => value === 0)) {
+            for (let i = 0; i < arr1.length; i++) {
+                const average = (arr1[i] + arr2[i]) / 2;
                 result.push(average);
-            } else {
-                result.push(null);
+            }
+        } else if (arr3.every(value => value === 0) && !arr2.every(value => value === 0) && !arr4.every(value => value === 0)) {
+            for (let i = 0; i < arr1.length; i++) {
+                const average = (arr1[i] + arr2[i] + arr4[i]) / 3;
+                result.push(average);
+            }
+        } else if (arr4.every(value => value === 0) && !arr2.every(value => value === 0) && !arr3.every(value => value === 0)) {
+            for (let i = 0; i < arr1.length; i++) {
+                const average = (arr1[i] + arr2[i] + arr3[i]) / 3;
+                result.push(average);
+            }
+        } else if (arr2.every(value => value === 0) && !arr3.every(value => value === 0) && !arr4.every(value => value === 0)) {
+            for (let i = 0; i < arr1.length; i++) {
+                const average = (arr3[i] + arr4[i]) / 2;
+                result.push(average);
+            }
+        } else if (arr2.every(value => value === 0) && arr3.every(value => value === 0) && !arr4.every(value => value === 0)) {
+            result = arr4;
+        } else if (arr2.every(value => value === 0) && !arr3.every(value => value === 0) && arr4.every(value => value === 0)) {
+            result = arr3;
+        } else {
+            for (let i = 0; i < length; i++) {
+                const values = [arr1[i], arr2[i], arr3[i], arr4[i]].filter(value => typeof value === 'number');
+                if (values.length > 0) {
+                    const average = values.reduce((total, value) => total + value, 0) / values.length;
+                    result.push(average);
+                } else {
+                    result.push(null);
+                }
             }
         }
-
         return result;
     }
     static intervalCheck(interval, values, intervalEff) {
@@ -132,7 +156,7 @@ class Methods {
         }
 
         const K = new Array(n + 1);
-        
+
         for (let i = 0; i <= n; i++) {
             K[i] = new Array(capital + 1).fill(0);
         }
@@ -215,7 +239,7 @@ class Methods {
     }
 
     static minArrValue2d(arr, arrMin, index) {
-        console.log( arr);
+        console.log(arr);
         for (let i = 0; i < arr.length; i++) {
             let min = arr[i][0];
             let indexV = 0;
@@ -227,7 +251,7 @@ class Methods {
             }
             arrMin[i] = min;
             index[i] = indexV;
-           
+
         }
     }
 
@@ -262,10 +286,10 @@ class Methods {
         for (let i = 0; i < arr.length; i++) {
             if (i === 0) {
                 max[0] = arr[i];
-                indexV[0] = i;         
+                indexV[0] = i;
             } else if (max[0] <= arr[i]) {
                 max[0] = arr[i];
-                indexV[0] = i;        
+                indexV[0] = i;
             }
         }
     }
@@ -338,7 +362,7 @@ class Methods {
         return [n1 / arrLength, n2 / arrLength, n3 / arrLength]
     }
 
-    static MaximumExpectedEfficiency(terrain){
+    static MaximumExpectedEfficiency(terrain) {
         const arrAxP = this.matrixMultiplication(terrain.efficiencyArrey, terrain.probabilityArray);
         const max = [0];
         const indexV = [0];

@@ -103,7 +103,7 @@ export class InstallationComponent implements OnInit, AfterViewInit, AfterViewCh
     let intervals = this.installation.intervals.split("-");
     let performanceFactors = this.installation.performance_factors.split("-");
     let row1 = `For the interval (0; ${intervals[0]}) the value is ${performanceFactors[0]}.`
-    let row2 = `For the interval (${intervals[0]}; ${intervals[1]}) the value is ${performanceFactors[1]}.`
+    let row2 = `For the interval [${intervals[0]}; ${intervals[1]}] the value is ${performanceFactors[1]}.`
     let row3 = `For the interval (${intervals[1]}; ∞) the value is ${performanceFactors[2]}.`;
     this.perform_factors.push(row1);
     this.perform_factors.push(row2);

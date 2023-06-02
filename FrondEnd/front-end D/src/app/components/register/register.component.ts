@@ -39,7 +39,6 @@ export class RegisterComponent implements AfterViewInit {
     Validators.required,
   ])
   nameControl = new FormControl(null,[
-    Validators.minLength(4),
     Validators.maxLength(20),
     Validators.required,
   ])

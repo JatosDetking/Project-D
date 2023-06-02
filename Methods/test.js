@@ -373,3 +373,8 @@ MinimumGuaranteedBenefitForegone(testB, testP);
 
 
 
+testP.sort((a, b) => {
+    return a - b;
+});
+
+console.log(gravity(10));
