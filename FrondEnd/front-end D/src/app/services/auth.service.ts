@@ -10,7 +10,7 @@ import { SharedService } from './shared.service';
 })
 export class AuthService {
 
-  constructor(
+  constructor( 
     private authAPI:AuthAPIService, 
     private sharedService:SharedService,
     private router: Router,
