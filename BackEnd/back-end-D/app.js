@@ -23,15 +23,22 @@ app.use((req, res, next) => {
     next();
 })
 
-// creade db 
-/* app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE nodemysql';
-    db.query(sql, (err, result) => {
+
+function createDB() {
+    let checkDBExists = `SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'backendprojectd';`;
+    db.query(checkDBExists, (err, result) => {
         if (err) throw err;
-        console.log(result);
-        res.send(['database created ...'])
-    })
-}) */
+        if (result.length === 0) {
+            let createDBQuery = `CREATE DATABASE backendprojectd;`;
+            db.query(createDBQuery, (err, result) => {
+                if (err) throw err;
+               // console.log("Базата данни е създадена успешно."); 
+            });
+        } else {
+           // console.log("Базата данни вече съществува.");
+        }
+    });
+}
 function createTableUsers() {
     let sql = `CREATE TABLE IF NOT EXISTS users (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -46,7 +53,6 @@ function createTableUsers() {
         //console.log(result);      
     })
 }
-
 function createTableToken() {
     let sql = `CREATE TABLE IF NOT EXISTS auth_tokens (
         id INT PRIMARY KEY UNIQUE NOT NULL,
@@ -59,7 +65,6 @@ function createTableToken() {
         //console.log(result);      
     })
 }
-
 function createTableInstallations() {
     let sql = `CREATE TABLE IF NOT EXISTS installations (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -76,7 +81,6 @@ function createTableInstallations() {
         //console.log(result);      
     })
 }
-
 function createTableTerrains() {
     let sql = `CREATE TABLE IF NOT EXISTS terrains (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,7 +102,7 @@ function createTableTerrainsData() {
         id INT PRIMARY KEY AUTO_INCREMENT,
         data DECIMAL(12,2) NOT NULL,
         type VARCHAR(50) NOT NULL,
-        year INT NOT NULL,
+        year DECIMAL(10,1) NOT NULL,
         terrain_id INT NOT NULL,
         UNIQUE KEY (year, type, terrain_id),
         FOREIGN KEY (terrain_id) REFERENCES terrains(id) ON DELETE CASCADE
@@ -145,17 +149,7 @@ function createTableVotes() {
 }
 
 
-function updateTable() {
-    let sql = `ALTER TABLE installations
-    DROP FOREIGN KEY fk_creator_id,
-    ADD CONSTRAINT fk_creator_id
-        FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE;
-`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        //console.log(result);      
-    })
-}
+
 app.use('/user', userRoutes.initUserRouter(db));
 app.use('/terrain', terrainRoutre.initTerrainRouter(db));
 app.use('/terrain/data', terrainDataRoutre.initTerrainDataRouter(db));
@@ -173,13 +167,13 @@ if (prod) {
 } else {
     app.listen(`${port}`, () => {
         console.log(`Server listening on port ${port}`);
-       // updateTable();
-         createTableUsers();
-         createTableToken();
-         createTableTerrains();
-         createTableTerrainsData();
-         createTableComments();
-         createTableVotes();
-         createTableInstallations();
+        createDB();
+        createTableUsers();
+        createTableToken();
+        createTableTerrains();
+        createTableTerrainsData();
+        createTableComments();
+        createTableVotes();
+        createTableInstallations();
     })
 }  
